@@ -1,435 +1,295 @@
+
 import React, { useState } from "react";
+// eslint-disable-next-line no-unused-vars
 import { Link } from "react-router-dom";
+import {
+  ArrowRight,  Compass, MessageCircle,ArrowUpRight,Send,Globe, Heart,  CheckCircle2,  Music2,  MapPin,  Phone,  Mail,  } from "lucide-react";
 
-//import contact1 from "../assets/contact1.jpg";
-import kenya1 from "../assets/kenya1.jpg";
 
-function Contact() {
+const WHATSAPP_NUMBER = "254747859681";
+
+const whatsappLink = (message) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     destination: "",
     travelDate: "",
-    travelers: "",
+    travellers: "2",
     message: "",
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const whatsappMessage = `
-Hello Daffar Tours & Travel,
+    const message = `
+Hello BigPaw Adventure Safaris!
 
-I would like to plan a trip.
+I would like to make an enquiry.
 
 Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
 Destination: ${formData.destination}
 Travel Date: ${formData.travelDate}
-Travelers: ${formData.travelers}
+Number of Travellers: ${formData.travellers}
 
-Message:
+Enquiry:
 ${formData.message}
-    `.trim();
 
-    const whatsappUrl = `https://wa.me/+254708711459?text=${encodeURIComponent(
-      whatsappMessage
-    )}`;
+Please share more information about your safari packages, prices and availability.
 
-    window.open(whatsappUrl, "_blank");
+Thank you.
+    `;
+
+    window.open(whatsappLink(message), "_blank", "noopener,noreferrer");
   };
 
+  const contactDetails = [
+    {
+      icon: Phone,
+      title: "Call Us",
+      detail: "+254 747 859 681",
+      secondDetail: "+254 720 859 681",
+      link: "tel:+254747859681",
+      description: "Speak with our safari team.",
+    },
+    {
+      icon: Mail,
+      title: "Email Us",
+      detail: "bigpawadventures@gmail.com",
+      link: "mailto:bigpawadventures@gmail.com",
+      description: "Send us your travel enquiries.",
+    },
+    {
+      icon: MapPin,
+      title: "Our Location",
+      detail: "Nairobi, Kenya",
+      description: "Your gateway to African adventures.",
+    },
+  ];
+
   return (
-    <div className="bg-[#F7F4EA] text-[#183020] overflow-hidden">
+    <main className="overflow-hidden bg-white text-[#171014]">
 
-      {/* =====================================================
-          HERO
-      ====================================================== */}
-
-      <section className="relative min-h-[560px] md:min-h-[650px] flex items-center overflow-hidden">
+      {/* HERO SECTION */}
+      <section className="relative flex min-h-[400px] items-center overflow-hidden bg-[#171014] px-5 py-20 sm:min-h-[460px] sm:px-10 lg:px-20">
 
         <img
-          src={kenya1}
-          alt="Contact Daffar Tours and Travel"
-          className="absolute inset-0 w-full h-full object-cover"
+          src={require("../assets/mara1.jpg")}
+          alt="African safari landscape"
+          className="absolute inset-0 h-full w-full object-cover object-center"
         />
 
-        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-black/35" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10" />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-[#061f12]/95 via-[#0D4825]/65 to-black/20" />
+        <div className="relative z-10 mx-auto w-full max-w-7xl">
 
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#F7F4EA] to-transparent" />
+          <div className="mb-5 flex items-center gap-3">
+            <span className="h-[2px] w-10 bg-[#FFA51F]" />
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#FFD08A] sm:text-xs">
+              BigPaw Adventure Safaris
+            </p>
+          </div>
 
-        <div className="relative z-10 w-full">
+          <h1 className="max-w-3xl font-serif text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-7xl">
+            Let's Plan Your
+            <span className="block text-[#FFA51F]">
+              Next Adventure.
+            </span>
+          </h1>
 
-          <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <p className="mt-6 max-w-xl text-sm leading-7 text-white/85 sm:text-base sm:leading-8">
+            Every unforgettable journey begins with a conversation.
+            Tell us where you want to go, and let us help you create
+            an African adventure worth remembering.
+          </p>
 
-            <div className="max-w-3xl">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
 
-              <div className="flex items-center gap-3 mb-5">
+            <a
+              href={whatsappLink(
+                "Hello BigPaw Adventure Safaris, I would like to plan a safari. Please share your packages."
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-[50px] items-center justify-center gap-3 rounded-full bg-[#FF7A1A] px-7 py-3 text-xs font-bold uppercase tracking-wider text-white transition hover:-translate-y-1 hover:bg-[#FFA51F] hover:text-[#171014]"
+            >
+              <MessageCircle size={17} />
+              Chat With Us
+            </a>
 
-                <span className="w-10 h-[2px] bg-[#F39A08]" />
-
-                <span className="text-[#F39A08] text-xs sm:text-sm font-bold uppercase tracking-[0.25em]">
-                  Contact Daffar Tours & Travel
-                </span>
-
-              </div>
-
-              <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.05]">
-
-                Let's Plan Your
-
-                <span className="block text-[#F39A08] mt-2">
-                  African Adventure
-                </span>
-
-              </h1>
-
-              <p className="mt-6 max-w-2xl text-white/80 text-base sm:text-lg md:text-xl leading-relaxed">
-                Tell us where you would like to go, what you would like to
-                experience, and when you would like to travel. Our team will
-                help you create a memorable journey across Africa.
-              </p>
-
-              
-
-              <div className="flex flex-wrap gap-x-7 gap-y-3 mt-10">
-
-                <div className="flex items-center gap-2 text-white/75 text-sm">
-                  <span className="w-2 h-2 rounded-full bg-[#F39A08]" />
-                  Safari Planning
-                </div>
-
-                <div className="flex items-center gap-2 text-white/75 text-sm">
-                  <span className="w-2 h-2 rounded-full bg-[#F39A08]" />
-                  Tailor-Made Trips
-                </div>
-
-                <div className="flex items-center gap-2 text-white/75 text-sm">
-                  <span className="w-2 h-2 rounded-full bg-[#F39A08]" />
-                  Expert Travel Support
-                </div>
-
-              </div>
-
-            </div>
+            <a
+              href="#contact-form"
+              className="inline-flex min-h-[50px] items-center justify-center gap-3 rounded-full border border-white/60 bg-white/10 px-7 py-3 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-sm transition hover:bg-white hover:text-[#171014]"
+            >
+              Send An Enquiry
+              <ArrowRight size={17} />
+            </a>
 
           </div>
 
         </div>
 
-        <div className="absolute right-8 bottom-12 hidden lg:block">
-
-          <div className="w-24 h-24 rounded-full border border-[#F39A08]/40 flex items-center justify-center backdrop-blur-sm">
-
-            <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center">
-
-              <span className="text-[#F39A08] text-xl">
-                ✦
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
+        <div className="absolute bottom-0 left-0 h-[3px] w-full bg-gradient-to-r from-transparent via-[#FFA51F] to-transparent" />
 
       </section>
 
+      {/* CONTACT INTRO */}
+      <section className="px-5 py-16 sm:px-10 lg:px-20 lg:py-20">
 
-      {/* =====================================================
-          CONTACT CARDS
-      ====================================================== */}
+        <div className="mx-auto max-w-7xl">
 
-      <section className="relative -mt-16 z-20 px-5 sm:px-8 lg:px-12">
+          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
 
-        <div className="max-w-7xl mx-auto">
+            <div>
 
-          <div className="grid md:grid-cols-3 gap-4">
-
-            {/* PHONE */}
-
-            <div className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 hover:-translate-y-1 transition-all duration-300">
-
-              <div className="w-12 h-12 rounded-xl bg-[#F39A08]/15 flex items-center justify-center text-[#F39A08] text-xl">
-                ☎
-              </div>
-
-              <h3 className="mt-5 text-[#0D4825] font-bold text-lg">
-                Call Us
-              </h3>
-
-              <p className="mt-1 text-gray-500 text-sm">
-                Speak directly with our travel team.
-              </p>
-
-              <a
-                href="tel:+254708711459"
-                className="inline-block mt-4 text-[#0D4825] font-bold hover:text-[#F39A08] transition-colors"
-              >
-                +254708711459
-              </a>
-
-            </div>
-
-
-            {/* WHATSAPP */}
-
-            <div className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 hover:-translate-y-1 transition-all duration-300">
-
-              <div className="w-12 h-12 rounded-xl bg-[#F39A08]/15 flex items-center justify-center text-[#F39A08] text-xl">
-                💬
-              </div>
-
-              <h3 className="mt-5 text-[#0D4825] font-bold text-lg">
-                WhatsApp
-              </h3>
-
-              <p className="mt-1 text-gray-500 text-sm">
-                Chat with us about your next adventure.
-              </p>
-
-              <a
-                href="https://wa.me/+254708711459"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block mt-4 text-[#0D4825] font-bold hover:text-[#F39A08] transition-colors"
-              >
-                Chat With Us →
-              </a>
-
-            </div>
-
-
-            {/* LOCATION */}
-
-            <div className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 hover:-translate-y-1 transition-all duration-300">
-
-              <div className="w-12 h-12 rounded-xl bg-[#F39A08]/15 flex items-center justify-center text-[#F39A08] text-xl">
-                📍
-              </div>
-
-              <h3 className="mt-5 text-[#0D4825] font-bold text-lg">
-                Visit Us
-              </h3>
-
-              <p className="mt-1 text-gray-500 text-sm">
-                Find Daffar Tours & Travel in Nairobi,Kenya and Arusha, Tanzania.
-              </p>
-
-              <p className="mt-4 text-[#0D4825] font-bold">
-                Muindi Mbingu St, Nairobi
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
-          INQUIRY SECTION
-      ====================================================== */}
-
-      <section
-        id="inquiry"
-        className="bg-[#F7F4EA] py-20 sm:py-24 lg:py-32"
-      >
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-          <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-20 items-start">
-
-
-            {/* LEFT CONTENT */}
-
-            <div className="lg:sticky lg:top-28">
-
-              <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-                Start Your Journey
-              </span>
-
-              <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0D4825] leading-tight">
-
-                Tell Us About
-
-                <span className="block text-[#F39A08]">
-                  Your Dream Trip
+              <div className="mb-5 flex items-center gap-3">
+                <span className="h-[2px] w-10 bg-[#FF7A1A]" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#FF7A1A]">
+                  Get In Touch
                 </span>
+              </div>
 
+              <h2 className="font-serif text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
+                Your African Adventure
+                <span className="block text-[#FF7A1A]">
+                  Starts Here.
+                </span>
               </h2>
 
-              <p className="mt-6 text-gray-600 leading-relaxed">
-                Whether you already know where you want to go or need help
-                choosing the perfect destination, send us your requirements.
-                Our team will help design an experience around your interests,
-                schedule and travel style.
+              <p className="mt-6 max-w-lg text-sm leading-8 text-gray-600">
+                Whether you are dreaming of the Great Migration, exploring
+                Kenya's beautiful national parks, relaxing on the coast or
+                discovering Tanzania, our team is ready to help.
               </p>
 
+              <p className="mt-4 max-w-lg text-sm leading-8 text-gray-600">
+                Contact us for customised itineraries, destination
+                recommendations, package prices and booking information.
+                We look forward to making your journey memorable.
+              </p>
 
-              {/* BENEFITS */}
+              <div className="mt-9 space-y-7">
 
-              <div className="mt-8 space-y-4">
+                {contactDetails.map((item, index) => {
+                  const Icon = item.icon;
 
-                <div className="flex gap-4">
+                  return (
+                    <div key={index} className="flex items-start gap-4">
 
-                  <div className="w-10 h-10 flex-shrink-0 rounded-full bg-[#0D4825] text-[#F39A08] flex items-center justify-center">
-                    ✓
-                  </div>
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#FFF2E8] text-[#FF7A1A]">
+                        <Icon size={21} />
+                      </div>
 
-                  <div>
+                      <div>
+                        <h3 className="text-sm font-extrabold">
+                          {item.title}
+                        </h3>
 
-                    <h3 className="font-bold text-[#0D4825]">
-                      Tailor-Made Itineraries
-                    </h3>
+                        {item.link ? (
+                          <a
+                            href={item.link}
+                            className="mt-1 block text-sm font-semibold text-[#FF7A1A] transition hover:text-[#171014]"
+                          >
+                            {item.detail}
+                          </a>
+                        ) : (
+                          <p className="mt-1 text-sm font-semibold">
+                            {item.detail}
+                          </p>
+                        )}
 
-                    <p className="mt-1 text-sm text-gray-500">
-                      Trips designed around your interests and schedule.
-                    </p>
+                        {item.secondDetail && (
+                          <a
+                            href="tel:+254720859681"
+                            className="mt-1 block text-sm font-semibold text-[#FF7A1A] hover:text-[#171014]"
+                          >
+                            {item.secondDetail}
+                          </a>
+                        )}
 
-                  </div>
+                        <p className="mt-1 text-xs text-gray-500">
+                          {item.description}
+                        </p>
+                      </div>
 
-                </div>
-
-
-                <div className="flex gap-4">
-
-                  <div className="w-10 h-10 flex-shrink-0 rounded-full bg-[#0D4825] text-[#F39A08] flex items-center justify-center">
-                    ✓
-                  </div>
-
-                  <div>
-
-                    <h3 className="font-bold text-[#0D4825]">
-                      Local Travel Knowledge
-                    </h3>
-
-                    <p className="mt-1 text-sm text-gray-500">
-                      Get practical advice from our experienced team.
-                    </p>
-
-                  </div>
-
-                </div>
-
-
-                <div className="flex gap-4">
-
-                  <div className="w-10 h-10 flex-shrink-0 rounded-full bg-[#0D4825] text-[#F39A08] flex items-center justify-center">
-                    ✓
-                  </div>
-
-                  <div>
-
-                    <h3 className="font-bold text-[#0D4825]">
-                      Personal Support
-                    </h3>
-
-                    <p className="mt-1 text-sm text-gray-500">
-                      We are available to help before and during your trip.
-                    </p>
-
-                  </div>
-
-                </div>
+                    </div>
+                  );
+                })}
 
               </div>
 
-
-              {/* WHATSAPP BOX */}
-
-              <div className="mt-10 p-6 rounded-2xl bg-[#0D4825]">
-
-                <p className="text-[#F39A08] text-xs font-bold uppercase tracking-wider">
-                  Prefer WhatsApp?
-                </p>
-
-                <p className="mt-2 text-white/70 text-sm leading-relaxed">
-                  Send us a message directly and start planning your African
-                  adventure with our team.
-                </p>
-
-                <a
-                  href="https://wa.me/+254708711459"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex mt-5 bg-[#F39A08] hover:bg-[#ffad20] text-[#0D4825] px-6 py-3 rounded-full font-bold transition-all duration-300"
-                >
-                  Chat on WhatsApp →
-                </a>
-
-              </div>
+              {/* WHATSAPP QUICK CONTACT */}
+              <a
+                href={whatsappLink(
+                  "Hello BigPaw Adventure Safaris. I would like to make an enquiry."
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-10 inline-flex items-center gap-3 rounded-lg border border-green-200 bg-green-50 px-5 py-4 text-sm font-bold text-green-800 transition hover:bg-green-100"
+              >
+                <MessageCircle size={20} />
+                Message us on WhatsApp
+                <ArrowUpRight size={16} />
+              </a>
 
             </div>
 
-
-            {/* FORM */}
-
-            <div className="bg-white rounded-[2rem] shadow-2xl p-6 sm:p-8 lg:p-10 border border-gray-100">
+            {/* CONTACT FORM */}
+            <div id="contact-form" className="rounded-2xl border border-gray-100 bg-[#FAFAF8] p-6 shadow-xl shadow-black/5 sm:p-9">
 
               <div className="mb-8">
-
-                <span className="text-[#F39A08] text-xs font-bold uppercase tracking-[0.2em]">
-                  Travel Inquiry
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#FF7A1A]">
+                  Start Planning
                 </span>
 
-                <h3 className="mt-2 text-2xl sm:text-3xl font-serif font-bold text-[#0D4825]">
-                  Plan Your Safari
-                </h3>
+                <h2 className="mt-3 font-serif text-3xl font-bold">
+                  Send Us An Enquiry
+                </h2>
 
-                <p className="mt-2 text-gray-500 text-sm">
-                  Fill in the details below and we will get back to you.
+                <p className="mt-3 text-sm leading-7 text-gray-500">
+                  Share a few details about your dream trip. Our team
+                  will receive your enquiry through WhatsApp.
                 </p>
-
               </div>
 
+              <form onSubmit={handleSubmit} className="space-y-5">
 
-              <form
-                onSubmit={handleSubmit}
-                className="space-y-5"
-              >
+                {/* NAME */}
+                <div>
+                  <label className="mb-2 block text-[11px] font-bold uppercase tracking-wider text-gray-700">
+                    Full Name *
+                  </label>
 
-                {/* NAME + EMAIL */}
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter your full name"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-[#FF7A1A] focus:ring-2 focus:ring-[#FF7A1A]/10"
+                  />
+                </div>
 
-                <div className="grid sm:grid-cols-2 gap-5">
-
-                  <div>
-
-                    <label className="block text-sm font-semibold text-[#0D4825] mb-2">
-                      Full Name *
-                    </label>
-
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      placeholder="Your full name"
-                      className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-[#FAFAF7] focus:outline-none focus:ring-2 focus:ring-[#F39A08]/40 focus:border-[#F39A08] transition-all"
-                    />
-
-                  </div>
-
+                {/* EMAIL AND PHONE */}
+                <div className="grid gap-5 sm:grid-cols-2">
 
                   <div>
-
-                    <label className="block text-sm font-semibold text-[#0D4825] mb-2">
+                    <label className="mb-2 block text-[11px] font-bold uppercase tracking-wider text-gray-700">
                       Email Address *
                     </label>
 
@@ -439,23 +299,14 @@ ${formData.message}
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      placeholder="you@example.com"
-                      className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-[#FAFAF7] focus:outline-none focus:ring-2 focus:ring-[#F39A08]/40 focus:border-[#F39A08] transition-all"
+                      placeholder="your@email.com"
+                      className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-[#FF7A1A] focus:ring-2 focus:ring-[#FF7A1A]/10"
                     />
-
                   </div>
 
-                </div>
-
-
-                {/* PHONE + DESTINATION */}
-
-                <div className="grid sm:grid-cols-2 gap-5">
-
                   <div>
-
-                    <label className="block text-sm font-semibold text-[#0D4825] mb-2">
-                      Phone / WhatsApp
+                    <label className="mb-2 block text-[11px] font-bold uppercase tracking-wider text-gray-700">
+                      Phone Number *
                     </label>
 
                     <input
@@ -463,84 +314,45 @@ ${formData.message}
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      placeholder="+254708711459"
-                      className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-[#FAFAF7] focus:outline-none focus:ring-2 focus:ring-[#F39A08]/40 focus:border-[#F39A08] transition-all"
+                      required
+                      placeholder="+254..."
+                      className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-[#FF7A1A] focus:ring-2 focus:ring-[#FF7A1A]/10"
                     />
-
-                  </div>
-
-
-                  <div>
-
-                    <label className="block text-sm font-semibold text-[#0D4825] mb-2">
-                      Preferred Destination
-                    </label>
-
-                    <select
-                      name="destination"
-                      value={formData.destination}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-[#FAFAF7] focus:outline-none focus:ring-2 focus:ring-[#F39A08]/40 focus:border-[#F39A08] transition-all"
-                    >
-
-                      <option value="">
-                        Select destination
-                      </option>
-
-                      <option value="Maasai Mara">
-                        Maasai Mara
-                      </option>
-
-                      <option value="Amboseli">
-                        Amboseli
-                      </option>
-
-                      <option value="Lake Nakuru">
-                        Lake Nakuru
-                      </option>
-
-                      <option value="Mount Kenya">
-                        Mount Kenya
-                      </option>
-
-                      <option value="Serengeti">
-                        Serengeti
-                      </option>
-
-                      <option value="Ngorongoro">
-                        Ngorongoro
-                      </option>
-
-                      <option value="Tarangire">
-                        Tarangire
-                      </option>
-
-                      <option value="Zanzibar">
-                        Zanzibar
-                      </option>
-
-                      <option value="Diani">
-                        Diani
-                      </option>
-
-                      <option value="Other">
-                        Other
-                      </option>
-
-                    </select>
-
                   </div>
 
                 </div>
 
+                {/* DESTINATION */}
+                <div>
+                  <label className="mb-2 block text-[11px] font-bold uppercase tracking-wider text-gray-700">
+                    Preferred Destination
+                  </label>
 
-                {/* DATE + TRAVELERS */}
+                  <select
+                    name="destination"
+                    value={formData.destination}
+                    onChange={handleChange}
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-[#FF7A1A] focus:ring-2 focus:ring-[#FF7A1A]/10"
+                  >
+                    <option value="">Select a destination</option>
+                    <option value="Maasai Mara">Maasai Mara</option>
+                    <option value="Amboseli National Park">Amboseli</option>
+                    <option value="Lake Nakuru">Lake Nakuru</option>
+                    <option value="Tsavo National Parks">Tsavo</option>
+                    <option value="Serengeti">Serengeti</option>
+                    <option value="Ngorongoro Crater">Ngorongoro</option>
+                    <option value="Zanzibar">Zanzibar</option>
+                    <option value="Diani Beach">Diani Beach</option>
+                    <option value="Mount Kilimanjaro">Mount Kilimanjaro</option>
+                    <option value="Other">Other / Not Sure Yet</option>
+                  </select>
+                </div>
 
-                <div className="grid sm:grid-cols-2 gap-5">
+                {/* DATE AND TRAVELLERS */}
+                <div className="grid gap-5 sm:grid-cols-2">
 
                   <div>
-
-                    <label className="block text-sm font-semibold text-[#0D4825] mb-2">
+                    <label className="mb-2 block text-[11px] font-bold uppercase tracking-wider text-gray-700">
                       Preferred Travel Date
                     </label>
 
@@ -549,61 +361,40 @@ ${formData.message}
                       name="travelDate"
                       value={formData.travelDate}
                       onChange={handleChange}
-                      className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-[#FAFAF7] focus:outline-none focus:ring-2 focus:ring-[#F39A08]/40 focus:border-[#F39A08] transition-all"
+                      min={new Date().toISOString().split("T")[0]}
+                      className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-[#FF7A1A] focus:ring-2 focus:ring-[#FF7A1A]/10"
                     />
-
                   </div>
 
-
                   <div>
-
-                    <label className="block text-sm font-semibold text-[#0D4825] mb-2">
-                      Number of Travelers
+                    <label className="mb-2 block text-[11px] font-bold uppercase tracking-wider text-gray-700">
+                      Number of Travellers
                     </label>
 
                     <select
-                      name="travelers"
-                      value={formData.travelers}
+                      name="travellers"
+                      value={formData.travellers}
                       onChange={handleChange}
-                      className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-[#FAFAF7] focus:outline-none focus:ring-2 focus:ring-[#F39A08]/40 focus:border-[#F39A08] transition-all"
+                      className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-[#FF7A1A] focus:ring-2 focus:ring-[#FF7A1A]/10"
                     >
-
-                      <option value="">
-                        Select travelers
-                      </option>
-
-                      <option value="1">
-                        1 Traveler
-                      </option>
-
-                      <option value="2">
-                        2 Travelers
-                      </option>
-
-                      <option value="3-5">
-                        3–5 Travelers
-                      </option>
-
-                      <option value="6-10">
-                        6–10 Travelers
-                      </option>
-
-                      <option value="10+">
-                        More than 10
-                      </option>
-
+                      <option value="1">1 Traveller</option>
+                      <option value="2">2 Travellers</option>
+                      <option value="3">3 Travellers</option>
+                      <option value="4">4 Travellers</option>
+                      <option value="5">5 Travellers</option>
+                      <option value="6">6 Travellers</option>
+                      <option value="7">7 Travellers</option>
+                      <option value="8">8 Travellers</option>
+                      <option value="9">9 Travellers</option>
+                      <option value="10+">10+ Travellers</option>
                     </select>
-
                   </div>
 
                 </div>
 
-
                 {/* MESSAGE */}
-
                 <div>
-
-                  <label className="block text-sm font-semibold text-[#0D4825] mb-2">
+                  <label className="mb-2 block text-[11px] font-bold uppercase tracking-wider text-gray-700">
                     Tell Us About Your Trip *
                   </label>
 
@@ -612,30 +403,24 @@ ${formData.message}
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows="6"
-                    placeholder="Tell us about your preferred destinations, activities, budget, accommodation or anything else you would like us to know..."
-                    className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-[#FAFAF7] focus:outline-none focus:ring-2 focus:ring-[#F39A08]/40 focus:border-[#F39A08] transition-all resize-none"
+                    rows="5"
+                    placeholder="Tell us about the safari or holiday you have in mind..."
+                    className="w-full resize-none rounded-lg border border-gray-200 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-[#FF7A1A] focus:ring-2 focus:ring-[#FF7A1A]/10"
                   />
-
                 </div>
 
-
                 {/* SUBMIT */}
-
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 bg-[#0D4825] hover:bg-[#176B35] text-white px-7 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
+                  className="flex w-full items-center justify-center gap-3 rounded-lg bg-[#FF7A1A] px-6 py-4 text-xs font-extrabold uppercase tracking-[0.15em] text-white transition duration-300 hover:-translate-y-1 hover:bg-[#171014]"
                 >
-                  Send Travel Inquiry
-                  <span className="text-[#F39A08] text-lg">
-                    →
-                  </span>
+                  Send Enquiry via WhatsApp
+                  <Send size={17} />
                 </button>
 
-
-                <p className="text-center text-xs text-gray-400">
-                  Your inquiry will open directly in WhatsApp for quick
-                  communication with our team.
+                <p className="text-center text-[11px] leading-5 text-gray-400">
+                  Your enquiry will open in WhatsApp so you can review
+                  and send it directly to our team.
                 </p>
 
               </form>
@@ -648,137 +433,71 @@ ${formData.message}
 
       </section>
 
+      {/* WHY CONTACT BIGPAW */}
+      <section className="bg-[#171014] px-5 py-16 text-white sm:px-10 lg:px-20">
 
-      {/* =====================================================
-          LOCATION + MAP
-      ====================================================== */}
+        <div className="mx-auto max-w-7xl">
 
-      <section className="bg-white py-20 sm:py-24">
+          <div className="mx-auto max-w-2xl text-center">
 
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#FFA51F]">
+              The BigPaw Experience
+            </span>
 
-          <div className="grid lg:grid-cols-[0.75fr_1.25fr] gap-10 lg:gap-16 items-center">
-
-            {/* LOCATION INFO */}
-
-            <div>
-
-              <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-                Find Us
+            <h2 className="mt-4 font-serif text-3xl font-bold sm:text-4xl">
+              Let's Make Your Journey
+              <span className="block text-[#FFA51F]">
+                Extraordinary.
               </span>
+            </h2>
 
-              <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0D4825] leading-tight">
+            <p className="mt-5 text-sm leading-7 text-white/65">
+              From your first enquiry to your return home, we are
+              committed to helping you experience Africa in a
+              meaningful and memorable way.
+            </p>
 
-                Visit Our
+          </div>
 
-                <span className="block text-[#F39A08]">
-                  Nairobi Office and Arusha Tanzania
-                </span>
+          <div className="mt-12 grid gap-8 sm:grid-cols-3">
 
-              </h2>
-
-              <p className="mt-6 text-gray-600 leading-relaxed">
-                If you are in Nairobi, our team is available to discuss your
-                safari plans, answer your questions and help you organize your
-                next African adventure.
-              </p>
-
-
-              <div className="mt-8 space-y-5">
-
-                <div className="flex gap-4">
-
-                  <div className="w-11 h-11 flex-shrink-0 rounded-xl bg-[#F39A08]/15 flex items-center justify-center text-[#F39A08]">
-                    📍
-                  </div>
-
-                  <div>
-
-                    <h3 className="font-bold text-[#0D4825]">
-                      Office
-                    </h3>
-
-                    <p className="mt-1 text-gray-500 text-sm">
-                      Muindi Mbingu St, Nairobi, Kenya and Arusha Tanzania
-                    </p>
-
-                  </div>
-
-                </div>
-
-
-                <div className="flex gap-4">
-
-                  <div className="w-11 h-11 flex-shrink-0 rounded-xl bg-[#F39A08]/15 flex items-center justify-center text-[#F39A08]">
-                    ☎
-                  </div>
-
-                  <div>
-
-                    <h3 className="font-bold text-[#0D4825]">
-                      Phone
-                    </h3>
-
-                    <a
-                      href="tel:+254708711459"
-                      className="mt-1 block text-gray-500 text-sm hover:text-[#F39A08]"
-                    >
-                      +254708711459
-                    </a>
-
-                  </div>
-
-                </div>
-
-
-                <div className="flex gap-4">
-
-                  <div className="w-11 h-11 flex-shrink-0 rounded-xl bg-[#F39A08]/15 flex items-center justify-center text-[#F39A08]">
-                    🕐
-                  </div>
-
-                  <div>
-
-                    <h3 className="font-bold text-[#0D4825]">
-                      Opening Hours
-                    </h3>
-
-                    <p className="mt-1 text-gray-500 text-sm">
-                      Open 24 hours
-                    </p>
-
-                  </div>
-
-                </div>
-
+            <div className="text-center">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-[#FFA51F]">
+                <Compass size={25} />
               </div>
-
-
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=Daffar+Tours+and+Travel+Ltd+Muindi+Mbingu+Street+Nairobi"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex mt-8 bg-[#0D4825] hover:bg-[#176B35] text-white px-7 py-3.5 rounded-full font-bold transition-all duration-300 hover:-translate-y-1"
-              >
-                Get Directions →
-              </a>
-
+              <h3 className="mt-5 text-sm font-extrabold">
+                Personalised Adventures
+              </h3>
+              <p className="mt-3 text-xs leading-6 text-white/55">
+                Journeys designed around your interests, travel plans
+                and expectations.
+              </p>
             </div>
 
+            <div className="text-center">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-[#FFA51F]">
+                <CheckCircle2 size={25} />
+              </div>
+              <h3 className="mt-5 text-sm font-extrabold">
+                Dedicated Support
+              </h3>
+              <p className="mt-3 text-xs leading-6 text-white/55">
+                We help you with your enquiries, itinerary planning
+                and booking arrangements.
+              </p>
+            </div>
 
-            {/* MAP */}
-
-            <div className="relative overflow-hidden rounded-[2rem] shadow-2xl border border-gray-100 h-[420px]">
-
-              <iframe
-                title="Daffar Tours and Travel location"
-                src="https://www.google.com/maps?q=Daffar%20Tours%20and%20Travel%20Ltd%2C%20Muindi%20Mbingu%20Street%2C%20Nairobi&output=embed"
-                className="absolute inset-0 w-full h-full border-0"
-                loading="lazy"
-                allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-
+            <div className="text-center">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-[#FFA51F]">
+                <Globe size={25} />
+              </div>
+              <h3 className="mt-5 text-sm font-extrabold">
+                Memorable Experiences
+              </h3>
+              <p className="mt-3 text-xs leading-6 text-white/55">
+                Discover remarkable destinations and create memories
+                that last a lifetime.
+              </p>
             </div>
 
           </div>
@@ -787,532 +506,210 @@ ${formData.message}
 
       </section>
 
+      {/* FINAL CTA */}
+      <section className="px-5 py-16 sm:px-10 lg:px-20">
 
-      {/* =====================================================
-          WHY CONTACT US
-      ====================================================== */}
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-7 rounded-2xl bg-[#FFF3E9] p-8 sm:p-12 lg:flex-row">
 
-      <section className="bg-[#F7F4EA] py-20 sm:py-24">
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-          <div className="text-center max-w-3xl mx-auto">
-
-            <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-              Why Daffar?
-            </span>
-
-            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0D4825]">
-              Your Journey Starts With A Conversation
-            </h2>
-
-            <p className="mt-5 text-gray-600 leading-relaxed">
-              From your first inquiry to the final day of your adventure,
-              we are here to help make your African travel experience
-              smooth, memorable and personal.
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#FF7A1A]">
+              Your Adventure Awaits
             </p>
 
-          </div>
-
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-12">
-
-            <div className="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition-all duration-300">
-
-              <span className="text-3xl text-[#F39A08]">
-                01
-              </span>
-
-              <h3 className="mt-5 font-bold text-[#0D4825] text-lg">
-                Tell Us Your Dream
-              </h3>
-
-              <p className="mt-2 text-gray-500 text-sm leading-relaxed">
-                Share your destination, interests and travel preferences.
-              </p>
-
-            </div>
-
-
-            <div className="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition-all duration-300">
-
-              <span className="text-3xl text-[#F39A08]">
-                02
-              </span>
-
-              <h3 className="mt-5 font-bold text-[#0D4825] text-lg">
-                We Build Your Trip
-              </h3>
-
-              <p className="mt-2 text-gray-500 text-sm leading-relaxed">
-                Our team creates an itinerary tailored to your journey.
-              </p>
-
-            </div>
-
-
-            <div className="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition-all duration-300">
-
-              <span className="text-3xl text-[#F39A08]">
-                03
-              </span>
-
-              <h3 className="mt-5 font-bold text-[#0D4825] text-lg">
-                Refine The Details
-              </h3>
-
-              <p className="mt-2 text-gray-500 text-sm leading-relaxed">
-                We adjust the itinerary until it matches your expectations.
-              </p>
-
-            </div>
-
-
-            <div className="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition-all duration-300">
-
-              <span className="text-3xl text-[#F39A08]">
-                04
-              </span>
-
-              <h3 className="mt-5 font-bold text-[#0D4825] text-lg">
-                Start Your Adventure
-              </h3>
-
-              <p className="mt-2 text-gray-500 text-sm leading-relaxed">
-                Travel with confidence knowing our team is here to support you.
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
-          FINAL CTA
-      ====================================================== */}
-
-      <section className="relative bg-[#0D4825] overflow-hidden">
-
-        <div className="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-[#F39A08]/10 blur-3xl" />
-
-        <div className="absolute -bottom-32 -left-32 w-80 h-80 rounded-full bg-[#F39A08]/10 blur-3xl" />
-
-        <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 py-20 sm:py-24 lg:py-28 text-center">
-
-          <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-            Your African Adventure
-          </span>
-
-          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-6xl font-serif font-bold text-white leading-tight">
-
-            Ready To Start
-
-            <span className="block text-[#F39A08]">
-              Your Journey?
-            </span>
-
-          </h2>
-
-          <p className="mt-5 max-w-2xl mx-auto text-white/65 leading-relaxed">
-            Contact Daffar Tours & Travel today and let us help you turn
-            your travel ideas into an unforgettable African experience.
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-3 mt-8">
-
-            <a
-              href="https://wa.me/+254708711459"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#F39A08] hover:bg-[#ffad20] text-[#0D4825] px-8 py-4 rounded-full font-bold shadow-xl transition-all duration-300 hover:-translate-y-1"
-            >
-              WhatsApp Our Team
-            </a>
-
-            <Link
-              to="/safaris"
-              className="border border-white/30 hover:border-[#F39A08] text-white hover:text-[#F39A08] px-8 py-4 rounded-full font-bold transition-all duration-300"
-            >
-              Explore Safaris
-            </Link>
-
-          </div>
-
-        </div>
-
-      </section>
-
-<footer className="overflow-hidden bg-[#082D19] text-white">
-
-  <div className="relative mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-14 lg:px-12">
-
-    {/* Decorative background */}
-    <div className="pointer-events-none absolute -right-40 -top-40 h-96 w-96 rounded-full bg-[#F39A08]/10 blur-3xl" />
-
-    <div className="pointer-events-none absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-emerald-400/5 blur-3xl" />
-
-    <div className="relative z-10">
-
-      {/* FOOTER CONTENT */}
-      <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-10 sm:grid-cols-2 lg:grid-cols-4">
-
-        {/* BRAND */}
-        <div className="lg:col-span-1">
-
-          <Link to="/" className="inline-block group">
-
-            <h2 className="font-serif text-3xl font-bold text-white transition-colors group-hover:text-[#F39A08]">
-              Daffar
+            <h2 className="mt-3 max-w-xl font-serif text-3xl font-bold sm:text-4xl">
+              Ready to make moments count?
             </h2>
 
-            <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.35em] text-[#F39A08]">
-              Tours & Travel
+            <p className="mt-3 text-sm leading-7 text-gray-600">
+              Let's start planning your next unforgettable African journey.
             </p>
+          </div>
 
-          </Link>
+          <a
+            href={whatsappLink(
+              "Hello BigPaw Adventure Safaris! I am ready to plan my next African adventure."
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex shrink-0 items-center justify-center gap-3 rounded-full bg-[#FF7A1A] px-8 py-4 text-xs font-extrabold uppercase tracking-wider text-white transition hover:-translate-y-1 hover:bg-[#171014]"
+          >
+            Plan Your Safari
+            <ArrowUpRight size={17} />
+          </a>
 
-          <p className="mt-5 max-w-sm text-sm leading-6 text-white/55">
-            Discover Africa through unforgettable safari adventures,
-            authentic cultural experiences and breathtaking landscapes.
-          </p>
+        </div>
 
-          {/* SOCIAL */}
-   
-  {/* SOCIAL */}
+      </section>
+<footer className="relative overflow-hidden bg-[#080808] text-white">
 
-  <div className="mt-6 flex items-center gap-2.5">
+  <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
 
-  {/* Facebook */}
+    {/* BRAND */}
+    <div>
+      <Link to="/" className="inline-block">
+        <h2 className="font-serif text-3xl font-extrabold tracking-wide">
+          BIG<span className="text-[#FF5A16]">PAW</span>
+        </h2>
+        <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.3em] text-[#FFB04A]">
+          Adventure Safaris
+        </p>
+      </Link>
+
+      <p className="mt-6 text-sm leading-7 text-gray-400">
+        Discover Africa with BigPaw Adventure Safaris. From unforgettable
+        wildlife encounters to relaxing beach escapes, we create journeys
+        worth remembering.
+      </p>
+
+      <p className="mt-5 border-l-2 border-[#FF5A16] pl-4 font-serif text-sm italic text-gray-300">
+        "WE DON'T COUNT MOMENTS! WE MAKE MOMENTS COUNT"
+      </p>
+
+      <div className="mt-6 flex gap-3">
   <a
-    href="https://www.facebook.com/share/19QDDWcvTd/"
+    href="https://www.facebook.com/"
     target="_blank"
-    rel="noopener noreferrer"
+    rel="noreferrer"
     aria-label="Facebook"
-    className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1877F2] text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg hover:shadow-[#1877F2]/30"
+    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-sm font-bold text-gray-400 transition hover:border-[#FF5A16] hover:bg-[#FF5A16] hover:text-white"
   >
-    <svg
-      viewBox="0 0 24 24"
-      className="h-4 w-4 fill-current"
-      aria-hidden="true"
-    >
-      <path d="M14 8h3V5h-3c-2.2 0-4 1.8-4 4v2H7v3h3v6h3v-6h3l1-3h-4V9c0-.6.4-1 1-1z" />
-    </svg>
+    f
   </a>
 
-
-  {/* Instagram */}
   <a
-    href="https://www.instagram.com/daffartoursandtravel?stkn=MXZjd2k5Nm05dXk4dQ"
+    href="https://www.instagram.com/"
     target="_blank"
-    rel="noopener noreferrer"
+    rel="noreferrer"
     aria-label="Instagram"
-    className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-tr from-[#FFDC80] via-[#E1306C] to-[#833AB4] text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg hover:shadow-[#E1306C]/30"
+    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-sm font-bold text-gray-400 transition hover:border-[#FF5A16] hover:bg-[#FF5A16] hover:text-white"
   >
-    <svg
-      viewBox="0 0 24 24"
-      className="h-[18px] w-[18px] fill-none stroke-current"
-      strokeWidth="2"
-      aria-hidden="true"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle
-        cx="17.5"
-        cy="6.5"
-        r="1"
-        className="fill-current stroke-none"
-      />
-    </svg>
+    ◎
   </a>
 
-
-  {/* TikTok */}
   <a
-    href="https://www.tiktok.com/@daffartoursandtravel?_r=1&_t=ZS-99cSHcpfpn0"
+    href="https://www.tiktok.com/"
     target="_blank"
-    rel="noopener noreferrer"
+    rel="noreferrer"
     aria-label="TikTok"
-    className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg hover:shadow-black/30"
+    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-gray-400 transition hover:border-[#FF5A16] hover:bg-[#FF5A16] hover:text-white"
   >
-    <svg
-      viewBox="0 0 24 24"
-      className="h-[17px] w-[17px] fill-current"
-      aria-hidden="true"
-    >
-      <path d="M16.6 3c.3 1.7 1.3 3 3 3.4v3.1c-1.4-.1-2.7-.6-3.8-1.4v6.7c0 4.1-2.7 6.2-6 6.2-3 0-5.3-2.1-5.3-5.1 0-3.2 2.5-5.4 5.7-5.4.3 0 .7 0 1 .1v3.1c-.3-.1-.6-.1-.9-.1-1.5 0-2.6.9-2.6 2.2 0 1.2.9 2.1 2.2 2.1 1.5 0 2.7-1 2.7-3.2V3h4z" />
-    </svg>
+    <Music2 size={17} />
   </a>
-
-
-  {/* YouTube */}
-  <a
-    href="https://www.youtube.com/@dafartoursandtravel"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="YouTube"
-    className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FF0000] text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg hover:shadow-[#FF0000]/30"
-  >
-    <svg
-      viewBox="0 0 24 24"
-      className="h-4 w-4 fill-current"
-      aria-hidden="true"
-    >
-      <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.9V8.1l6.5 3.9-6.5 3.9z" />
-    </svg>
-  </a>
-
 </div>
-
-        </div>
-
-
-        {/* EXPLORE */}
-        <div>
-
-          <h3 className="text-sm font-bold uppercase tracking-[0.15em] text-[#F39A08]">
-            Explore
-          </h3>
-
-          <div className="mt-5 space-y-3">
-
-            <Link
-              to="/"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Home
-            </Link>
-
-            <Link
-              to="/about"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              About Us
-            </Link>
-
-            <Link
-              to="/safaris"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Safaris
-            </Link>
-
-            
-
-            <Link
-              to="/activities"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Activities
-            </Link>
-
-            <Link
-              to="/contact"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Contact
-            </Link>
-
-          </div>
-
-        </div>
-
-
-        {/* DISCOVER */}
-        <div>
-
-          <h3 className="text-sm font-bold uppercase tracking-[0.15em] text-[#F39A08]">
-            Discover
-          </h3>
-
-          <div className="mt-5 space-y-3">
-
-            <Link
-              to="/communitywork"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Community Work
-            </Link>
-
-            <Link
-              to="/tourafricablog"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Tour Africa Blog
-            </Link>
-
-            <Link
-              to="/faqs"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              FAQs
-            </Link>
-
-            <Link
-              to="/safaris"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Tailor-Made Safaris
-            </Link>
-
-            <Link
-              to="/safaris"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Honeymoon Safaris
-            </Link>
-
-            <Link
-              to="/contact"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Plan Your Trip
-            </Link>
-
-          </div>
-
-        </div>
-
-
-        {/* CONTACT */}
-        <div>
-
-          <h3 className="text-sm font-bold uppercase tracking-[0.15em] text-[#F39A08]">
-            Contact Us
-          </h3>
-
-          <div className="mt-5 space-y-5">
-
-            {/* LOCATION */}
-            <div className="flex items-start gap-3">
-
-              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#F39A08]">
-                📍
-              </div>
-
-              <div>
-
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">
-                  Location
-                </p>
-
-                <p className="mt-1 text-sm text-white/60">
-                  Nairobi,Kenya and Arusha, Tanzania
-                </p>
-
-              </div>
-
-            </div>
-
-
-            {/* EMAIL */}
-            <div className="flex items-start gap-3">
-
-              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#F39A08]">
-                ✉
-              </div>
-
-              <div>
-
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">
-                  Email
-                </p>
-
-                <a
-                  href="mailto: info@daffar.co.ke"
-                  className="mt-1 block text-sm text-white/60 hover:text-[#F39A08] transition-colors"
-                >
-                   info@daffar.co.ke
-                </a>
-
-              </div>
-
-            </div>
-
-
-            {/* PHONE */}
-            <div className="flex items-start gap-3">
-
-              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#F39A08]">
-                ☎
-              </div>
-
-              <div>
-
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">
-                  Phone
-                </p>
-
-                <a
-                  href="tel:+254708711459"
-                  className="mt-1 block text-sm text-white/60 hover:text-[#F39A08] transition-colors"
-                >
-                  +254708711459
-                </a>
-
-              </div>
-
-            </div>
-
-
-            {/* WHATSAPP */}
-            
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      {/* BOTTOM BAR */}
-      <div className="flex flex-col gap-3 pt-6 md:flex-row md:items-center md:justify-between">
-
-        <p className="text-xs text-white/35">
-          © {new Date().getFullYear()} Daffar Tours & Travel. All rights reserved.
-        </p>
-
-        <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-white/35">
-
-          <Link
-            to="/terms"
-            className="transition hover:text-[#F39A08]"
-          >
-            Terms & Conditions
-          </Link>
-
-          <Link
-            to="/privacy"
-            className="transition hover:text-[#F39A08]"
-          >
-            Privacy Policy
-          </Link>
-
-          <Link
-            to="/contact"
-            className="transition hover:text-[#F39A08]"
-          >
-            Contact
-          </Link>
-
-        </div>
-
-        <p className="text-xs text-white/25">
-          Kenya • Africa
-        </p>
-
-      </div>
-
     </div>
 
+    {/* QUICK LINKS */}
+    <div>
+      <h3 className="mb-7 text-sm font-bold uppercase tracking-[0.18em]">
+        Quick Links
+      </h3>
+
+      <ul className="space-y-4 text-sm text-gray-400">
+        {[
+          ["Home", "/"],
+          ["About Us", "/about"],
+          ["Destinations", "/"],
+          ["Gallery", "/gallery"],
+          ["Safari Packages", "/packages"],
+          ["Contact Us", "/contact"],
+        ].map(([name, path]) => (
+          <li key={name}>
+            <Link
+              to={path}
+              className="transition hover:translate-x-1 hover:text-[#FF8A32]"
+            >
+              → {name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* EXPERIENCES */}
+    <div>
+      <h3 className="mb-7 text-sm font-bold uppercase tracking-[0.18em]">
+        Our Experiences
+      </h3>
+
+      <ul className="space-y-4 text-sm text-gray-400">
+        {[
+          "Wildlife Safaris",
+          "Beach Holidays",
+          "Cultural Experiences",
+          "Scenic Getaways",
+          "Mountain Adventures",
+        ].map((item) => (
+          <li key={item} className="flex items-center gap-3">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#FF5A16]" />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* CONTACT */}
+    <div>
+      <h3 className="mb-7 text-sm font-bold uppercase tracking-[0.18em]">
+        Contact Us
+      </h3>
+
+      <div className="space-y-6 text-sm text-gray-400">
+
+        <div className="flex items-start gap-4">
+          <MapPin size={19} className="shrink-0 text-[#FF5A16]" />
+          <p>Nairobi, Kenya</p>
+        </div>
+
+        <div className="flex items-start gap-4">
+          <Phone size={19} className="shrink-0 text-[#FF5A16]" />
+          <div>
+            <a href="tel:+254720859681" className="block hover:text-[#FF8A32]">
+              +254 720 859681
+            </a>
+            <a href="tel:+254747859681" className="mt-2 block hover:text-[#FF8A32]">
+              +254 747 859681
+            </a>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4">
+          <Mail size={19} className="shrink-0 text-[#FF5A16]" />
+          <a
+            href="mailto:bigpawadenturesafaris@gmail.com"
+            className="break-all hover:text-[#FF8A32]"
+          >
+            bigpawadenturesafaris@gmail.com
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  {/* BOTTOM BAR */}
+  <div className="border-t border-white/10">
+    <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 text-center sm:flex-row sm:px-10">
+
+      <p className="text-xs text-gray-500">
+        © {new Date().getFullYear()} BigPaw Adventure Safaris. All rights reserved.
+      </p>
+
+      <p className="flex items-center gap-1.5 text-xs text-gray-500">
+        Made for adventure lovers
+        <Heart size={13} className="fill-[#FF5A16] text-[#FF5A16]" />
+      </p>
+
+      <a
+        href="#top"
+        className="text-xs font-bold uppercase tracking-widest text-[#FF8A32] transition hover:text-white"
+      >
+        Back to Top ↑
+      </a>
+
+    </div>
   </div>
 
 </footer>
-    </div>
+    </main>
   );
 }
-
-export default Contact;

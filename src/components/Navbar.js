@@ -1,1476 +1,732 @@
 
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  ArrowRight,
+  MapPin,
+  Phone,
+  Compass,
+  Sparkles,
+} from "lucide-react";
 
-import safarilinklogo from "../assets/safarilinklogo.png";
+import bigpawlogo from "../assets/safarilinklogo.png";
 
-function Navbar() {
+// ============================================
+// BRAND SETTINGS
+// ============================================
+
+const WHATSAPP = "254747859681";
+const PHONE = "+254 747 859681";
+
+const whatsappLink = (message) =>
+  `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`;
+
+// ============================================
+// NAVIGATION DATA
+// ============================================
+
+const destinations = [
+  ["Maasai Mara", "/maasaimara"],
+  ["Lake Nakuru", "/lakenakuru"],
+  ["Amboseli", "/amboseli"],
+  ["Serengeti", "/serengeti"],
+  ["Mount Kilimanjaro", "/mountkilimanjaro"],
+  ["Zanzibar", "/zanzibar"],
+  ["Mount Kenya", "/mountkenya"],
+  ["Diani Beach", "/diani"],
+];
+
+const mainLinks = [
+  ["Home", "/"],
+  ["About Us", "/about"],
+  ["Safaris", "/safaris"],
+  ["Gallery", "/gallery"],
+  ["Contact", "/contact"],
+];
+
+// ============================================
+// NAVBAR COMPONENT
+// ============================================
+
+export default function Navbar() {
+  const location = useLocation();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [destOpen, setDestOpen] = useState(false);
-  const [safariOpen, setSafariOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  /* ============================================================
-     DESTINATIONS
-  ============================================================ */
-
-  const destinations = [
-    ["Maasai Mara", "/maasaimara"],
-    ["Lake Nakuru", "/lakenakuru"],
-    ["Amboseli", "/amboseli"],
-    ["Serengeti", "/serengeti"],
-    ["Ngorongoro", "/ngorongoro"],
-    ["Tarangire", "/tarangire"],
-    ["Diani", "/diani"],
-    ["Zanzibar", "/zanzibar"],
-    ["Mount Kenya", "/mountkenya"],
-    ["Mount Kilimanjaro", "/mountkilimanjaro"],
-  ];
-
-  /* ============================================================
-     SAFARI ITINERARIES
-  ============================================================ */
-
-  const safariItineraries = [
-    ["wildebeest Migration", "/wildebeestsafaris"],
-    ["Tailor-made safaris ", "/Tailormadesafaris"],
-    ["Flying Safaris", "/Flyingsafaris"],
-    ["Mountain Trekking Safaris ","/Treckingsafaris",    ],
-    ["BeachHolidays Safaris", "/Beachholidayssafaris"],
-    ["Photography Safaris", "/Photographysafaris"],
-    ["Honeymoon Safaris", "/Honeymoonsafaris"],
-   
-  ];
-
-
-
-
-  /* ============================================================
-     SCROLL EFFECT
-  ============================================================ */
+  // ==========================================
+  // SCROLL EFFECT
+  // ==========================================
 
   useEffect(() => {
     const handleScroll = () => {
-      const height =
+      const scrollHeight =
         document.documentElement.scrollHeight - window.innerHeight;
 
       const scrollProgress =
-        height > 0 ? (window.scrollY / height) * 100 : 0;
+        scrollHeight > 0
+          ? (window.scrollY / scrollHeight) * 100
+          : 0;
 
       setProgress(scrollProgress);
-      setScrolled(window.scrollY > 40);
+      setScrolled(window.scrollY > 30);
     };
 
-    window.addEventListener("scroll", handleScroll);
-
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /* ============================================================
-     PREVENT BACKGROUND SCROLL ON MOBILE
-  ============================================================ */
+  // ==========================================
+  // MOBILE MENU BODY LOCK
+  // ==========================================
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+
     if (menuOpen) {
       document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
     }
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
     };
   }, [menuOpen]);
 
-  /* ============================================================
-     CLOSE MOBILE MENU
-  ============================================================ */
+  // ==========================================
+  // CLOSE MENU WHEN ROUTE CHANGES
+  // ==========================================
+
+  useEffect(() => {
+    setMenuOpen(false);
+    setDestOpen(false);
+  }, [location.pathname]);
+
+  // ==========================================
+  // ESCAPE KEY
+  // ==========================================
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        setDestOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // ==========================================
+  // MENU CONTROLS
+  // ==========================================
 
   const closeMobile = () => {
     setMenuOpen(false);
     setDestOpen(false);
-    setSafariOpen(false);
   };
 
-  /* ============================================================
-     CLOSE DROPDOWNS
-  ============================================================ */
+  const desktopLinkClass = ({ isActive }) =>
+    `nav-link ${isActive ? "nav-link-active" : ""}`;
 
-  const closeSafari = () => {
-    setSafariOpen(false);
-  };
-
-  const closeDestinations = () => {
-    setDestOpen(false);
-  };
+  const mobileLinkClass = ({ isActive }) =>
+    `mobile-link ${isActive ? "mobile-link-active" : ""}`;
 
   return (
     <>
-      {/* =====================================================
+      {/* ========================================
           SCROLL PROGRESS
-      ====================================================== */}
+      ========================================= */}
 
-      <div className="fixed top-0 left-0 w-full h-[3px] z-[999] pointer-events-none">
+      <div className="fixed left-0 top-0 z-[999] h-[3px] w-full pointer-events-none">
         <div
-          className="h-full bg-[#F39A08] transition-all duration-200"
+          className="h-full bg-gradient-to-r from-[#FF5A16] via-[#FFB04A] to-[#FF5A16] transition-all duration-200"
           style={{ width: `${progress}%` }}
         />
       </div>
 
-      {/* =====================================================
-          NAVBAR
-      ====================================================== */}
+      {/* ========================================
+          MAIN NAVBAR
+      ========================================= */}
 
-      <nav
-        className={`
-          fixed
-          top-0
-          left-0
-          w-full
-          z-[100]
-          border-b
-          border-white/10
-          backdrop-blur-xl
-          transition-all
-          duration-500
-          ${
-            scrolled
-              ? "bg-[#0D4825]/98 py-1 shadow-xl"
-              : "bg-[#0D4825]/90 py-2 sm:py-3"
-          }
-        `}
+      <header
+        className={`fixed left-0 top-0 z-[100] w-full transition-all duration-500 ${
+          scrolled
+            ? "bg-[#25000F]/[98] shadow-[0_12px_40px_rgba(0,0,0,0.28)]"
+            : "bg-[#25000F]/95"
+        }`}
       >
-        <div className="max-w-7xl mx-auto px-3 sm:px-5 lg:px-8">
-
+        <nav className="mx-auto max-w-[1500px] px-4 sm:px-6 xl:px-10">
           <div
-            className="
-              min-h-[72px]
-              sm:min-h-[76px]
-              lg:min-h-[82px]
-              flex
-              items-center
-              justify-between
-            "
+            className={`flex items-center justify-between gap-4 transition-all duration-500 ${
+              scrolled ? "min-h-[70px]" : "min-h-[82px] lg:min-h-[92px]"
+            }`}
           >
-
-            {/* =================================================
-                LOGO
-            ================================================== */}
+            {/* ====================================
+                BRAND LOGO
+            ==================================== */}
 
             <Link
               to="/"
               onClick={closeMobile}
-              className="
-                flex
-                items-center
-                gap-2
-                sm:gap-3
-                min-w-0
-              "
+              className="group flex shrink-0 items-center gap-3"
+              aria-label="BigPaw Adventure Safaris home"
             >
+              <div className="relative">
+                <div className="absolute -inset-1 rounded-full bg-[#FF5A16]/20 opacity-0 blur-md transition duration-500 group-hover:opacity-100" />
 
-              <img
-                src={safarilinklogo}
-                alt="Daffar Tours & Travel logo"
-                className="
-                  w-10
-                  h-10
-                  sm:w-12
-                  sm:h-12
-                  lg:w-14
-                  lg:h-14
-                  object-contain
-                  rounded-full
-                  bg-[#F7F4EA]
-                  p-1
-                  border
-                  border-[#F39A08]/70
-                  flex-shrink-0
-                  transition-transform
-                  duration-300
-                  hover:scale-105
-                "
-              />
-
-              <div className="hidden xs:block sm:block min-w-0">
-
-                <h2
-                  className="
-                    text-white
-                    font-serif
-                    font-bold
-                    text-base
-                    sm:text-lg
-                    lg:text-xl
-                    tracking-wide
-                  "
-                >
-                  DAFFAR
-                </h2>
-
-                <p
-                  className="
-                    text-[#F39A08]
-                    text-[8px]
-                    sm:text-[10px]
-                    lg:text-xs
-                    tracking-[0.12em]
-                    sm:tracking-[0.2em]
-                    uppercase
-                    whitespace-nowrap
-                  "
-                >
-                  Tours & Travel
-                </p>
-
+                <img
+                  src={bigpawlogo}
+                  alt="BigPaw Adventure Safaris"
+                  className="relative h-12 w-12 rounded-full border border-[#FF8A36]/70 bg-white object-contain p-1 transition duration-500 group-hover:scale-105 sm:h-14 sm:w-14"
+                />
               </div>
 
+              <div className="leading-tight">
+                <h2 className="font-serif text-xl font-black tracking-[0.08em] text-white sm:text-2xl">
+                  BIG<span className="text-[#FF8A36]">PAW</span>
+                </h2>
+
+                <div className="mt-1 flex items-center gap-2">
+                  <span className="h-px w-4 bg-[#FF5A16]" />
+                  <p className="whitespace-nowrap text-[8px] font-bold uppercase tracking-[0.2em] text-white/65 sm:text-[9px]">
+                    Adventure Safaris
+                  </p>
+                </div>
+              </div>
             </Link>
 
-
-            {/* =================================================
+            {/* ====================================
                 DESKTOP NAVIGATION
-            ================================================== */}
+            ==================================== */}
 
-            <div
-              className="
-                hidden
-                lg:flex
-                items-center
-                gap-1
-                xl:gap-2
-              "
-            >
-
+            <div className="hidden items-center gap-1 lg:flex xl:gap-2">
               {/* HOME */}
 
-              <Link
-                to="/"
-                className="navBtn"
-              >
+              <NavLink to="/" end className={desktopLinkClass}>
                 Home
-              </Link>
-
+              </NavLink>
 
               {/* ABOUT */}
 
-              <Link
-                to="/about"
-                className="navBtn"
-              >
+              <NavLink to="/about" className={desktopLinkClass}>
                 About Us
-              </Link>
+              </NavLink>
 
+              {/* SAFARIS */}
 
-              {/* =================================================
-                  SAFARIS
-              ================================================== */}
+              <NavLink to="/safaris" className={desktopLinkClass}>
+                Safaris
+              </NavLink>
+
+              {/* DESTINATIONS DROPDOWN */}
 
               <div
                 className="relative"
-                onMouseEnter={() => setSafariOpen(true)}
-                onMouseLeave={() => setSafariOpen(false)}
+                onMouseEnter={() => setDestOpen(true)}
+                onMouseLeave={() => setDestOpen(false)}
               >
-
-                <div className="flex items-center">
-
-                  <Link
-                    to="/safaris"
-                    className="navBtn"
-                    onClick={closeSafari}
-                  >
-                    Safaris
-                  </Link>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setSafariOpen((prev) => !prev)
+                <button
+                  type="button"
+                  onClick={() => setDestOpen((previous) => !previous)}
+                  onKeyDown={(event) => {
+                    if (event.key === "ArrowDown") {
+                      setDestOpen(true);
                     }
-                    className="
-                      navBtn
-                      !px-2
-                      flex
-                      items-center
-                      justify-center
-                    "
-                    aria-label="Open Safari itineraries"
-                    aria-expanded={safariOpen}
-                  >
+                  }}
+                  className={`nav-link flex items-center gap-2 ${
+                    destOpen ? "nav-link-active" : ""
+                  }`}
+                  aria-expanded={destOpen}
+                  aria-haspopup="true"
+                >
+                  Destinations
 
-                    <span
-                      className={`
-                        text-[#F39A08]
-                        text-sm
-                        transition-transform
-                        duration-300
-                        ${
-                          safariOpen
-                            ? "rotate-180"
-                            : ""
-                        }
-                      `}
-                    >
-                      ▾
-                    </span>
+                  <ChevronDown
+                    size={15}
+                    className={`text-[#FF8A36] transition-transform duration-300 ${
+                      destOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
 
-                  </button>
+                {/* DROPDOWN PANEL */}
 
-                </div>
+                <div
+                  className={`destination-dropdown ${
+                    destOpen
+                      ? "visible translate-y-0 opacity-100"
+                      : "invisible pointer-events-none translate-y-3 opacity-0"
+                  }`}
+                >
+                  <div className="border-b border-white/10 px-5 py-5">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FF5A16]/15 text-[#FF8A36]">
+                        <Compass size={19} />
+                      </div>
 
-
-                {/* SAFARI DROPDOWN */}
-
-                {safariOpen && (
-
-                  <div className="dropMenu left-0 w-80">
-
-                    <div className="titleDrop">
-                      Sample Itineraries
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF8A36]">
+                          Explore Africa
+                        </p>
+                        <h3 className="mt-1 font-serif text-lg font-bold text-white">
+                          Our Destinations
+                        </h3>
+                      </div>
                     </div>
-
-
-                    <Link
-                      to="/safaris"
-                      className="
-                        dropItem
-                        font-semibold
-                        border-b
-                        border-white/10
-                        mb-1
-                      "
-                      onClick={closeSafari}
-                    >
-
-                      <span className="text-[#F39A08] mr-2">
-                        →
-                      </span>
-
-                      All Safaris
-
-                    </Link>
-
-
-                    {safariItineraries.map(
-                      ([name, path]) => (
-
-                        <Link
-                          key={path}
-                          to={path}
-                          className="dropItem"
-                          onClick={closeSafari}
-                        >
-
-                          <span className="text-[#F39A08] mr-2">
-                            •
-                          </span>
-
-                          {name}
-
-                        </Link>
-
-                      )
-                    )}
-
                   </div>
 
-                )}
+                  <div className="grid grid-cols-2 gap-1 p-3">
+                    {destinations.map(([name, path]) => (
+                      <Link
+                        key={path}
+                        to={path}
+                        onClick={() => setDestOpen(false)}
+                        className="destination-item"
+                      >
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/5 text-[#FF8A36] transition group-hover:bg-[#FF5A16] group-hover:text-white">
+                          <MapPin size={13} />
+                        </span>
 
+                        <span>{name}</span>
+                      </Link>
+                    ))}
+                  </div>
+
+                  <div className="border-t border-white/10 px-5 py-4">
+                    <Link
+                      to="/"
+                      onClick={() => setDestOpen(false)}
+                      className="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.16em] text-[#FF8A36] transition hover:text-white"
+                    >
+                      Discover more destinations
+                      <ArrowRight size={15} />
+                    </Link>
+                  </div>
+                </div>
               </div>
 
+              {/* GALLERY */}
 
-              {/* =================================================
-                  DESTINATIONS
-              ================================================== */}
-<div
-  className="relative"
-  onMouseEnter={() => setDestOpen(true)}
-  onMouseLeave={() => setDestOpen(false)}
->
-  <button
-    type="button"
-    onClick={() => setDestOpen((prev) => !prev)}
-    className="navBtn flex items-center gap-2"
-    aria-label="Open destinations menu"
-    aria-expanded={destOpen}
-  >
-    <span>Destinations</span>
-
-    <span
-      className={`
-        text-[#F39A08]
-        text-sm
-        transition-transform
-        duration-300
-        ${destOpen ? "rotate-180" : ""}
-      `}
-    >
-      ▾
-    </span>
-  </button>
-
-  {destOpen && (
-    <div className="dropMenu left-0 w-72">
-
-      <div className="titleDrop">
-        Explore Destinations
-      </div>
-
-      <div className="max-h-[70vh] overflow-y-auto">
-
-        {destinations.map(([name, path]) => (
-          <Link
-            key={path}
-            to={path}
-            className="dropItem"
-            onClick={closeDestinations}
-          >
-            <span className="text-[#F39A08] mr-2">
-              •
-            </span>
-
-            {name}
-          </Link>
-        ))}
-
-      </div>
-
-    </div>
-  )}
-</div>
-
-              {/* ACTIVITIES */}
-
-              <Link
-                to="/activities"
-                className="navBtn"
-              >
-                Activities
-              </Link>
-
-
-              {/* COMMUNITY */}
-
-              <Link
-                to="/communitywork"
-                className="navBtn"
-              >
-                Community
-              </Link>
-
-
-              {/* FAQS */}
-
-              <Link
-                to="/faqs"
-                className="navBtn"
-              >
-                FAQs
-              </Link>
-
-
-              {/* BLOG */}
-
-              <Link
-                to="/tourafricablog"
-                className="navBtn"
-              >
-                Blog
-              </Link>
-
+              <NavLink to="/gallery" className={desktopLinkClass}>
+                Gallery
+              </NavLink>
 
               {/* CONTACT */}
 
-              <Link
-                to="/contact"
-                className="navBtn"
-              >
+              <NavLink to="/contact" className={desktopLinkClass}>
                 Contact
-              </Link>
+              </NavLink>
 
-
-              {/* DESKTOP CTA */}
+              {/* BOOKING CTA */}
 
               <a
-                href="https://wa.me/+254708711459"
+                href={whatsappLink(
+                  "Hello BigPaw Adventure Safaris, I would like to plan a safari. Please share your packages and booking details."
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="
-                  ml-1
-                  xl:ml-2
-                  bg-[#F39A08]
-                  hover:bg-[#ffad20]
-                  text-[#0D4825]
-                  px-4
-                  xl:px-5
-                  py-2.5
-                  xl:py-3
-                  rounded-full
-                  font-bold
-                  text-xs
-                  xl:text-sm
-                  whitespace-nowrap
-                  shadow-lg
-                  shadow-[#F39A08]/20
-                  transition-all
-                  duration-300
-                  hover:scale-105
-                "
+                className="ml-3 inline-flex items-center gap-3 rounded-full bg-[#FF5A16] px-5 py-3.5 text-[10px] font-extrabold uppercase tracking-[0.13em] text-white shadow-lg shadow-[#FF5A16]/20 transition duration-300 hover:-translate-y-1 hover:bg-[#FFB04A] hover:text-[#25000F] xl:px-6 xl:text-[11px]"
               >
-                Plan Your Safari
+                Book Safari
+                <ArrowRight size={15} />
               </a>
-
             </div>
 
+            {/* ====================================
+                MOBILE CONTROLS
+            ==================================== */}
 
-            {/* =================================================
-                TABLET / MOBILE CONTROLS
-            ================================================== */}
-
-            <div
-              className="
-                flex
-                lg:hidden
-                items-center
-                gap-2
-                sm:gap-3
-              "
-            >
-
-              {/* BOOK BUTTON */}
-
+            <div className="flex items-center gap-2 lg:hidden">
               <a
-                href="https://wa.me/+254708711459"
+                href={whatsappLink(
+                  "Hello BigPaw Adventure Safaris, I would like to make a booking."
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="
-                  bg-[#F39A08]
-                  text-[#0D4825]
-                  px-3
-                  sm:px-4
-                  py-2
-                  rounded-full
-                  font-bold
-                  text-[11px]
-                  sm:text-xs
-                  whitespace-nowrap
-                  shadow-lg
-                  hover:bg-[#ffad20]
-                  transition
-                "
+                className="rounded-full bg-[#FF5A16] px-4 py-2.5 text-[9px] font-extrabold uppercase tracking-wider text-white transition hover:bg-[#FFB04A] hover:text-[#25000F] sm:px-5 sm:text-[10px]"
               >
                 Book Now
               </a>
 
-
-              {/* MENU BUTTON */}
-
               <button
                 type="button"
                 onClick={() => setMenuOpen(true)}
-                className="
-                  w-10
-                  h-10
-                  sm:w-11
-                  sm:h-11
-                  flex
-                  items-center
-                  justify-center
-                  rounded-xl
-                  bg-white/10
-                  border
-                  border-white/10
-                  text-white
-                  hover:bg-white/20
-                  transition
-                "
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white transition hover:border-[#FF5A16] hover:bg-[#FF5A16] sm:h-11 sm:w-11"
                 aria-label="Open navigation menu"
                 aria-expanded={menuOpen}
               >
-
-                <span className="text-2xl leading-none">
-                  ☰
-                </span>
-
+                <Menu size={23} />
               </button>
-
             </div>
-
           </div>
+        </nav>
+      </header>
 
-        </div>
+      {/* ========================================
+          MOBILE BACKDROP
+      ========================================= */}
 
-      </nav>
-
-
-      {/* =====================================================
-          MOBILE OVERLAY
-      ====================================================== */}
-
-      <div
+      <button
+        type="button"
+        aria-label="Close navigation menu"
         onClick={closeMobile}
-        className={`
-          fixed
-          inset-0
-          bg-black/70
-          backdrop-blur-sm
-          z-[180]
-          lg:hidden
-          transition-all
-          duration-300
-          ${
-            menuOpen
-              ? "opacity-100 visible"
-              : "opacity-0 invisible pointer-events-none"
-          }
-        `}
+        className={`fixed inset-0 z-[180] bg-black/70 backdrop-blur-sm transition-all duration-300 lg:hidden ${
+          menuOpen
+            ? "visible opacity-100"
+            : "invisible pointer-events-none opacity-0"
+        }`}
       />
 
-
-      {/* =====================================================
+      {/* ========================================
           MOBILE DRAWER
-      ====================================================== */}
+      ========================================= */}
 
       <aside
-        className={`
-          fixed
-          top-0
-          right-0
-          h-[100dvh]
-          w-[88%]
-          max-w-[420px]
-          bg-[#0D4825]
-          z-[200]
-          lg:hidden
-          shadow-2xl
-          overflow-hidden
-          transition-transform
-          duration-500
-          ease-out
-          ${
-            menuOpen
-              ? "translate-x-0"
-              : "translate-x-full"
-          }
-        `}
+        className={`fixed right-0 top-0 z-[200] flex h-[100dvh] w-[88%] max-w-[430px] flex-col overflow-hidden border-l border-white/10 bg-[#25000F] shadow-2xl transition-transform duration-500 ease-out lg:hidden ${
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+        aria-hidden={!menuOpen}
       >
+        {/* MOBILE HEADER */}
 
-        {/* =================================================
-            MOBILE HEADER
-        ================================================== */}
-
-        <div
-          className="
-            h-[76px]
-            sm:h-[82px]
-            px-4
-            sm:px-5
-            flex
-            items-center
-            justify-between
-            border-b
-            border-white/10
-            bg-[#08391D]
-          "
-        >
-
+        <div className="flex min-h-[82px] items-center justify-between border-b border-white/10 bg-[#1A000A] px-5">
           <Link
             to="/"
             onClick={closeMobile}
-            className="
-              flex
-              items-center
-              gap-3
-              min-w-0
-            "
+            className="flex items-center gap-3"
           >
-
             <img
-              src={safarilinklogo}
-              alt="Daffar Tours & Travel logo"
-              className="
-                w-11
-                h-11
-                sm:w-12
-                sm:h-12
-                object-contain
-                rounded-full
-                bg-[#F7F4EA]
-                p-1
-                border
-                border-[#F39A08]
-                flex-shrink-0
-              "
+              src={bigpawlogo}
+              alt="BigPaw logo"
+              className="h-11 w-11 rounded-full border border-[#FF8A36] bg-white object-contain p-1"
             />
 
-            <div className="min-w-0">
-
-              <h2 className="text-white font-bold tracking-wide">
-                DAFFAR
+            <div>
+              <h2 className="font-serif text-xl font-black text-white">
+                BIG<span className="text-[#FF8A36]">PAW</span>
               </h2>
 
-              <p
-                className="
-                  text-[#F39A08]
-                  text-[9px]
-                  sm:text-xs
-                  tracking-[0.15em]
-                  uppercase
-                  whitespace-nowrap
-                "
-              >
-                Tours & Travel
+              <p className="mt-1 text-[8px] font-bold uppercase tracking-[0.2em] text-white/55">
+                Adventure Safaris
               </p>
-
             </div>
-
           </Link>
-
-
-          {/* CLOSE BUTTON */}
 
           <button
             type="button"
             onClick={closeMobile}
-            className="
-              w-10
-              h-10
-              sm:w-11
-              sm:h-11
-              flex
-              items-center
-              justify-center
-              rounded-full
-              text-white
-              text-2xl
-              sm:text-3xl
-              hover:bg-white/10
-              transition
-              flex-shrink-0
-            "
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition hover:bg-[#FF5A16]"
             aria-label="Close navigation menu"
           >
-            ✕
+            <X size={22} />
           </button>
-
         </div>
 
+        {/* MOBILE MENU CONTENT */}
 
-        {/* =================================================
-            MOBILE SCROLLABLE CONTENT
-        ================================================== */}
-
-        <div
-          className="
-            h-[calc(100dvh-76px)]
-            sm:h-[calc(100dvh-82px)]
-            overflow-y-auto
-            overscroll-contain
-            px-4
-            sm:px-5
-            py-5
-            pb-8
-          "
-        >
+        <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-7">
+          <div className="mb-6 flex items-center gap-3 px-2">
+            <Sparkles size={15} className="text-[#FF8A36]" />
+            <p className="text-[9px] font-extrabold uppercase tracking-[0.25em] text-[#FF8A36]">
+              Explore BigPaw
+            </p>
+          </div>
 
           <div className="space-y-2">
+            {/* MAIN LINKS */}
 
+            {mainLinks.slice(0, 3).map(([name, path]) => (
+              <NavLink
+                key={path}
+                to={path}
+                end={path === "/"}
+                onClick={closeMobile}
+                className={mobileLinkClass}
+              >
+                {name}
+                <ArrowRight size={16} />
+              </NavLink>
+            ))}
 
-            {/* =================================================
-                HOME
-            ================================================== */}
+            {/* DESTINATIONS ACCORDION */}
 
-            <Link
-              to="/"
-              onClick={closeMobile}
-              className="mobileMenuBtn"
-            >
+            <div className="space-y-2">
+              <button
+                type="button"
+                onClick={() => setDestOpen((previous) => !previous)}
+                className={`mobile-link w-full ${
+                  destOpen ? "mobile-link-active" : ""
+                }`}
+                aria-expanded={destOpen}
+              >
+                Destinations
 
-              <span>Home</span>
-
-              <span className="mobileArrow">
-                →
-              </span>
-
-            </Link>
-
-
-            {/* =================================================
-                ABOUT
-            ================================================== */}
-
-            <Link
-              to="/about"
-              onClick={closeMobile}
-              className="mobileMenuBtn"
-            >
-
-              <span>About Us</span>
-
-              <span className="mobileArrow">
-                →
-              </span>
-
-            </Link>
-
-
-            {/* =================================================
-                SAFARIS + DROPDOWN
-            ================================================== */}
-
-            <div className="relative">
-
-              <div className="flex items-center gap-1">
-
-                {/* SAFARIS PAGE */}
-
-                <Link
-                  to="/safaris"
-                  onClick={closeMobile}
-                  className="
-                    mobileMenuBtn
-                    flex-1
-                  "
-                >
-
-                  <span>
-                    Safaris
-                  </span>
-
-                  <span className="mobileArrow">
-                    →
-                  </span>
-
-                </Link>
-
-
-                {/* SAFARI DROPDOWN TOGGLE */}
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    setSafariOpen((prev) => !prev)
-                  }
-                  className="
-                    w-14
-                    min-h-[50px]
-                    rounded-2xl
-                    bg-white/[0.055]
-                    border
-                    border-white/[0.07]
-                    text-[#F39A08]
-                    flex
-                    items-center
-                    justify-center
-                    transition-all
-                    duration-300
-                    hover:bg-[#F39A08]/10
-                  "
-                  aria-label="Open Safari itineraries"
-                  aria-expanded={safariOpen}
-                >
-
-                  <span
-                    className={`
-                      text-xl
-                      transition-transform
-                      duration-300
-                      ${
-                        safariOpen
-                          ? "rotate-180"
-                          : ""
-                      }
-                    `}
-                  >
-                    ▾
-                  </span>
-
-                </button>
-
-              </div>
-
-
-              {/* SAFARI MOBILE DROPDOWN */}
+                <ChevronDown
+                  size={19}
+                  className={`text-[#FF8A36] transition-transform duration-300 ${
+                    destOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
 
               <div
-                className={`
-                  overflow-hidden
-                  transition-all
-                  duration-300
-                  ${
-                    safariOpen
-                      ? "max-h-[700px] opacity-100 mt-2"
-                      : "max-h-0 opacity-0"
-                  }
-                `}
+                className={`grid transition-all duration-300 ${
+                  destOpen
+                    ? "grid-rows-[1fr] opacity-100"
+                    : "grid-rows-[0fr] opacity-0"
+                }`}
               >
-
-                <div
-                  className="
-                    bg-[#08391D]
-                    rounded-2xl
-                    border
-                    border-white/10
-                    shadow-xl
-                    p-2
-                  "
-                >
-
-                  <div className="titleDrop">
-                    Sample Itineraries
-                  </div>
-
-
-                  {/* ALL SAFARIS */}
-
-                  <Link
-                    to="/safaris"
-                    onClick={closeMobile}
-                    className="
-                      dropItem
-                      font-semibold
-                      flex
-                      items-center
-                      border-b
-                      border-white/10
-                      mb-1
-                    "
-                  >
-
-                    <span className="text-[#F39A08] mr-2">
-                      →
-                    </span>
-
-                    All Safaris
-
-                  </Link>
-
-
-                  {/* ITINERARIES */}
-
-                  {safariItineraries.map(
-                    ([name, path]) => (
-
+                <div className="overflow-hidden">
+                  <div className="mobile-submenu">
+                    {destinations.map(([name, path]) => (
                       <Link
                         key={path}
                         to={path}
                         onClick={closeMobile}
-                        className="
-                          dropItem
-                          flex
-                          items-center
-                        "
+                        className="mobile-destination"
                       >
-
-                        <span className="text-[#F39A08] mr-2">
-                          •
-                        </span>
-
+                        <MapPin size={14} className="text-[#FF8A36]" />
                         {name}
-
+                        <ArrowRight size={13} className="ml-auto opacity-40" />
                       </Link>
-
-                    )
-                  )}
-
+                    ))}
+                  </div>
                 </div>
-
               </div>
-
             </div>
 
+            {/* REMAINING LINKS */}
 
-            {/* =================================================
-                DESTINATIONS + DROPDOWN
-            ================================================== */}
-
-            <div className="relative">
-
-  <button
-    type="button"
-    onClick={() => setDestOpen((prev) => !prev)}
-    className="
-      mobileMenuBtn
-      w-full
-      justify-between
-    "
-    aria-label="Open destinations menu"
-    aria-expanded={destOpen}
-  >
-
-    <span>
-      Destinations
-    </span>
-
-    <span
-      className={`
-        text-[#F39A08]
-        text-xl
-        transition-transform
-        duration-300
-        ${destOpen ? "rotate-180" : ""}
-      `}
-    >
-      ▾
-    </span>
-
-  </button>
-
-
-  {/* DESTINATIONS DROPDOWN */}
-
-  <div
-    className={`
-      overflow-hidden
-      transition-all
-      duration-300
-      ${
-        destOpen
-          ? "max-h-[800px] opacity-100 mt-2"
-          : "max-h-0 opacity-0"
-      }
-    `}
-  >
-
-    <div
-      className="
-        bg-[#08391D]
-        rounded-2xl
-        border
-        border-white/10
-        shadow-xl
-        p-2
-      "
-    >
-
-      <div className="titleDrop">
-        Explore Destinations
-      </div>
-
-      <div className="max-h-[60vh] overflow-y-auto">
-
-        {destinations.map(([name, path]) => (
-          <Link
-            key={path}
-            to={path}
-            onClick={closeMobile}
-            className="
-              dropItem
-              flex
-              items-center
-            "
-          >
-
-            <span className="text-[#F39A08] mr-2">
-              •
-            </span>
-
-            {name}
-
-          </Link>
-        ))}
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-            {/* =================================================
-                ACTIVITIES
-            ================================================== */}
-
-            <Link
-              to="/activities"
-              onClick={closeMobile}
-              className="mobileMenuBtn"
-            >
-
-              <span>
-                Activities
-              </span>
-
-              <span className="mobileArrow">
-                →
-              </span>
-
-            </Link>
-
-
-            {/* =================================================
-                COMMUNITY
-            ================================================== */}
-
-            <Link
-              to="/communitywork"
-              onClick={closeMobile}
-              className="mobileMenuBtn"
-            >
-
-              <span>
-                Community Work
-              </span>
-
-              <span className="mobileArrow">
-                →
-              </span>
-
-            </Link>
-
-
-            {/* =================================================
-                FAQS
-            ================================================== */}
-
-            <Link
-              to="/faqs"
-              onClick={closeMobile}
-              className="mobileMenuBtn"
-            >
-
-              <span>
-                FAQs
-              </span>
-
-              <span className="mobileArrow">
-                →
-              </span>
-
-            </Link>
-
-
-            {/* =================================================
-                BLOG
-            ================================================== */}
-
-            <Link
-              to="/tourafricablog"
-              onClick={closeMobile}
-              className="mobileMenuBtn"
-            >
-
-              <span>
-                Tour Africa Blog
-              </span>
-
-              <span className="mobileArrow">
-                →
-              </span>
-
-            </Link>
-
-
-            {/* =================================================
-                CONTACT
-            ================================================== */}
-
-            <Link
-              to="/contact"
-              onClick={closeMobile}
-              className="mobileMenuBtn"
-            >
-
-              <span>
-                Contact
-              </span>
-
-              <span className="mobileArrow">
-                →
-              </span>
-
-            </Link>
-
-
-            {/* =================================================
-                MOBILE CTA
-            ================================================== */}
-
-            <a
-              href="https://wa.me/+254708711459"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="
-                flex
-                items-center
-                justify-center
-                w-full
-                mt-5
-                bg-[#F39A08]
-                text-[#0D4825]
-                py-4
-                rounded-2xl
-                font-bold
-                text-sm
-                shadow-lg
-                shadow-black/20
-                hover:bg-[#ffad20]
-                transition
-              "
-            >
-              Plan Your Safari
-            </a>
-
-
-            {/* =================================================
-                BRAND MESSAGE
-            ================================================== */}
-
-            <p
-              className="
-                text-center
-                text-white/40
-                text-xs
-                pt-3
-              "
-            >
-              Go further with Daffar.
-            </p>
-
+            {mainLinks.slice(3).map(([name, path]) => (
+              <NavLink
+                key={path}
+                to={path}
+                onClick={closeMobile}
+                className={mobileLinkClass}
+              >
+                {name}
+                <ArrowRight size={16} />
+              </NavLink>
+            ))}
           </div>
 
-        </div>
+          {/* MOBILE BOOKING CARD */}
 
+          <div className="mt-8 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] p-5">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#FF5A16]/15 text-[#FF8A36]">
+              <Compass size={21} />
+            </div>
+
+            <p className="mt-5 font-serif text-xl font-bold text-white">
+              Your next adventure starts here.
+            </p>
+
+            <p className="mt-2 text-xs leading-6 text-white/55">
+              Discover incredible destinations and create unforgettable
+              memories with BigPaw Adventure Safaris.
+            </p>
+
+            <a
+              href={whatsappLink(
+                "Hello BigPaw Adventure Safaris, I would like to plan my next adventure. Please assist me."
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 flex w-full items-center justify-center gap-3 rounded-xl bg-[#FF5A16] py-4 text-[10px] font-extrabold uppercase tracking-[0.15em] text-white transition hover:bg-[#FFB04A] hover:text-[#25000F]"
+            >
+              Plan Your Safari
+              <ArrowRight size={16} />
+            </a>
+
+            <a
+              href={`tel:${PHONE.replace(/\s/g, "")}`}
+              className="mt-4 flex items-center justify-center gap-2 text-xs text-white/60 transition hover:text-[#FF8A36]"
+            >
+              <Phone size={14} />
+              {PHONE}
+            </a>
+          </div>
+
+          <p className="mt-8 text-center text-[9px] font-bold uppercase tracking-[0.2em] text-white/30">
+            Explore. Experience. Remember.
+          </p>
+        </div>
       </aside>
 
-
-      {/* =====================================================
-          STYLES
-      ====================================================== */}
+      {/* ========================================
+          CUSTOM NAVBAR STYLES
+      ========================================= */}
 
       <style>{`
-
-  /* =====================================================
-     DESKTOP NAV BUTTON
-  ====================================================== */
-
-  .navBtn {
-    position: relative;
-    color: white;
-    padding: 9px 10px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-  }
-
-  @media (min-width: 1280px) {
-    .navBtn {
-      padding: 10px 12px;
-      font-size: 14px;
-    }
-  }
-
-  .navBtn::after {
-    content: "";
-    position: absolute;
-    left: 10px;
-    right: 10px;
-    bottom: 4px;
-    height: 2px;
-    background: #F39A08;
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: transform 0.3s ease;
-  }
-
-  .navBtn:hover {
-    color: #F39A08;
-    background: rgba(255,255,255,0.06);
-  }
-
-  .navBtn:hover::after {
-    transform: scaleX(1);
-  }
-
-
-  /* =====================================================
-     DROPDOWN
-  ====================================================== */
-
-  .dropMenu {
-    position: absolute;
-
-    /*
-      IMPORTANT:
-      Keep this very close to the navbar so the mouse
-      doesn't leave the hover area.
-    */
-    top: calc(100% + 2px);
-
-    background: #0D4825;
-    border-radius: 16px;
-    overflow: hidden;
-
-    border: 1px solid rgba(255,255,255,0.1);
-
-    box-shadow:
-      0 25px 60px rgba(0,0,0,0.45),
-      0 8px 25px rgba(0,0,0,0.2);
-
-    padding: 8px;
-
-    animation: dropdown 0.22s ease-out;
-
-    /*
-      Makes sure the dropdown stays above other content.
-    */
-    z-index: 300;
-  }
-
-
-  /*
-    Invisible bridge between the navbar button
-    and the dropdown.
-  */
-  .dropMenu::before {
-    content: "";
-    position: absolute;
-    top: -8px;
-    left: 0;
-    right: 0;
-    height: 8px;
-    background: transparent;
-  }
-
-
-  .titleDrop {
-    padding: 12px 14px;
-
-    color: #F39A08;
-
-    font-size: 11px;
-    font-weight: 700;
-
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-
-    margin-bottom: 4px;
-  }
-
-
-  .dropItem {
-    display: block;
-
-    padding: 11px 14px;
-
-    border-radius: 10px;
-
-    color: #E5E7EB;
-
-    font-size: 14px;
-
-    transition:
-      background 0.2s ease,
-      color 0.2s ease,
-      padding-left 0.2s ease;
-  }
-
-
-  .dropItem:hover {
-    background: rgba(243,154,8,0.12);
-    color: #F39A08;
-    padding-left: 18px;
-  }
-
-
-  /* =====================================================
-     MOBILE MENU BUTTON
-  ====================================================== */
-
-  .mobileMenuBtn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    width: 100%;
-
-    padding: 15px 16px;
-
-    border-radius: 15px;
-
-    background: rgba(255,255,255,0.055);
-
-    color: white;
-
-    border: 1px solid rgba(255,255,255,0.07);
-
-    font-size: 14px;
-    font-weight: 500;
-
-    transition: all 0.25s ease;
-  }
-
-
-  .mobileMenuBtn:hover,
-  .mobileMenuBtn:active {
-    background: rgba(243,154,8,0.12);
-    border-color: rgba(243,154,8,0.25);
-    color: #F39A08;
-  }
-
-
-  .mobileArrow {
-    color: #F39A08;
-    font-size: 16px;
-    transition: transform 0.2s ease;
-  }
-
-
-  .mobileMenuBtn:hover .mobileArrow {
-    transform: translateX(3px);
-  }
-
-
-  /* =====================================================
-     MOBILE DROPDOWN SCROLLBAR
-  ====================================================== */
-
-  aside ::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  aside ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  aside ::-webkit-scrollbar-thumb {
-    background: rgba(243,154,8,0.35);
-    border-radius: 10px;
-  }
-
-
-  /* =====================================================
-     DROPDOWN ANIMATION
-  ====================================================== */
-
-  @keyframes dropdown {
-
-    from {
-      opacity: 0;
-      transform: translateY(-5px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-  }
-
-`}</style>
-
+        .nav-link {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 12px 11px;
+          border-radius: 9px;
+          color: rgba(255,255,255,0.82);
+          font-size: 12px;
+          font-weight: 600;
+          white-space: nowrap;
+          transition: color 0.3s ease, background 0.3s ease;
+        }
+
+        .nav-link::after {
+          content: "";
+          position: absolute;
+          left: 12px;
+          right: 12px;
+          bottom: 5px;
+          height: 2px;
+          border-radius: 10px;
+          background: #FF5A16;
+          transform: scaleX(0);
+          transform-origin: center;
+          transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link-active {
+          color: #FFB04A;
+          background: rgba(255,255,255,0.045);
+        }
+
+        .nav-link:hover::after,
+        .nav-link-active::after {
+          transform: scaleX(1);
+        }
+
+        .destination-dropdown {
+          position: absolute;
+          top: calc(100% + 14px);
+          left: 50%;
+          z-index: 300;
+          width: 390px;
+          overflow: hidden;
+          border: 1px solid rgba(255,255,255,0.11);
+          border-radius: 18px;
+          background: #25000F;
+          box-shadow: 0 25px 70px rgba(0,0,0,0.38);
+          transform: translateX(-50%);
+          transition: opacity 0.25s ease, transform 0.25s ease,
+            visibility 0.25s ease;
+        }
+
+        .destination-dropdown.translate-y-0 {
+          transform: translate(-50%, 0);
+        }
+
+        .destination-dropdown.translate-y-3 {
+          transform: translate(-50%, 12px);
+        }
+
+        .destination-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 9px;
+          border-radius: 10px;
+          color: rgba(255,255,255,0.78);
+          font-size: 11px;
+          font-weight: 600;
+          transition: all 0.25s ease;
+        }
+
+        .destination-item:hover {
+          color: #FFB04A;
+          background: rgba(255,90,22,0.10);
+        }
+
+        .destination-item:hover span {
+          background: #FF5A16;
+          color: white;
+        }
+
+        .mobile-link {
+          display: flex;
+          width: 100%;
+          min-height: 54px;
+          align-items: center;
+          justify-content: space-between;
+          padding: 14px 16px;
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 13px;
+          background: rgba(255,255,255,0.035);
+          color: rgba(255,255,255,0.88);
+          font-size: 13px;
+          font-weight: 600;
+          transition: all 0.25s ease;
+        }
+
+        .mobile-link:hover,
+        .mobile-link-active {
+          border-color: rgba(255,90,22,0.35);
+          background: rgba(255,90,22,0.12);
+          color: #FFB04A;
+        }
+
+        .mobile-submenu {
+          margin-top: 7px;
+          padding: 8px;
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 13px;
+          background: rgba(0,0,0,0.18);
+        }
+
+        .mobile-destination {
+          display: flex;
+          min-height: 42px;
+          align-items: center;
+          gap: 11px;
+          padding: 9px 10px;
+          border-radius: 8px;
+          color: rgba(255,255,255,0.72);
+          font-size: 11px;
+          transition: all 0.2s ease;
+        }
+
+        .mobile-destination:hover {
+          background: rgba(255,90,22,0.12);
+          color: #FFB04A;
+        }
+
+        .destination-dropdown::-webkit-scrollbar,
+        aside::-webkit-scrollbar {
+          width: 4px;
+        }
+
+        .destination-dropdown::-webkit-scrollbar-thumb,
+        aside::-webkit-scrollbar-thumb {
+          border-radius: 10px;
+          background: rgba(255,138,54,0.4);
+        }
+
+        @media (min-width: 1280px) {
+          .nav-link {
+            padding-left: 13px;
+            padding-right: 13px;
+            font-size: 13px;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .nav-link,
+          .destination-dropdown,
+          .mobile-link {
+            transition: none;
+          }
+        }
+      `}</style>
     </>
   );
 }
-
-export default Navbar;
-

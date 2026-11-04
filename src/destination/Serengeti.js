@@ -1,1280 +1,964 @@
-
-
-
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import {
+  ArrowRight,  ArrowUpRight,  Check,  Compass,  Camera,  Leaf,  MapPin,  Mountain,  Binoculars,  Phone,  Mail,  MessageCircle,  CarFront,  Heart,  Sun,  Footprints,  Globe,  Clock,
+} from "lucide-react";
 
 import serengeti from "../assets/serengeti.jpg";
 import serengeti1 from "../assets/serengeti1.jpg";
 import serengeti2 from "../assets/serengeti2.jpg";
 import serengeti3 from "../assets/serengeti3.jpg";
 
-function Serengeti() {
+export default function Serengeti() {
+  useEffect(() => {
+    const hash = window.location.hash;
+
+    if (hash) {
+      const timer = setTimeout(() => {
+        document.querySelector(hash)?.scrollIntoView({
+          behavior: "smooth",
+        });
+      }, 300);
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   const highlights = [
     {
-      number: "01",
+      icon: <Binoculars size={23} />,
       title: "The Great Migration",
-      text: "Witness one of nature's greatest spectacles as millions of wildebeest, zebras and gazelles move across the Serengeti.",
+      description:
+        "Witness one of nature's most extraordinary wildlife movements as wildebeest and zebras travel across the Serengeti ecosystem.",
     },
     {
-      number: "02",
-      title: "The Big Five",
-      text: "Search for lions, elephants, leopards, buffalo and other incredible wildlife across the endless Serengeti plains.",
+      icon: <Heart size={23} />,
+      title: "Big Five Encounters",
+      description:
+        "Explore the landscapes in search of lions, elephants, leopards, buffaloes and rhinos.",
     },
     {
-      number: "03",
+      icon: <Mountain size={23} />,
       title: "Endless Plains",
-      text: "Explore vast golden grasslands, dramatic horizons and landscapes that make the Serengeti truly unforgettable.",
+      description:
+        "Discover vast golden grasslands, rocky outcrops and beautiful African wilderness scenery.",
     },
     {
-      number: "04",
-      title: "Wildlife Encounters",
-      text: "Experience unforgettable game drives and discover predators, herbivores and birdlife in their natural environment.",
+      icon: <Camera size={23} />,
+      title: "Wildlife Photography",
+      description:
+        "Enjoy exceptional opportunities to photograph wildlife and dramatic landscapes.",
     },
   ];
 
   const wildlife = [
     "Lions",
-    "Elephants",
+    "African Elephants",
     "Leopards",
-    "Buffalo",
+    "Buffaloes",
+    "Black Rhinos",
     "Cheetahs",
-    "Giraffes",
     "Wildebeest",
     "Zebras",
+    "Giraffes",
+    "Hyenas",
+    "Gazelles",
+    "Hippos",
   ];
 
-  const safariOptions = [
-    "Private safari experiences",
-    "Professional safari guides",
-    "Flexible itineraries",
-    "Morning and afternoon game drives",
-    "Comfortable safari vehicles",
-    "Cultural experiences",
+  const experiences = [
+    {
+      number: "01",
+      title: "The Great Migration",
+      description:
+        "Experience the spectacular movement of wildebeest and zebras across the Serengeti, with seasonal river crossings in parts of the ecosystem.",
+      icon: <Footprints size={22} />,
+    },
+    {
+      number: "02",
+      title: "Game Drives",
+      description:
+        "Explore the plains with experienced safari guides as you search for the Serengeti's remarkable wildlife.",
+      icon: <CarFront size={22} />,
+    },
+    {
+      number: "03",
+      title: "Big Five Safari",
+      description:
+        "Discover the diverse habitats of the Serengeti while looking for some of Africa's most iconic wildlife.",
+      icon: <Binoculars size={22} />,
+    },
+    {
+      number: "04",
+      title: "Wildlife Photography",
+      description:
+        "Capture memorable wildlife encounters, beautiful sunsets and the dramatic landscapes of Tanzania.",
+      icon: <Camera size={22} />,
+    },
+  ];
+
+  const travelTips = [
+    {
+      icon: <Sun size={21} />,
+      title: "Plan Your Season",
+      description:
+        "The Great Migration moves throughout the year. Choose your travel dates according to the experience you hope to enjoy.",
+    },
+    {
+      icon: <Camera size={21} />,
+      title: "Bring Your Camera",
+      description:
+        "A camera with a zoom lens can help you capture wildlife encounters from a respectful distance.",
+    },
+    {
+      icon: <Footprints size={21} />,
+      title: "Pack Comfortably",
+      description:
+        "Bring comfortable safari clothing, suitable footwear, sunscreen and a hat.",
+    },
+    {
+      icon: <Leaf size={21} />,
+      title: "Travel Responsibly",
+      description:
+        "Respect wildlife, follow your guide's instructions and help protect the natural environment.",
+    },
   ];
 
   const gallery = [
     {
       image: serengeti,
-      title: "Serengeti Plains",
+      title: "The Serengeti Plains",
+      subtitle: "Endless African horizons",
+      className: "md:col-span-2 md:row-span-2",
+    },
+    {
+      image: serengeti1,
+      title: "Wildlife Encounters",
+      subtitle: "Discover nature up close",
+      className: "",
     },
     {
       image: serengeti2,
-      title: "Wildlife Experience",
+      title: "Safari Landscapes",
+      subtitle: "The beauty of Tanzania",
+      className: "",
     },
     {
       image: serengeti3,
-      title: "African Wilderness",
+      title: "The African Wilderness",
+      subtitle: "Moments worth remembering",
+      className: "md:col-span-2",
     },
   ];
 
+  const whatsappMessage = encodeURIComponent(
+    "Hello BigPaw Adventure Safaris, I would like to enquire about a Serengeti safari in Tanzania. Please share your packages, prices, itinerary and availability."
+  );
 
-  useEffect(() => {
-  if (window.location.hash) {
-    const id = window.location.hash.substring(1);
-
-    setTimeout(() => {
-      const element = document.getElementById(id);
-
-      if (element) {
-        element.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    }, 100);
-  }
-}, []);
   return (
-    <div className="bg-[#F7F4EA] text-[#183020] overflow-hidden">
-
-      {/* =====================================================
-          HERO
-      ====================================================== */}
-
-      <section className="relative min-h-[70vh] max-h-[800px] overflow-hidden">
-
+    <main className="overflow-hidden bg-[#FFF9F5] text-[#171014]">
+      {/* HERO SECTION */}
+      <section className="relative flex min-h-[680px] items-center overflow-hidden bg-[#171014] lg:min-h-[790px]">
         <img
           src={serengeti}
-          alt="Serengeti National Park"
-          className="absolute inset-0 w-full h-full object-cover"
+          alt="The magnificent Serengeti wilderness in Tanzania"
+          className="absolute inset-0 h-full w-full object-cover object-center"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#101412]/95 via-[#101412]/65 to-[#101412]/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#101412]/80 via-transparent to-[#101412]/20" />
 
-        <div className="absolute bottom-10 left-6 md:left-16 max-w-3xl text-white">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-28 pt-32 sm:px-10 lg:px-12">
+          <div className="max-w-3xl">
+            <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-white/25 bg-white/10 px-5 py-2.5 text-xs font-bold uppercase tracking-[0.22em] text-white backdrop-blur-md">
+              <span className="h-2 w-2 rounded-full bg-[#FF7A1A]" />
+              Tanzania · East Africa
+            </div>
 
-          <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-            Tanzania · Serengeti National Park
-          </span>
+            <p className="mb-4 text-sm font-bold uppercase tracking-[0.35em] text-[#FFD08A]">
+              Into the heart of the wild
+            </p>
 
-          <h1 className="mt-3 text-4xl md:text-6xl lg:text-7xl font-serif font-bold">
-            Serengeti
-          </h1>
+            <h1 className="font-serif text-6xl font-semibold leading-[0.98] tracking-tight text-white sm:text-7xl lg:text-8xl">
+              The
+              <span className="block text-[#FFA51F]">Serengeti.</span>
+            </h1>
 
-          <p className="mt-4 text-white/80 text-lg md:text-xl max-w-2xl leading-relaxed">
-            Endless plains, extraordinary wildlife, the Great Migration,
-            and unforgettable African safari experiences.
-          </p>
+            <p className="mt-8 max-w-2xl text-base leading-8 text-white/85 sm:text-lg">
+              Journey into one of Africa's most celebrated wilderness areas.
+              Discover endless golden plains, extraordinary wildlife and the
+              unforgettable spectacle of the Great Migration in Tanzania.
+            </p>
 
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <Link
+                to="/contact"
+                className="group inline-flex items-center justify-center gap-3 rounded-full bg-[#FF7A1A] px-8 py-4 text-sm font-extrabold uppercase tracking-wider text-white shadow-xl transition duration-300 hover:-translate-y-1 hover:bg-[#FFA51F]"
+              >
+                Plan Your Safari
+                <ArrowUpRight
+                  size={19}
+                  className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                />
+              </Link>
+
+              <a
+                href="#discover"
+                className="inline-flex items-center justify-center gap-3 rounded-full border border-white/50 bg-white/10 px-8 py-4 text-sm font-bold uppercase tracking-wider text-white backdrop-blur-sm transition hover:bg-white hover:text-[#171014]"
+              >
+                Explore Destination
+                <ArrowRight size={18} />
+              </a>
+            </div>
+          </div>
         </div>
 
+        {/* HERO DETAILS */}
+        <div className="absolute bottom-0 left-0 right-0 z-10 border-t border-white/20 bg-[#171014]/40 backdrop-blur-md">
+          <div className="mx-auto grid max-w-7xl grid-cols-2 gap-5 px-6 py-6 sm:grid-cols-4 sm:px-10 lg:px-12">
+            {[
+              ["Destination", "Serengeti"],
+              ["Country", "Tanzania"],
+              ["Experience", "Wildlife Safari"],
+              ["Famous for", "Great Migration"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFD08A]">
+                  {label}
+                </p>
+                <p className="mt-1 text-sm font-semibold text-white sm:text-base">
+                  {value}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
-
-      {/* =====================================================
-          INTRODUCTION
-      ====================================================== */}
-```jsx
-{/* ============================================================
-    SERENGETI NATIONAL PARK
-============================================================ */}
-<section className="bg-white py-16 sm:py-20 lg:py-28">
-
-  <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-
-    <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-
-      {/* ======================================================
-          IMAGE
-      ====================================================== */}
-      <div className="relative group">
-
-        <div className="absolute -left-5 -top-5 h-24 w-24 rounded-3xl bg-[#F39A08]/15" />
-
-        <img
-          src={serengeti2}
-          alt="Serengeti National Park"
-          className="relative h-[380px] w-full rounded-[2rem] object-cover shadow-2xl transition-transform duration-700 group-hover:scale-[1.03] sm:h-[480px]"
-        />
-
-        <div className="absolute bottom-5 left-5 rounded-2xl bg-[#0D4825]/95 px-6 py-4 text-white shadow-xl backdrop-blur-md">
-
-          <p className="text-sm font-bold uppercase tracking-wider text-[#F39A08]">
-            Serengeti
-          </p>
-
-          <p className="mt-1 text-xs text-white/70">
-            Tanzania's legendary safari destination
-          </p>
-
-        </div>
-
-      </div>
-
-
-      {/* ======================================================
-          CONTENT
-      ====================================================== */}
-      <div>
-
-        <span className="text-sm font-bold uppercase tracking-[0.2em] text-[#F39A08]">
-          About The Destination
-        </span>
-
-        <h2 className="mt-3 font-serif text-3xl font-bold leading-tight text-[#0D4825] sm:text-4xl lg:text-5xl">
-
-          Serengeti National Park
-
-          <span className="block text-[#F39A08]">
-            The Heart of Africa
-          </span>
-
-        </h2>
-
-        <div className="mt-7 space-y-5 text-gray-600">
-
-          <p className="leading-relaxed">
-            Situated in northern Tanzania, Serengeti National Park stands as a
-            crown jewel of African safaris, renowned for its sweeping savannahs
-            and the world-famous great migration. Each year, over two million
-            wildebeest, zebras, and gazelles embark on a remarkable journey
-            across these plains, creating one of nature’s most breathtaking
-            spectacles. Even outside migration months, the Serengeti offers
-            consistently superb wildlife encounters thanks to its high density
-            of predators and herbivores.
-          </p>
-
-          <p className="leading-relaxed">
-            While the open grasslands near Seronera are the most frequented,
-            visitors can also discover the striking Western Corridor and the
-            Mara River region—famous for dramatic river crossings where
-            crocodiles await migrating herds. Hot-air balloon rides provide an
-            extraordinary perspective over these endless plains, especially at
-            sunrise.
-          </p>
-
-          <p className="leading-relaxed">
-            The Serengeti is particularly celebrated for its predator
-            sightings. Lions are commonly observed lounging or stalking prey,
-            while cheetahs race across the plains in pursuit of gazelles.
-            Leopards, though more elusive, can occasionally be spotted draped
-            over acacia branches near rivers.
-          </p>
-
-          <p className="leading-relaxed">
-            The wildebeest migration’s timing can vary, but generally, the
-            Grumeti River crossings occur in June and July, and the Mara River
-            crossings unfold around August and September. For those eager to
-            witness calving season, January and February bring the plains to
-            life with newborn wildebeest and intense predator action.
-          </p>
-
-          <p className="leading-relaxed">
-            Beyond the migration, the park’s year-round appeal lies in its vast,
-            untamed beauty and exceptional biodiversity. With sweeping
-            landscapes, abundant wildlife, and unforgettable safari moments,
-            Serengeti National Park promises an authentic and timeless
-            adventure at the heart of Africa’s wilderness.
-          </p>
-
-        </div>
-
-
-        {/* ======================================================
-            HIGHLIGHTS
-        ====================================================== */}
-        <div className="mt-9 grid gap-4 sm:grid-cols-2">
-
-          <div className="group rounded-2xl border border-[#0D4825]/5 bg-[#F7F4EA] p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-
-            <p className="font-serif text-2xl font-bold text-[#F39A08]">
-              Wildlife
+      {/* INTRODUCTION */}
+      <section
+        id="discover"
+        className="px-6 py-24 sm:px-10 lg:px-12 lg:py-32"
+      >
+        <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-20">
+          <div>
+            <p className="mb-5 flex items-center gap-3 text-xs font-extrabold uppercase tracking-[0.28em] text-[#E76B16]">
+              <span className="h-[2px] w-10 bg-[#FF7A1A]" />
+              Discover the Serengeti
             </p>
 
-            <p className="mt-1 text-sm text-gray-500">
-              Lions, cheetahs, leopards & more
-            </p>
-
-          </div>
-
-          <div className="group rounded-2xl border border-[#0D4825]/5 bg-[#F7F4EA] p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-
-            <p className="font-serif text-2xl font-bold text-[#F39A08]">
-              Great Migration
-            </p>
-
-            <p className="mt-1 text-sm text-gray-500">
-              Over two million migrating animals
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-```
-
-
-
-
-      {/* =====================================================
-          SERENGETI LANDSCAPE
-      ====================================================== */}
-
-      <section className="py-16 sm:py-20 lg:py-28 bg-[#F7F4EA]">
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-          <div className="text-center max-w-3xl mx-auto mb-12">
-
-            <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-              Experience The Serengeti
-            </span>
-
-            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0D4825]">
-
-              A Landscape Made For
-
-              <span className="text-[#F39A08]">
-                {" "}Safari
-              </span>
-
+            <h2 className="max-w-xl font-serif text-4xl font-semibold leading-tight tracking-tight text-[#171014] sm:text-5xl lg:text-6xl">
+              An endless wilderness of{" "}
+              <span className="text-[#E76B16]">wonder.</span>
             </h2>
 
-            <p className="mt-5 text-gray-600 leading-relaxed">
-              Follow the rhythm of the wilderness across vast plains,
-              rocky kopjes and golden grasslands filled with life.
-            </p>
-
-          </div>
-
-
-          <div className="grid lg:grid-cols-[1.15fr_.85fr] gap-6">
-
-            {/* SERENGETI 3 */}
-
-            <div className="group relative h-[420px] lg:h-[600px] overflow-hidden rounded-[2rem] shadow-xl">
-
-              <img
-                src={serengeti3}
-                alt="Serengeti landscape"
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-
-              <div className="absolute bottom-8 left-8 right-8">
-
-                <span className="text-[#F39A08] text-xs font-bold uppercase tracking-[0.2em]">
-                  Endless Plains
-                </span>
-
-                <h3 className="mt-2 text-3xl sm:text-4xl font-serif font-bold text-white">
-                  A Landscape Made For Adventure
-                </h3>
-
-              </div>
-
-            </div>
-
-
-            {/* CONTENT */}
-
-            <div className="flex flex-col justify-center bg-[#0D4825] rounded-[2rem] p-8 sm:p-10 lg:p-12">
-
-              <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-                The Serengeti Experience
-              </span>
-
-              <h2 className="mt-4 text-3xl sm:text-4xl font-serif font-bold text-white leading-tight">
-
-                Every Moment
-
-                <span className="block text-[#F39A08]">
-                  Tells A Story
-                </span>
-
-              </h2>
-
-              <p className="mt-6 text-white/65 leading-relaxed">
-                A safari in the Serengeti is about more than simply
-                seeing animals. It is about following tracks, watching
-                predators in action and experiencing the wilderness
-                as the landscape changes around you.
+            <div className="mt-8 space-y-5 text-[15px] leading-8 text-[#625B57]">
+              <p>
+                <strong className="text-[#171014]">
+                  Serengeti National Park
+                </strong>{" "}
+                is one of Tanzania's most famous wildlife destinations,
+                renowned for its vast open grasslands, diverse ecosystems and
+                remarkable concentration of wildlife.
               </p>
 
-              <div className="mt-7 space-y-4">
-
-                <div className="flex gap-3">
-
-                  <span className="text-[#F39A08]">
-                    ✓
-                  </span>
-
-                  <p className="text-white/70 text-sm">
-                    Spectacular savannah landscapes
-                  </p>
-
-                </div>
-
-                <div className="flex gap-3">
-
-                  <span className="text-[#F39A08]">
-                    ✓
-                  </span>
-
-                  <p className="text-white/70 text-sm">
-                    Exceptional wildlife encounters
-                  </p>
-
-                </div>
-
-                <div className="flex gap-3">
-
-                  <span className="text-[#F39A08]">
-                    ✓
-                  </span>
-
-                  <p className="text-white/70 text-sm">
-                    Memorable sunrise and sunset experiences
-                  </p>
-
-                </div>
-
-              </div>
-
-              <Link
-                to="/contact"
-                className="inline-flex self-start mt-8 bg-[#F39A08] hover:bg-[#ffad20] text-[#0D4825] px-7 py-3.5 rounded-full font-bold transition-all duration-300 hover:-translate-y-1"
-              >
-                Plan Your Safari
-              </Link>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-
-      {/* =====================================================
-          WHY VISIT
-      ====================================================== */}
-
-      <section className="bg-[#0D4825] py-16 sm:py-20 lg:py-28">
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-
-            <div>
-
-              <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-                Why Visit Serengeti?
-              </span>
-
-              <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight">
-
-                Every Drive Can
-
-                <span className="block text-[#F39A08]">
-                  Become A Story
-                </span>
-
-              </h2>
-
-              <p className="mt-6 text-white/65 leading-relaxed max-w-xl">
-                The Serengeti combines remarkable wildlife, spectacular
-                landscapes and the legendary Great Migration into one
-                of Africa's most memorable safari destinations.
+              <p>
+                The Serengeti is internationally celebrated for the Great
+                Migration, when millions of wildebeest and large numbers of
+                zebras and gazelles move through the wider ecosystem in search
+                of fresh grazing and water.
               </p>
 
-              <Link
-                to="/contact"
-                className="inline-flex mt-8 bg-[#F39A08] hover:bg-[#ffad20] text-[#0D4825] px-7 py-3.5 rounded-full font-bold transition-all duration-300 hover:-translate-y-1"
-              >
-                Start Planning
-              </Link>
-
+              <p>
+                Beyond the migration, the destination offers excellent
+                opportunities to explore different habitats, observe
+                predators and discover the beauty of the African wilderness
+                throughout the year.
+              </p>
             </div>
 
-
-            <div className="space-y-4">
-
-              {highlights.map((item) => (
-
-                <div
-                  key={item.number}
-                  className="group flex gap-5 p-5 rounded-2xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-[#F39A08]/30 transition-all duration-300"
+            <div className="mt-9 flex flex-wrap gap-3">
+              {[
+                "Great Migration",
+                "Big Five",
+                "Wildlife Photography",
+              ].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-[#E9DED5] bg-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-[#4C423D]"
                 >
-
-                  <div className="flex-shrink-0 w-11 h-11 rounded-full border border-[#F39A08]/40 bg-[#F39A08]/10 flex items-center justify-center text-[#F39A08] text-xs font-bold group-hover:bg-[#F39A08] group-hover:text-[#0D4825] transition-all duration-300">
-                    {item.number}
-                  </div>
-
-                  <div>
-
-                    <h3 className="text-white font-bold text-lg">
-                      {item.title}
-                    </h3>
-
-                    <p className="mt-1 text-white/55 text-sm leading-relaxed">
-                      {item.text}
-                    </p>
-
-                  </div>
-
-                </div>
-
+                  {item}
+                </span>
               ))}
-
             </div>
-
           </div>
 
-        </div>
+          <div className="relative">
+            <div className="absolute -right-5 -top-5 h-32 w-32 rounded-tr-[50px] border-r-2 border-t-2 border-[#FF7A1A]" />
 
-      </section>
-
-
-      {/* =====================================================
-          WILDLIFE
-      ====================================================== */}
-
-      <section className="bg-white py-16 sm:py-20 lg:py-28">
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-            {/* CONTENT */}
-
-            <div>
-
-              <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-                Wildlife Encounters
-              </span>
-
-              <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0D4825] leading-tight">
-
-                Meet Africa's
-
-                <span className="block text-[#F39A08]">
-                  Incredible Wildlife
-                </span>
-
-              </h2>
-
-              <p className="mt-6 text-gray-600 leading-relaxed">
-                The Serengeti is home to an extraordinary variety of
-                wildlife. Every game drive brings the possibility of
-                discovering something new.
-              </p>
-
-              <div className="grid grid-cols-2 gap-3 mt-8">
-
-                {wildlife.map((animal) => (
-
-                  <div
-                    key={animal}
-                    className="group flex items-center gap-3 p-3 rounded-xl bg-[#F7F4EA] text-[#0D4825] font-semibold text-sm hover:bg-[#0D4825] hover:text-white transition-all duration-300"
-                  >
-
-                    <span className="text-[#F39A08]">
-                      ✓
-                    </span>
-
-                    {animal}
-
-                  </div>
-
-                ))}
-
-              </div>
-
-            </div>
-
-
-            {/* SERENGETI 2 */}
-
-            <div className="relative group">
-
-              <img
-                src={serengeti2}
-                alt="Wildlife in Serengeti"
-                className="w-full h-[400px] sm:h-[520px] object-cover rounded-[2rem] shadow-2xl transition-transform duration-700 group-hover:scale-[1.03]"
-              />
-
-              <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-t from-black/40 to-transparent opacity-70" />
-
-              <div className="absolute bottom-6 right-6 bg-[#F39A08] text-[#0D4825] px-6 py-4 rounded-2xl shadow-xl">
-
-                <p className="font-bold text-lg">
-                  Wild & Free
-                </p>
-
-                <p className="text-xs mt-1">
-                  Experience Tanzania
-                </p>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
-          SAFARI PLANNING
-      ====================================================== */}
-
-      <section className="bg-[#F7F4EA] py-16 sm:py-20 lg:py-28">
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-            <div>
-
-              <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-                Plan Your Safari
-              </span>
-
-              <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0D4825] leading-tight">
-
-                Your Serengeti.
-
-                <span className="block text-[#F39A08]">
-                  Your Way.
-                </span>
-
-              </h2>
-
-              <p className="mt-6 text-gray-600 leading-relaxed">
-                Whether you are planning a short safari or a longer
-                East African adventure, we can help create an itinerary
-                around your interests, travel style and schedule.
-              </p>
-
-              <div className="grid sm:grid-cols-2 gap-3 mt-8">
-
-                {safariOptions.map((option) => (
-
-                  <div
-                    key={option}
-                    className="flex items-center gap-3 text-sm text-gray-600"
-                  >
-
-                    <span className="w-6 h-6 flex-shrink-0 rounded-full bg-[#F39A08]/15 text-[#F39A08] flex items-center justify-center text-xs font-bold">
-                      ✓
-                    </span>
-
-                    {option}
-
-                  </div>
-
-                ))}
-
-              </div>
-
-              
-
-            </div>
-
-
-            {/* SERENGETI 1 */}
-
-            <div className="relative group">
-
+            <div className="relative overflow-hidden rounded-[28px] bg-[#171014] shadow-2xl">
               <img
                 src={serengeti1}
-                alt="Serengeti safari landscape"
-                className="w-full h-[400px] sm:h-[520px] object-cover rounded-[2rem] shadow-2xl transition-transform duration-700 group-hover:scale-[1.03]"
+                alt="Wildlife and beautiful scenery in the Serengeti"
+                className="h-[440px] w-full object-cover transition duration-700 hover:scale-105 sm:h-[540px]"
               />
 
-              <div className="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl shadow-lg">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#171014]/85 via-transparent to-transparent" />
 
-                <p className="text-[#0D4825] font-bold">
-                  Serengeti
+              <div className="absolute bottom-0 left-0 right-0 p-8 sm:p-10">
+                <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-[#FFD08A]">
+                  Tanzania's natural treasure
+                </span>
+
+                <h3 className="mt-3 font-serif text-3xl font-semibold text-white sm:text-4xl">
+                  Where the wild comes alive.
+                </h3>
+
+                <p className="mt-3 max-w-sm text-sm leading-7 text-white/75">
+                  Discover extraordinary wildlife and unforgettable African
+                  landscapes.
                 </p>
-
-                <p className="text-gray-500 text-xs mt-1">
-                  Tanzania's iconic safari destination
-                </p>
-
               </div>
-
             </div>
 
+            <div className="absolute -bottom-6 -left-5 hidden rounded-2xl bg-[#FF7A1A] px-7 py-5 text-white shadow-xl sm:block">
+              <p className="text-xs font-bold uppercase tracking-[0.2em]">
+                Your next adventure
+              </p>
+              <p className="mt-1 font-serif text-2xl font-semibold">
+                Starts here.
+              </p>
+            </div>
           </div>
-
         </div>
-
       </section>
 
-
-      {/* =====================================================
-          IMAGE GALLERY
-      ====================================================== */}
-
-      <section className="bg-white py-16 sm:py-20">
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-          <div className="text-center mb-10">
-
-            <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-              Serengeti
-            </span>
-
-            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0D4825]">
-              Explore The Serengeti
-            </h2>
-
-            <p className="mt-4 max-w-2xl mx-auto text-gray-600 leading-relaxed">
-              A glimpse of the landscapes, wildlife and unforgettable
-              moments waiting for you in the Serengeti.
+      {/* HIGHLIGHTS */}
+      <section className="bg-[#171014] px-6 py-24 text-white sm:px-10 lg:px-12 lg:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto mb-16 max-w-3xl text-center">
+            <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.3em] text-[#FFA51F]">
+              The Serengeti experience
             </p>
 
+            <h2 className="font-serif text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+              What makes this destination{" "}
+              <span className="text-[#FFA51F]">extraordinary.</span>
+            </h2>
+
+            <p className="mx-auto mt-6 max-w-2xl text-sm leading-8 text-white/65 sm:text-base">
+              From the world-famous Great Migration to remarkable predator
+              encounters, the Serengeti is a destination full of discovery.
+            </p>
           </div>
 
-
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
-
-            {gallery.map((item, index) => (
-
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {highlights.map((item, index) => (
               <div
                 key={item.title}
-                className="group relative h-52 sm:h-64 overflow-hidden rounded-2xl"
+                className="group rounded-3xl border border-white/10 bg-white/[0.04] p-8 transition duration-300 hover:-translate-y-2 hover:border-[#FF7A1A]/60 hover:bg-white/[0.08]"
               >
+                <div className="mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FF7A1A]/15 text-[#FFA51F] transition group-hover:bg-[#FF7A1A] group-hover:text-white">
+                  {item.icon}
+                </div>
 
+                <p className="mb-4 text-xs font-bold tracking-[0.2em] text-[#FFA51F]">
+                  0{index + 1}
+                </p>
+
+                <h3 className="font-serif text-2xl font-semibold text-white">
+                  {item.title}
+                </h3>
+
+                <p className="mt-4 text-sm leading-7 text-white/60">
+                  {item.description}
+                </p>
+
+                <div className="mt-7 h-[2px] w-10 bg-[#FF7A1A] transition-all duration-300 group-hover:w-20" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GREAT MIGRATION FEATURE */}
+      <section className="px-6 py-24 sm:px-10 lg:px-12 lg:py-32">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-20">
+          <div className="relative">
+            <div className="absolute -bottom-5 -left-5 h-36 w-36 rounded-bl-[45px] border-b-2 border-l-2 border-[#FF7A1A]" />
+
+            <div className="relative overflow-hidden rounded-[28px]">
+              <img
+                src={serengeti2}
+                alt="Serengeti wildlife and migration landscape"
+                className="h-[430px] w-full object-cover sm:h-[550px]"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-[#171014]/70 to-transparent" />
+
+              <div className="absolute bottom-7 left-7 right-7">
+                <span className="inline-flex items-center gap-2 rounded-full bg-[#FF7A1A] px-4 py-2 text-[10px] font-extrabold uppercase tracking-[0.2em] text-white">
+                  <Globe size={13} />
+                  A natural spectacle
+                </span>
+
+                <p className="mt-4 font-serif text-3xl font-semibold text-white sm:text-4xl">
+                  The Great Migration.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-5 flex items-center gap-3 text-xs font-extrabold uppercase tracking-[0.28em] text-[#E76B16]">
+              <span className="h-[2px] w-10 bg-[#FF7A1A]" />
+              Nature's greatest journey
+            </p>
+
+            <h2 className="font-serif text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+              Witness the movement of{" "}
+              <span className="text-[#E76B16]">millions.</span>
+            </h2>
+
+            <div className="mt-7 space-y-5 text-[15px] leading-8 text-[#625B57]">
+              <p>
+                The Great Migration is one of the most remarkable wildlife
+                spectacles on Earth. Huge herds of wildebeest, accompanied by
+                zebras and gazelles, move through the Serengeti ecosystem in
+                an ongoing search for fresh grazing and water.
+              </p>
+
+              <p>
+                The movement follows seasonal rainfall and grazing
+                conditions. Depending on the time of year, visitors may
+                experience large herds on the open plains, calving activity
+                in the southern Serengeti or dramatic river crossings in
+                other parts of the ecosystem.
+              </p>
+
+              <p>
+                Planning your safari around the right region and season can
+                make a significant difference to your migration experience.
+              </p>
+            </div>
+
+            <div className="mt-8 rounded-2xl border border-[#E9DED5] bg-white p-6">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#FF7A1A]/10 text-[#E76B16]">
+                  <Clock size={23} />
+                </div>
+
+                <div>
+                  <h3 className="font-serif text-xl font-semibold text-[#171014]">
+                    Timing matters
+                  </h3>
+
+                  <p className="mt-2 text-sm leading-7 text-[#706660]">
+                    The migration is a year-round movement, not a single
+                    event. Ask our team to help you choose travel dates based
+                    on your preferred experience.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <Link
+              to="/contact"
+              className="mt-9 inline-flex items-center gap-3 rounded-full bg-[#171014] px-7 py-4 text-xs font-extrabold uppercase tracking-wider text-white transition hover:bg-[#FF7A1A]"
+            >
+              Plan a Migration Safari
+              <ArrowUpRight size={18} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* WILDLIFE */}
+      <section className="bg-[#F1EAE3] px-6 py-24 sm:px-10 lg:px-12 lg:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-20">
+          <div>
+            <p className="mb-5 flex items-center gap-3 text-xs font-extrabold uppercase tracking-[0.28em] text-[#E76B16]">
+              <span className="h-[2px] w-10 bg-[#FF7A1A]" />
+              Wildlife encounters
+            </p>
+
+            <h2 className="font-serif text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+              A world of incredible{" "}
+              <span className="text-[#E76B16]">wildlife.</span>
+            </h2>
+
+            <p className="mt-7 text-[15px] leading-8 text-[#625B57]">
+              The Serengeti is home to an extraordinary variety of animals.
+              From powerful predators to vast herds of grazing wildlife,
+              every game drive offers a new opportunity for discovery.
+            </p>
+
+            <div className="mt-9 grid grid-cols-2 gap-x-5 gap-y-4 sm:grid-cols-3">
+              {wildlife.map((animal) => (
+                <div
+                  key={animal}
+                  className="flex items-center gap-2.5 border-b border-[#DED2C8] pb-3"
+                >
+                  <Check
+                    size={16}
+                    className="shrink-0 text-[#E76B16]"
+                    strokeWidth={3}
+                  />
+                  <span className="text-sm font-semibold text-[#403833]">
+                    {animal}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-7 text-xs leading-6 text-[#8A817A]">
+              Wildlife sightings vary depending on location, season and
+              natural conditions. No sightings are guaranteed.
+            </p>
+
+            <Link
+              to="/contact"
+              className="mt-9 inline-flex items-center gap-3 rounded-full bg-[#171014] px-7 py-4 text-xs font-extrabold uppercase tracking-wider text-white transition hover:bg-[#FF7A1A]"
+            >
+              Enquire About a Safari
+              <ArrowUpRight size={18} />
+            </Link>
+          </div>
+
+          <div className="relative">
+            <div className="absolute -bottom-5 -right-5 h-36 w-36 rounded-br-[45px] border-b-2 border-r-2 border-[#FF7A1A]" />
+
+            <div className="relative overflow-hidden rounded-[28px]">
+              <img
+                src={serengeti3}
+                alt="Serengeti wildlife in its natural habitat"
+                className="h-[430px] w-full object-cover sm:h-[550px]"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-[#171014]/70 to-transparent" />
+
+              <div className="absolute bottom-7 left-7 right-7">
+                <div className="inline-flex items-center gap-2 rounded-full bg-[#FF7A1A] px-4 py-2 text-[10px] font-extrabold uppercase tracking-[0.2em] text-white">
+                  <Heart size={13} />
+                  The African wilderness
+                </div>
+
+                <p className="mt-4 font-serif text-3xl font-semibold text-white sm:text-4xl">
+                  Every game drive tells a story.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* EXPERIENCES */}
+      <section className="bg-white px-6 py-24 sm:px-10 lg:px-12 lg:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div className="max-w-2xl">
+              <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.3em] text-[#E76B16]">
+                Explore and experience
+              </p>
+
+              <h2 className="font-serif text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+                Adventures worth{" "}
+                <span className="text-[#E76B16]">remembering.</span>
+              </h2>
+            </div>
+
+            <p className="max-w-md text-sm leading-7 text-[#6D625C]">
+              Discover the Serengeti through unforgettable safari experiences
+              and guided adventures.
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-2">
+            {experiences.map((item) => (
+              <div
+                key={item.number}
+                className="group flex gap-6 rounded-3xl border border-[#E9DED5] bg-[#FFF9F5] p-7 transition duration-300 hover:-translate-y-1 hover:border-[#FF7A1A]/60 hover:shadow-xl sm:p-9"
+              >
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#171014] text-[#FFA51F] transition group-hover:bg-[#FF7A1A] group-hover:text-white">
+                  {item.icon}
+                </div>
+
+                <div className="flex-1">
+                  <div className="mb-3 flex items-center justify-between">
+                    <span className="text-xs font-extrabold tracking-[0.2em] text-[#E76B16]">
+                      {item.number}
+                    </span>
+
+                    <ArrowUpRight
+                      size={19}
+                      className="text-[#A79A91] transition group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#E76B16]"
+                    />
+                  </div>
+
+                  <h3 className="font-serif text-2xl font-semibold text-[#171014]">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-3 text-sm leading-7 text-[#706660]">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* IMAGE GALLERY */}
+      <section className="bg-[#171014] px-6 py-24 text-white sm:px-10 lg:px-12 lg:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+            <div>
+              <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.3em] text-[#FFA51F]">
+                A glimpse of the wild
+              </p>
+
+              <h2 className="font-serif text-4xl font-semibold sm:text-5xl lg:text-6xl">
+                The Serengeti{" "}
+                <span className="text-[#FFA51F]">in pictures.</span>
+              </h2>
+            </div>
+
+            <p className="max-w-sm text-sm leading-7 text-white/55">
+              Beautiful landscapes, remarkable wildlife and moments that
+              make every safari special.
+            </p>
+          </div>
+
+          <div className="grid auto-rows-[230px] gap-4 sm:grid-cols-2 sm:auto-rows-[260px] lg:grid-cols-4 lg:auto-rows-[260px]">
+            {gallery.map((item, index) => (
+              <div
+                key={item.title}
+                className={`group relative overflow-hidden rounded-2xl ${item.className}`}
+              >
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                 />
 
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-all duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#101412]/85 via-transparent to-transparent opacity-90 transition group-hover:opacity-100" />
 
-                <div className="absolute bottom-4 left-4 right-4">
-
-                  <span className="text-white text-[10px] font-bold uppercase tracking-[0.2em]">
-                    Serengeti {index + 1}
-                  </span>
-
-                  <p className="mt-1 text-white font-semibold text-sm">
-                    {item.title}
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#FFD08A]">
+                    0{index + 1} / 04
                   </p>
 
+                  <h3 className="mt-2 font-serif text-2xl font-semibold text-white">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-1 text-xs text-white/70">
+                    {item.subtitle}
+                  </p>
                 </div>
-
               </div>
-
             ))}
-
           </div>
-
         </div>
-
       </section>
 
-
-      {/* =====================================================
-          TRAVEL TIPS
-      ====================================================== */}
-
-      <section className="bg-[#0D4825] py-16 sm:py-20 lg:py-24">
-
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-
-          <div className="text-center max-w-3xl mx-auto">
-
-            <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-              Before You Travel
-            </span>
-
-            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white">
-
-              Prepare For Your
-
-              <span className="text-[#F39A08]">
-                {" "}Serengeti Adventure
-              </span>
-
-            </h2>
-
-            <p className="mt-5 text-white/65 leading-relaxed">
-              A little preparation can make your safari more comfortable,
-              enjoyable and memorable.
+      {/* SAFARI PLANNING */}
+      <section className="bg-white px-6 py-24 sm:px-10 lg:px-12 lg:py-32">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-20">
+          <div>
+            <p className="mb-5 flex items-center gap-3 text-xs font-extrabold uppercase tracking-[0.28em] text-[#E76B16]">
+              <span className="h-[2px] w-10 bg-[#FF7A1A]" />
+              Travel with BigPaw
             </p>
 
+            <h2 className="font-serif text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+              Let's plan your{" "}
+              <span className="text-[#E76B16]">Serengeti adventure.</span>
+            </h2>
+
+            <p className="mt-7 text-[15px] leading-8 text-[#625B57]">
+              At BigPaw Adventure Safaris, we help you organise a memorable
+              Tanzania safari. Whether you want to experience the Great
+              Migration, explore the Big Five or enjoy a private wildlife
+              adventure, we can help you plan your journey.
+            </p>
+
+            <div className="mt-9 space-y-5">
+              {[
+                "Private and personalised safari experiences",
+                "Professional safari guides",
+                "Customised Tanzania safari itineraries",
+                "Migration safari planning based on seasonal movement",
+                "Comfortable safari transport arrangements",
+                "Accommodation options to suit your travel style",
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#FF7A1A]/10 text-[#E76B16]">
+                    <Check size={14} strokeWidth={3} />
+                  </span>
+
+                  <p className="text-sm font-medium leading-6 text-[#514943]">
+                    {item}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-3 rounded-full bg-[#FF7A1A] px-8 py-4 text-xs font-extrabold uppercase tracking-wider text-white transition hover:bg-[#171014]"
+              >
+                Start Planning
+                <ArrowRight size={17} />
+              </Link>
+
+              <a
+                href={`https://wa.me/254747859681?text=${whatsappMessage}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 rounded-full border border-[#E4D8CE] px-7 py-4 text-xs font-extrabold uppercase tracking-wider text-[#171014] transition hover:border-[#FF7A1A] hover:text-[#E76B16]"
+              >
+                <MessageCircle size={17} />
+                WhatsApp Us
+              </a>
+            </div>
           </div>
 
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
-
-            <div className="p-6 rounded-2xl bg-white/[0.05] border border-white/10 hover:border-[#F39A08]/40 transition-all duration-300">
-
-              <span className="text-[#F39A08] text-2xl">
-                ☀
-              </span>
-
-              <h3 className="mt-4 text-white font-bold">
-                Early Starts
-              </h3>
-
-              <p className="mt-2 text-white/55 text-sm leading-relaxed">
-                Morning game drives offer beautiful light and excellent
-                opportunities for wildlife viewing.
-              </p>
-
+          <div className="relative">
+            <div className="overflow-hidden rounded-[28px]">
+              <img
+                src={serengeti2}
+                alt="Serengeti safari experience in Tanzania"
+                className="h-[440px] w-full object-cover sm:h-[550px]"
+              />
             </div>
 
+            <div className="absolute -bottom-7 left-5 right-5 rounded-2xl border border-[#E9DED5] bg-white p-6 shadow-2xl sm:left-8 sm:right-8 sm:p-8">
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#FF7A1A] text-white">
+                  <Compass size={24} />
+                </div>
 
-            <div className="p-6 rounded-2xl bg-white/[0.05] border border-white/10 hover:border-[#F39A08]/40 transition-all duration-300">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#E76B16]">
+                    BigPaw Adventure Safaris
+                  </p>
 
-              <span className="text-[#F39A08] text-2xl">
-                📷
-              </span>
-
-              <h3 className="mt-4 text-white font-bold">
-                Bring Your Camera
-              </h3>
-
-              <p className="mt-2 text-white/55 text-sm leading-relaxed">
-                Keep your camera ready because remarkable wildlife
-                moments can happen at any time.
-              </p>
-
+                  <h3 className="mt-1 font-serif text-xl font-semibold text-[#171014]">
+                    Your journey starts with us.
+                  </h3>
+                </div>
+              </div>
             </div>
-
-
-            <div className="p-6 rounded-2xl bg-white/[0.05] border border-white/10 hover:border-[#F39A08]/40 transition-all duration-300">
-
-              <span className="text-[#F39A08] text-2xl">
-                👟
-              </span>
-
-              <h3 className="mt-4 text-white font-bold">
-                Dress Comfortably
-              </h3>
-
-              <p className="mt-2 text-white/55 text-sm leading-relaxed">
-                Comfortable clothing and suitable footwear help you
-                enjoy long days exploring the wilderness.
-              </p>
-
-            </div>
-
-
-            <div className="p-6 rounded-2xl bg-white/[0.05] border border-white/10 hover:border-[#F39A08]/40 transition-all duration-300">
-
-              <span className="text-[#F39A08] text-2xl">
-                🌍
-              </span>
-
-              <h3 className="mt-4 text-white font-bold">
-                Travel Responsibly
-              </h3>
-
-              <p className="mt-2 text-white/55 text-sm leading-relaxed">
-                Respect wildlife, local communities and the natural
-                environment throughout your journey.
-              </p>
-
-            </div>
-
           </div>
-
         </div>
-
       </section>
 
+      {/* TRAVEL TIPS */}
+      <section className="bg-[#171014] px-6 py-24 text-white sm:px-10 lg:px-12 lg:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto mb-14 max-w-2xl text-center">
+            <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.3em] text-[#FFA51F]">
+              Prepare for your trip
+            </p>
 
-      {/* =====================================================
-          FINAL CTA
-      ====================================================== */}
+            <h2 className="font-serif text-4xl font-semibold sm:text-5xl">
+              Make your Serengeti safari{" "}
+              <span className="text-[#FFA51F]">count.</span>
+            </h2>
 
-      <section className="relative bg-[#0D4825] overflow-hidden">
+            <p className="mt-5 text-sm leading-7 text-white/60">
+              Prepare for your adventure and make the most of your time in
+              Tanzania's spectacular wilderness.
+            </p>
+          </div>
 
-        <div className="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-[#F39A08]/10 blur-3xl" />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {travelTips.map((tip) => (
+              <div
+                key={tip.title}
+                className="rounded-3xl border border-white/10 bg-white/[0.04] p-7"
+              >
+                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF7A1A]/15 text-[#FFA51F]">
+                  {tip.icon}
+                </div>
 
-        <div className="absolute -bottom-32 -left-32 w-80 h-80 rounded-full bg-[#F39A08]/10 blur-3xl" />
+                <h3 className="font-serif text-xl font-semibold text-white">
+                  {tip.title}
+                </h3>
 
-        <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 py-16 sm:py-20 lg:py-28 text-center">
+                <p className="mt-3 text-sm leading-7 text-white/60">
+                  {tip.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-            Your African Adventure
-          </span>
+      {/* FINAL CTA */}
+      <section className="relative overflow-hidden bg-[#FF7A1A] px-6 py-24 sm:px-10 lg:px-12 lg:py-28">
+        <div className="absolute -right-20 -top-32 h-96 w-96 rounded-full border-[50px] border-white/10" />
+        <div className="absolute -bottom-40 -left-20 h-96 w-96 rounded-full border-[50px] border-[#171014]/10" />
 
-          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-6xl font-serif font-bold text-white leading-tight">
-
-            Ready To Discover
-
-            <span className="block text-[#F39A08]">
-              The Serengeti?
-            </span>
-
-          </h2>
-
-          <p className="mt-5 max-w-2xl mx-auto text-white/65 leading-relaxed">
-            Let Daffar Tours & Travel help you turn your Serengeti dream
-            into an unforgettable safari experience.
+        <div className="relative z-10 mx-auto max-w-5xl text-center">
+          <p className="mb-6 text-xs font-extrabold uppercase tracking-[0.3em] text-[#171014]/70">
+            Your African adventure awaits
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-3 mt-8">
+          <h2 className="font-serif text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-7xl">
+            Ready to explore the Serengeti?
+          </h2>
 
+          <p className="mx-auto mt-7 max-w-2xl text-sm leading-8 text-white/90 sm:text-base">
+            Let BigPaw Adventure Safaris help you experience the magic of
+            Tanzania. From the endless plains to extraordinary wildlife,
+            your next adventure starts here.
+          </p>
+
+          <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               to="/contact"
-              className="bg-[#F39A08] hover:bg-[#ffad20] text-[#0D4825] px-8 py-4 rounded-full font-bold shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="inline-flex items-center justify-center gap-3 rounded-full bg-[#171014] px-9 py-4 text-xs font-extrabold uppercase tracking-wider text-white transition hover:bg-white hover:text-[#171014]"
             >
-              Plan Your Serengeti Safari
+              Plan Your Safari
+              <ArrowUpRight size={18} />
             </Link>
 
             <a
-              href="https://wa.me/+254708711459"
+              href={`https://wa.me/254747859681?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="border border-white/30 hover:border-[#F39A08] text-white hover:text-[#F39A08] px-8 py-4 rounded-full font-bold transition-all duration-300"
+              className="inline-flex items-center justify-center gap-3 rounded-full border border-white/70 px-9 py-4 text-xs font-extrabold uppercase tracking-wider text-white transition hover:bg-white hover:text-[#171014]"
             >
-              WhatsApp Us
+              <MessageCircle size={17} />
+              Chat With Us
             </a>
-
           </div>
 
+          <p className="mt-10 font-serif text-lg font-semibold italic text-white/90">
+            WE DON'T COUNT MOMENTS! WE MAKE MOMENTS COUNT.
+          </p>
         </div>
-
       </section>
 
-<footer className="overflow-hidden bg-[#082D19] text-white">
+      {/* FOOTER */}
+      <footer className="bg-[#101010] px-6 pb-8 pt-16 text-white sm:px-10 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-12 border-b border-white/10 pb-12 md:grid-cols-2 lg:grid-cols-4">
+            {/* BRAND */}
+            <div className="lg:col-span-2">
+              <Link to="/" className="inline-block">
+                <span className="font-serif text-3xl font-bold tracking-tight text-white">
+                  BIGPAW
+                  <span className="text-[#FF7A1A]">.</span>
+                </span>
 
-  <div className="relative mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-14 lg:px-12">
+                <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FFA51F]">
+                  Adventure Safaris
+                </span>
+              </Link>
 
-    {/* Decorative background */}
-    <div className="pointer-events-none absolute -right-40 -top-40 h-96 w-96 rounded-full bg-[#F39A08]/10 blur-3xl" />
+              <p className="mt-6 max-w-md text-sm leading-8 text-white/55">
+                Discover the beauty of Africa with BigPaw Adventure Safaris.
+                We create memorable journeys through wildlife destinations,
+                scenic landscapes and authentic travel experiences.
+              </p>
 
-    <div className="pointer-events-none absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-emerald-400/5 blur-3xl" />
+              <p className="mt-5 max-w-md font-serif text-base italic text-[#FFA51F]">
+                "We don't count moments. We make moments count."
+              </p>
+            </div>
 
-    <div className="relative z-10">
+            {/* QUICK LINKS */}
+            <div>
+              <h3 className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#FFA51F]">
+                Explore
+              </h3>
 
-      {/* FOOTER CONTENT */}
-      <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-10 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="mt-6 flex flex-col gap-4 text-sm text-white/65">
+                {[
+                  ["Home", "/"],
+                  ["About Us", "/about"],
+                  ["Safaris", "/safaris"],
+                  ["Activities", "/activities"],
+                  ["Contact", "/contact"],
+                ].map(([label, path]) => (
+                  <Link
+                    key={label}
+                    to={path}
+                    className="w-fit transition hover:translate-x-1 hover:text-[#FFA51F]"
+                  >
+                    {label}
+                  </Link>
+                ))}
+              </div>
+            </div>
 
-        {/* BRAND */}
-        <div className="lg:col-span-1">
+            {/* CONTACT */}
+            <div>
+              <h3 className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#FFA51F]">
+                Get in Touch
+              </h3>
 
-          <Link to="/" className="inline-block group">
+              <div className="mt-6 space-y-5 text-sm text-white/65">
+                <a
+                  href="tel:+254747859681"
+                  className="flex items-center gap-3 transition hover:text-[#FFA51F]"
+                >
+                  <Phone size={17} className="shrink-0 text-[#FF7A1A]" />
+                  +254 747 859681
+                </a>
 
-            <h2 className="font-serif text-3xl font-bold text-white transition-colors group-hover:text-[#F39A08]">
-              Daffar
-            </h2>
+                <a
+                  href="tel:+254720859681"
+                  className="flex items-center gap-3 transition hover:text-[#FFA51F]"
+                >
+                  <Phone size={17} className="shrink-0 text-[#FF7A1A]" />
+                  +254 720 859681
+                </a>
 
-            <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.35em] text-[#F39A08]">
-              Tours & Travel
+                <a
+                  href="mailto:bigpawadventures@gmail.com"
+                  className="flex items-start gap-3 transition hover:text-[#FFA51F]"
+                >
+                  <Mail
+                    size={17}
+                    className="mt-0.5 shrink-0 text-[#FF7A1A]"
+                  />
+                  <span className="break-all">
+                    bigpawadventures@gmail.com
+                  </span>
+                </a>
+
+                <div className="flex items-center gap-3">
+                  <MapPin size={17} className="shrink-0 text-[#FF7A1A]" />
+                  Nairobi, Kenya
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-between gap-4 pt-7 text-xs text-white/40 sm:flex-row sm:items-center">
+            <p>
+              © {new Date().getFullYear()} BigPaw Adventure Safaris. All
+              rights reserved.
             </p>
 
-          </Link>
-
-          <p className="mt-5 max-w-sm text-sm leading-6 text-white/55">
-            Discover Africa through unforgettable safari adventures,
-            authentic cultural experiences and breathtaking landscapes.
-          </p>
-
-          {/* SOCIAL */}
-     <div className="mt-6 flex items-center gap-2.5">
-
-  {/* Facebook */}
-  <a
-    href="https://www.facebook.com/dafartoursandtravel"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Facebook"
-    className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1877F2] text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg hover:shadow-[#1877F2]/30"
-  >
-    <svg
-      viewBox="0 0 24 24"
-      className="h-4 w-4 fill-current"
-      aria-hidden="true"
-    >
-      <path d="M14 8h3V5h-3c-2.2 0-4 1.8-4 4v2H7v3h3v6h3v-6h3l1-3h-4V9c0-.6.4-1 1-1z" />
-    </svg>
-  </a>
-
-
-  {/* Instagram */}
-  <a
-    href="https://www.instagram.com/dafartoursandtravel"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Instagram"
-    className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-tr from-[#FFDC80] via-[#E1306C] to-[#833AB4] text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg hover:shadow-[#E1306C]/30"
-  >
-    <svg
-      viewBox="0 0 24 24"
-      className="h-[18px] w-[18px] fill-none stroke-current"
-      strokeWidth="2"
-      aria-hidden="true"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle
-        cx="17.5"
-        cy="6.5"
-        r="1"
-        className="fill-current stroke-none"
-      />
-    </svg>
-  </a>
-
-
-  {/* TikTok */}
-  <a
-    href="https://www.tiktok.com/@dafartoursandtravel"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="TikTok"
-    className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg hover:shadow-black/30"
-  >
-    <svg
-      viewBox="0 0 24 24"
-      className="h-[17px] w-[17px] fill-current"
-      aria-hidden="true"
-    >
-      <path d="M16.6 3c.3 1.7 1.3 3 3 3.4v3.1c-1.4-.1-2.7-.6-3.8-1.4v6.7c0 4.1-2.7 6.2-6 6.2-3 0-5.3-2.1-5.3-5.1 0-3.2 2.5-5.4 5.7-5.4.3 0 .7 0 1 .1v3.1c-.3-.1-.6-.1-.9-.1-1.5 0-2.6.9-2.6 2.2 0 1.2.9 2.1 2.2 2.1 1.5 0 2.7-1 2.7-3.2V3h4z" />
-    </svg>
-  </a>
-
-
-  {/* YouTube */}
-  <a
-    href="https://www.youtube.com/@dafartoursandtravel"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="YouTube"
-    className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FF0000] text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg hover:shadow-[#FF0000]/30"
-  >
-    <svg
-      viewBox="0 0 24 24"
-      className="h-4 w-4 fill-current"
-      aria-hidden="true"
-    >
-      <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.9V8.1l6.5 3.9-6.5 3.9z" />
-    </svg>
-  </a>
-
-</div>
-
-        </div>
-
-
-        {/* EXPLORE */}
-        <div>
-
-          <h3 className="text-sm font-bold uppercase tracking-[0.15em] text-[#F39A08]">
-            Explore
-          </h3>
-
-          <div className="mt-5 space-y-3">
-
-            <Link
-              to="/"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
+            <a
+              href="https://wa.me/254747859681"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 font-bold text-[#FFA51F] transition hover:text-white"
             >
-              Home
-            </Link>
-
-            <Link
-              to="/about"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              About Us
-            </Link>
-
-            <Link
-              to="/safaris"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Safaris
-            </Link>
-
-            
-            <Link
-              to="/activities"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Activities
-            </Link>
-
-            <Link
-              to="/contact"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Contact
-            </Link>
-
+              <MessageCircle size={15} />
+              Connect with BigPaw
+            </a>
           </div>
-
         </div>
-
-
-        {/* DISCOVER */}
-        <div>
-
-          <h3 className="text-sm font-bold uppercase tracking-[0.15em] text-[#F39A08]">
-            Discover
-          </h3>
-
-          <div className="mt-5 space-y-3">
-
-            <Link
-              to="/communitywork"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Community Work
-            </Link>
-
-            <Link
-              to="/tourafricablog"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Tour Africa Blog
-            </Link>
-
-            <Link
-              to="/faqs"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              FAQs
-            </Link>
-
-            <Link
-              to="/safaris"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Tailor-Made Safaris
-            </Link>
-
-            <Link
-              to="/safaris"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Honeymoon Safaris
-            </Link>
-
-            <Link
-              to="/contact"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Plan Your Trip
-            </Link>
-
-          </div>
-
-        </div>
-
-
-        {/* CONTACT */}
-        <div>
-
-          <h3 className="text-sm font-bold uppercase tracking-[0.15em] text-[#F39A08]">
-            Contact Us
-          </h3>
-
-          <div className="mt-5 space-y-5">
-
-            {/* LOCATION */}
-            <div className="flex items-start gap-3">
-
-              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#F39A08]">
-                📍
-              </div>
-
-              <div>
-
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">
-                  Location
-                </p>
-
-                <p className="mt-1 text-sm text-white/60">
-                  Nairobi,Kenya and Arusha, Tanzania
-                </p>
-
-              </div>
-
-            </div>
-
-
-            {/* EMAIL */}
-            <div className="flex items-start gap-3">
-
-              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#F39A08]">
-                ✉
-              </div>
-
-              <div>
-
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">
-                  Email
-                </p>
-
-                <a
-                  href="mailto: info@daffar.co.ke"
-                  className="mt-1 block text-sm text-white/60 hover:text-[#F39A08] transition-colors"
-                >
-                   info@daffar.co.ke
-                </a>
-
-              </div>
-
-            </div>
-
-
-            {/* PHONE */}
-            <div className="flex items-start gap-3">
-
-              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#F39A08]">
-                ☎
-              </div>
-
-              <div>
-
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">
-                  Phone
-                </p>
-
-                <a
-                  href="tel:+254708711459"
-                  className="mt-1 block text-sm text-white/60 hover:text-[#F39A08] transition-colors"
-                >
-                  +254708711459
-                </a>
-
-              </div>
-
-            </div>
-
-
-            {/* WHATSAPP */}
-            
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      {/* BOTTOM BAR */}
-      <div className="flex flex-col gap-3 pt-6 md:flex-row md:items-center md:justify-between">
-
-        <p className="text-xs text-white/35">
-          © {new Date().getFullYear()} Daffar Tours & Travel. All rights reserved.
-        </p>
-
-        <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-white/35">
-
-          <Link
-            to="/terms"
-            className="transition hover:text-[#F39A08]"
-          >
-            Terms & Conditions
-          </Link>
-
-          <Link
-            to="/privacy"
-            className="transition hover:text-[#F39A08]"
-          >
-            Privacy Policy
-          </Link>
-
-          <Link
-            to="/contact"
-            className="transition hover:text-[#F39A08]"
-          >
-            Contact
-          </Link>
-
-        </div>
-
-        <p className="text-xs text-white/25">
-          Kenya • Africa
-        </p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</footer>
-    </div>
+      </footer>
+    </main>
   );
 }
-
-export default Serengeti;
-

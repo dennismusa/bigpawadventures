@@ -1,1298 +1,942 @@
-
-
-//import React from "react";
-import { Link } from "react-router-dom";
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Mountain,
+  Compass,
+  Camera,
+  MapPin,
+  CalendarDays,
+  CheckCircle2,
+  Clock,
+  
+  Footprints,
+ 
+  ShieldCheck,
+  Heart,
+  Phone,
+  Mail,
+  Backpack,
+  Route,
+  Trees,
+  Sparkles,
+} from "lucide-react";
 
 import kili1 from "../assets/kili1.jpg";
 import kili2 from "../assets/kili2.jpg";
 import kili3 from "../assets/kili3.jpg";
 import kili4 from "../assets/kili4.jpg";
 
-function MountKilimanjaro() {
-  const highlights = [
-    {
-      number: "01",
-      title: "Africa's Highest Peak",
-      text: "Stand before Mount Kilimanjaro, Africa's highest mountain and one of the world's most iconic natural landmarks.",
-    },
-    {
-      number: "02",
-      title: "Kilimanjaro Climbing",
-      text: "Take on an unforgettable mountain adventure through changing landscapes toward the summit of Uhuru Peak.",
-    },
-    {
-      number: "03",
-      title: "Amazing Landscapes",
-      text: "Travel through lush forests, alpine moorlands, volcanic landscapes and breathtaking high-altitude scenery.",
-    },
-    {
-      number: "04",
-      title: "Local Culture",
-      text: "Discover the communities, traditions and stories that surround one of Africa's most celebrated mountains.",
-    },
-  ];
+const WHATSAPP = "254747859681";
 
-  const experiences = [
-    "Guided Kilimanjaro climbs",
-    "Experienced mountain guides",
-    "Scenic hiking experiences",
-    "Multiple climbing routes",
-    "Comfortable mountain camps",
-    "Cultural experiences",
-    "Professional mountain support",
-    "Flexible trekking itineraries",
-  ];
+const routes = [
+  {
+    name: "Machame Route",
+    subtitle: "The Scenic Route",
+    duration: "6–7 Days",
+    description:
+      "A popular climbing route known for its beautiful scenery, varied landscapes and excellent acclimatisation opportunities when planned over sufficient days.",
+    features: ["Spectacular scenery", "Camping experience", "Good acclimatisation profile"],
+  },
+  {
+    name: "Marangu Route",
+    subtitle: "The Classic Route",
+    duration: "5–6 Days",
+    description:
+      "One of Kilimanjaro's established routes, featuring mountain hut accommodation and a gradual trail through changing vegetation zones.",
+    features: ["Mountain hut accommodation", "Established trail", "Classic climbing experience"],
+  },
+  {
+    name: "Lemosho Route",
+    subtitle: "The Wilderness Route",
+    duration: "7–8 Days",
+    description:
+      "A beautiful approach to the mountain with quieter early stages, expansive views and a longer itinerary that allows more time for acclimatisation.",
+    features: ["Remote starting point", "Beautiful landscapes", "Longer acclimatisation itinerary"],
+  },
+  {
+    name: "Rongai Route",
+    subtitle: "The Northern Approach",
+    duration: "6–7 Days",
+    description:
+      "Approaching Kilimanjaro from the north, this route offers a different perspective of the mountain and a quieter trekking experience.",
+    features: ["Northern approach", "Remote scenery", "Camping experience"],
+  },
+];
 
-  const safariOptions = [
-    "Private trekking experiences",
-    "Professional mountain guides",
-    "Flexible itineraries",
-    "Scenic mountain hikes",
-    "Comfortable camping arrangements",
-    "Cultural experiences",
-  ];
+const highlights = [
+  {
+    title: "Uhuru Peak",
+    description:
+      "Stand at the highest point in Africa, approximately 5,895 metres above sea level.",
+    icon: Mountain,
+  },
+  {
+    title: "Changing Landscapes",
+    description:
+      "Experience rainforest, moorland, alpine desert and the mountain's dramatic summit zone.",
+    icon: Trees,
+  },
+  {
+    title: "Personal Achievement",
+    description:
+      "Challenge yourself on an extraordinary journey that rewards preparation, determination and teamwork.",
+    icon: Heart,
+  },
+  {
+    title: "Unforgettable Views",
+    description:
+      "Discover remarkable mountain scenery, wide horizons and breathtaking sunrise moments.",
+    icon: Camera,
+  },
+];
 
-  const gallery = [
-    {
-      image: kili1,
-      title: "Mount Kilimanjaro",
-    },
-    {
-      image: kili2,
-      title: "Mountain Adventure",
-    },
-    {
-      image: kili3,
-      title: "Kilimanjaro Landscapes",
-    },
-    {
-      image: kili4,
-      title: "African Summit",
-    },
-  ];
+const preparation = [
+  {
+    title: "Physical Fitness",
+    description:
+      "Prepare with regular walking, hiking, cardio and endurance training before your climb.",
+    icon: Footprints,
+  },
+  {
+    title: "Proper Equipment",
+    description:
+      "Pack suitable hiking boots, warm layers, waterproof clothing, gloves and a comfortable daypack.",
+    icon: Backpack,
+  },
+  {
+    title: "Acclimatisation",
+    description:
+      "Choose an itinerary with adequate time to adjust to altitude and follow your mountain team's guidance.",
+    icon: Clock,
+  },
+  {
+    title: "Mountain Safety",
+    description:
+      "Climb with qualified guides, follow safety instructions and communicate any symptoms of altitude illness.",
+    icon: ShieldCheck,
+  },
+];
 
+const gallery = [
+  {
+    image: kili1,
+    title: "The Mountain",
+    subtitle: "Africa's Iconic Summit",
+  },
+  {
+    image: kili2,
+    title: "Mountain Trails",
+    subtitle: "The Journey Upward",
+  },
+  {
+    image: kili3,
+    title: "Alpine Landscapes",
+    subtitle: "A World Above the Clouds",
+  },
+  {
+    image: kili4,
+    title: "Summit Adventure",
+    subtitle: "A Journey to Remember",
+  },
+];
+
+const MountKilimanjaro = () => {
   useEffect(() => {
-  if (window.location.hash) {
-    const id = window.location.hash.substring(1);
+    if (window.location.hash) {
+      const target = document.querySelector(window.location.hash);
 
-    setTimeout(() => {
-      const element = document.getElementById(id);
-
-      if (element) {
-        element.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+      if (target) {
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: "smooth" });
+        }, 300);
       }
-    }, 100);
-  }
-}, []);
+    }
+  }, []);
+
+  const whatsappLink = (message) =>
+    `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`;
 
   return (
-    <div className="bg-[#F7F4EA] text-[#183020] overflow-hidden">
-
-      {/* =====================================================
-          HERO
-      ====================================================== */}
-
-      <section className="relative min-h-[70vh] max-h-[800px] overflow-hidden">
-
+    <main className="overflow-hidden bg-white text-[#171014]">
+      {/* HERO */}
+      <section className="relative flex min-h-[690px] items-center overflow-hidden bg-[#171014] sm:min-h-[760px]">
         <img
           src={kili1}
-          alt="Mount Kilimanjaro"
-          className="absolute inset-0 w-full h-full object-cover"
+          alt="Mount Kilimanjaro rising above the African landscape"
+          className="absolute inset-0 h-full w-full object-cover"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent" />
-
-        <div className="absolute bottom-10 left-6 md:left-16 max-w-3xl text-white">
-
-          <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-            Tanzania · Mount Kilimanjaro
-          </span>
-
-          <h1 className="mt-3 text-4xl md:text-6xl lg:text-7xl font-serif font-bold">
-            Mount Kilimanjaro
-          </h1>
-
-          <p className="mt-4 text-white/80 text-lg md:text-xl max-w-2xl leading-relaxed">
-            Africa's highest mountain, breathtaking landscapes, unforgettable
-            trekking adventures, and the journey toward Uhuru Peak.
-          </p>
-
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
-          INTRODUCTION
-      ====================================================== */}
-```jsx
-{/* ============================================================
-    MOUNT KILIMANJARO — DESTINATION
-============================================================ */}
-
-<section className="bg-white py-16 sm:py-20 lg:py-28">
-
-  <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-      {/* ======================================================
-          IMAGE
-      ====================================================== */}
-
-      <div className="relative group">
-
-        {/* Decorative Shape */}
-        <div className="absolute -top-5 -left-5 w-24 h-24 rounded-3xl bg-[#F39A08]/15" />
-
-        <img
-          src={kili4}
-          alt="Mount Kilimanjaro trekking experience"
-          className="relative w-full h-[380px] sm:h-[480px] object-cover rounded-[2rem] shadow-2xl transition-transform duration-700 group-hover:scale-[1.03]"
-        />
-
-        {/* Image Badge */}
-        <div className="absolute bottom-5 left-5 bg-[#0D4825]/95 backdrop-blur-md text-white px-6 py-4 rounded-2xl shadow-xl">
-
-          <p className="text-[#F39A08] text-sm font-bold uppercase tracking-wider">
-            Mount Kilimanjaro
-          </p>
-
-          <p className="text-white/70 text-xs mt-1">
-            The Roof of Africa
-          </p>
-
-        </div>
-
-      </div>
-
-
-      {/* ======================================================
-          CONTENT
-      ====================================================== */}
-
-      <div>
-
-        {/* Eyebrow */}
-        <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-          About The Destination
-        </span>
-
-        {/* Heading */}
-        <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0D4825] leading-tight">
-
-          Mount Kilimanjaro
-
-          <span className="block text-[#F39A08]">
-            The Roof of Africa
-          </span>
-
-        </h2>
-
-
-        {/* Main Content */}
-
-        <p className="mt-6 text-gray-600 leading-relaxed">
-          Towering at 5,895 meters, Mount Kilimanjaro rises majestically
-          from Tanzania’s savannah, its snow-capped peak a breathtaking
-          sight against equatorial skies. Often described as “the Roof of
-          Africa,” this dormant volcano draws adventurers and nature lovers
-          from around the world to experience its beauty, challenge, and
-          ever-changing landscapes.
-        </p>
-
-        <p className="mt-4 text-gray-600 leading-relaxed">
-          The journey up Kilimanjaro is as rewarding as the summit itself.
-          Climbers pass through a remarkable series of ecological zones:
-          lush rainforest alive with colobus monkeys and exotic birds;
-          heather-covered moorlands draped in mist; high alpine deserts
-          with surreal lava formations; and, finally, the icy glaciers
-          crowning Uhuru Peak.
-        </p>
-
-        <p className="mt-4 text-gray-600 leading-relaxed">
-          Each zone reveals unique plant and animal life, offering
-          photographers and wildlife enthusiasts unexpected moments to
-          capture Africa’s hidden mountain wonders.
-        </p>
-
-        <p className="mt-4 text-gray-600 leading-relaxed">
-          Beyond the physical climb, Kilimanjaro is an immersion into
-          cultural heritage and natural history. Local Chagga guides share
-          stories passed down through generations, adding a human warmth
-          to the adventure.
-        </p>
-
-        <p className="mt-4 text-gray-600 leading-relaxed">
-          Watching the sunrise from the crater rim, with the plains
-          stretching endlessly below, is a memory that stays with trekkers
-          long after they’ve returned home.
-        </p>
-
-        <p className="mt-4 text-gray-600 leading-relaxed">
-          Although large wildlife is rarely seen near the summit, the lower
-          forests can surprise hikers with sightings of bushbuck, duikers,
-          blue monkeys, and countless bird species.
-        </p>
-
-        <p className="mt-4 text-gray-600 leading-relaxed">
-          The mountain is not only a climb but a moving encounter with East
-          Africa’s wild heart. Whether drawn by the allure of standing atop
-          Africa’s highest point or the beauty of its slopes, Kilimanjaro
-          promises an unforgettable experience, a blend of nature, culture,
-          and personal triumph.
-        </p>
-
-
-        {/* ======================================================
-            HIGHLIGHTS
-        ====================================================== */}
-
-        <div className="grid sm:grid-cols-2 gap-4 mt-8">
-
-          {/* Highlight 1 */}
-          <div className="group p-5 rounded-2xl bg-[#F7F4EA] border border-[#0D4825]/5 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-
-            <p className="text-[#F39A08] text-2xl font-serif font-bold">
-              5,895 m
-            </p>
-
-            <p className="mt-1 text-sm text-gray-500">
-              Africa’s highest mountain
-            </p>
-
-          </div>
-
-
-          {/* Highlight 2 */}
-          <div className="group p-5 rounded-2xl bg-[#F7F4EA] border border-[#0D4825]/5 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-
-            <p className="text-[#F39A08] text-2xl font-serif font-bold">
-              Uhuru Peak
-            </p>
-
-            <p className="mt-1 text-sm text-gray-500">
-              Summit of Mount Kilimanjaro
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-      {/* =====================================================
-          KILIMANJARO LANDSCAPE
-      ====================================================== */}
-
-      <section className="py-16 sm:py-20 lg:py-28 bg-[#F7F4EA]">
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-          <div className="text-center max-w-3xl mx-auto mb-12">
-
-            <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-              Experience Kilimanjaro
-            </span>
-
-            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0D4825]">
-
-              A Mountain Made For
-
-              <span className="text-[#F39A08]">
-                {" "}Adventure
-              </span>
-
-            </h2>
-
-            <p className="mt-5 text-gray-600 leading-relaxed">
-              Follow the mountain trail through forests, moorlands and
-              dramatic alpine landscapes toward the roof of Africa.
-            </p>
-
-          </div>
-
-
-          <div className="grid lg:grid-cols-[1.15fr_.85fr] gap-6">
-
-            {/* KILI 3 */}
-
-            <div className="group relative h-[420px] lg:h-[600px] overflow-hidden rounded-[2rem] shadow-xl">
-
-              <img
-                src={kili3}
-                alt="Mount Kilimanjaro landscape"
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-
-              <div className="absolute bottom-8 left-8 right-8">
-
-                <span className="text-[#F39A08] text-xs font-bold uppercase tracking-[0.2em]">
-                  Roof Of Africa
-                </span>
-
-                <h3 className="mt-2 text-3xl sm:text-4xl font-serif font-bold text-white">
-                  A Journey Above The Clouds
-                </h3>
-
-              </div>
-
+        <div className="absolute inset-0 bg-gradient-to-r from-[#171014]/90 via-[#171014]/60 to-[#171014]/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#171014]/75 via-transparent to-[#171014]/20" />
+
+        <div className="relative mx-auto w-full max-w-7xl px-5 pb-24 pt-36 sm:px-8 lg:px-12">
+          <div className="max-w-3xl">
+            <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-white/30 bg-white/10 px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.28em] text-white backdrop-blur-md">
+              <span className="h-2 w-2 rounded-full bg-[#FF7A1A]" />
+              BigPaw Mountain Adventures
             </div>
 
+            <p className="mb-5 text-xs font-bold uppercase tracking-[0.35em] text-[#FFA51F] sm:text-sm">
+              Tanzania • East Africa
+            </p>
 
-            {/* CONTENT */}
-
-            <div className="flex flex-col justify-center bg-[#0D4825] rounded-[2rem] p-8 sm:p-10 lg:p-12">
-
-              <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-                The Kilimanjaro Experience
+            <h1 className="font-serif text-5xl font-semibold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[88px]">
+              Mount
+              <span className="block text-[#FFA51F]">
+                Kilimanjaro.
               </span>
+            </h1>
 
-              <h2 className="mt-4 text-3xl sm:text-4xl font-serif font-bold text-white leading-tight">
+            <p className="mt-7 max-w-xl text-base leading-8 text-white/80 sm:text-lg">
+              Challenge yourself to reach the roof of Africa. Discover
+              extraordinary landscapes, experience the magic of the mountain
+              and take on an adventure that will stay with you forever.
+            </p>
 
-                Every Step
-
-                <span className="block text-[#F39A08]">
-                  Tells A Story
-                </span>
-
-              </h2>
-
-              <p className="mt-6 text-white/65 leading-relaxed">
-                Climbing Kilimanjaro is about more than reaching the
-                summit. It is about discovering changing landscapes,
-                challenging yourself and experiencing the mountain
-                one unforgettable step at a time.
-              </p>
-
-              <div className="mt-7 space-y-4">
-
-                <div className="flex gap-3">
-
-                  <span className="text-[#F39A08]">
-                    ✓
-                  </span>
-
-                  <p className="text-white/70 text-sm">
-                    Spectacular mountain landscapes
-                  </p>
-
-                </div>
-
-                <div className="flex gap-3">
-
-                  <span className="text-[#F39A08]">
-                    ✓
-                  </span>
-
-                  <p className="text-white/70 text-sm">
-                    Diverse ecological zones
-                  </p>
-
-                </div>
-
-                <div className="flex gap-3">
-
-                  <span className="text-[#F39A08]">
-                    ✓
-                  </span>
-
-                  <p className="text-white/70 text-sm">
-                    Memorable sunrise and summit experiences
-                  </p>
-
-                </div>
-
-              </div>
-
-              <Link
-                to="/contact"
-                className="inline-flex self-start mt-8 bg-[#F39A08] hover:bg-[#ffad20] text-[#0D4825] px-7 py-3.5 rounded-full font-bold transition-all duration-300 hover:-translate-y-1"
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <a
+                href={whatsappLink(
+                  "Hello BigPaw Adventure Safaris, I am interested in climbing Mount Kilimanjaro. Please share available routes, durations and prices."
+                )}
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center justify-center gap-3 rounded-full bg-[#FF7A1A] px-8 py-4 text-xs font-black uppercase tracking-[0.16em] text-white transition hover:bg-[#e8660b]"
               >
                 Plan Your Climb
-              </Link>
+                <ArrowUpRight
+                  size={17}
+                  className="transition group-hover:translate-x-1 group-hover:-translate-y-1"
+                />
+              </a>
 
+              <a
+                href="#routes"
+                className="inline-flex items-center justify-center gap-3 rounded-full border border-white/50 px-8 py-4 text-xs font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-[#171014]"
+              >
+                Explore Routes
+                <ArrowRight size={16} />
+              </a>
             </div>
-
           </div>
 
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
-          WHY VISIT
-      ====================================================== */}
-
-      <section className="bg-[#0D4825] py-16 sm:py-20 lg:py-28">
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-
-            <div>
-
-              <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-                Why Visit Mount Kilimanjaro?
+          <div className="mt-16 flex flex-wrap items-center gap-x-10 gap-y-5 border-t border-white/20 pt-7 text-white/80">
+            <div className="flex items-center gap-3">
+              <Mountain className="text-[#FFA51F]" size={19} />
+              <span className="text-xs font-semibold uppercase tracking-wider">
+                5,895 Metres
               </span>
-
-              <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight">
-
-                Every Step Can
-
-                <span className="block text-[#F39A08]">
-                  Become A Story
-                </span>
-
-              </h2>
-
-              <p className="mt-6 text-white/65 leading-relaxed max-w-xl">
-                Kilimanjaro combines physical adventure, spectacular
-                scenery and an incredible sense of achievement into
-                one of Africa's most memorable mountain experiences.
-              </p>
-
-              <Link
-                to="/contact"
-                className="inline-flex mt-8 bg-[#F39A08] hover:bg-[#ffad20] text-[#0D4825] px-7 py-3.5 rounded-full font-bold transition-all duration-300 hover:-translate-y-1"
-              >
-                Start Planning
-              </Link>
-
             </div>
 
+            <div className="flex items-center gap-3">
+              <MapPin className="text-[#FFA51F]" size={19} />
+              <span className="text-xs font-semibold uppercase tracking-wider">
+                Tanzania
+              </span>
+            </div>
 
-            <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <Compass className="text-[#FFA51F]" size={19} />
+              <span className="text-xs font-semibold uppercase tracking-wider">
+                Africa's Highest Peak
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              {highlights.map((item) => (
+      {/* INTRODUCTION */}
+      <section className="relative px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-20">
+          <div>
+            <div className="mb-6 flex items-center gap-3">
+              <span className="h-[2px] w-12 bg-[#FF7A1A]" />
+              <span className="text-[11px] font-black uppercase tracking-[0.28em] text-[#FF7A1A]">
+                The Roof of Africa
+              </span>
+            </div>
 
+            <h2 className="max-w-xl font-serif text-4xl font-semibold leading-tight text-[#171014] sm:text-5xl lg:text-6xl">
+              One mountain.
+              <span className="block text-[#FF7A1A]">
+                A lifetime achievement.
+              </span>
+            </h2>
+
+            <p className="mt-7 text-base leading-8 text-gray-600">
+              Rising above the plains of northern Tanzania, Mount Kilimanjaro
+              is Africa's highest mountain and one of the world's most
+              remarkable trekking destinations.
+            </p>
+
+            <p className="mt-5 text-base leading-8 text-gray-600">
+              Unlike many high mountains, Kilimanjaro can be climbed without
+              technical mountaineering skills on its established trekking
+              routes. However, reaching the summit requires preparation,
+              proper acclimatisation and experienced mountain support.
+            </p>
+
+            <div className="mt-9 grid grid-cols-2 gap-6 border-t border-gray-200 pt-8">
+              <div>
+                <p className="font-serif text-3xl font-bold text-[#FF7A1A]">
+                  5,895m
+                </p>
+                <p className="mt-2 text-xs font-bold uppercase tracking-widest text-gray-500">
+                  Summit Elevation
+                </p>
+              </div>
+
+              <div>
+                <p className="font-serif text-3xl font-bold text-[#FF7A1A]">
+                  7
+                </p>
+                <p className="mt-2 text-xs font-bold uppercase tracking-widest text-gray-500">
+                  Main Climbing Routes
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute -right-4 -top-4 h-32 w-32 rounded-full border border-[#FF7A1A]/30" />
+
+            <img
+              src={kili2}
+              alt="Mount Kilimanjaro trekking landscape"
+              className="relative z-10 h-[420px] w-full object-cover shadow-2xl sm:h-[540px]"
+            />
+
+            <div className="absolute -bottom-7 -left-4 z-20 max-w-[270px] bg-[#171014] p-7 text-white shadow-xl sm:-left-8">
+              <Mountain className="mb-4 text-[#FFA51F]" size={28} />
+
+              <p className="font-serif text-2xl font-semibold">
+                Your summit story begins here.
+              </p>
+
+              <p className="mt-3 text-xs leading-6 text-white/60">
+                Prepare for an extraordinary journey through Africa's
+                highest mountain.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MOUNTAIN HIGHLIGHTS */}
+      <section className="bg-[#171014] px-5 py-24 text-white sm:px-8 lg:px-12 lg:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto mb-16 max-w-3xl text-center">
+            <div className="mb-5 flex items-center justify-center gap-3">
+              <span className="h-[2px] w-10 bg-[#FF7A1A]" />
+              <span className="text-[11px] font-black uppercase tracking-[0.28em] text-[#FFA51F]">
+                The Kilimanjaro Experience
+              </span>
+              <span className="h-[2px] w-10 bg-[#FF7A1A]" />
+            </div>
+
+            <h2 className="font-serif text-4xl font-semibold sm:text-5xl lg:text-6xl">
+              More than a climb.
+              <span className="text-[#FFA51F]"> An achievement.</span>
+            </h2>
+
+            <p className="mt-6 text-sm leading-8 text-white/55">
+              Every stage of the journey reveals something new, from lush
+              forest trails to the spectacular landscapes of the high-altitude
+              mountain.
+            </p>
+          </div>
+
+          <div className="grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+            {highlights.map((item, index) => {
+              const Icon = item.icon;
+
+              return (
                 <div
-                  key={item.number}
-                  className="group flex gap-5 p-5 rounded-2xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-[#F39A08]/30 transition-all duration-300"
+                  key={item.title}
+                  className="group bg-[#171014] p-8 transition duration-500 hover:bg-[#241a1b] sm:p-9"
                 >
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold tracking-widest text-[#FF7A1A]">
+                      0{index + 1}
+                    </span>
 
-                  <div className="flex-shrink-0 w-11 h-11 rounded-full border border-[#F39A08]/40 bg-[#F39A08]/10 flex items-center justify-center text-[#F39A08] text-xs font-bold group-hover:bg-[#F39A08] group-hover:text-[#0D4825] transition-all duration-300">
-                    {item.number}
+                    <Icon
+                      size={28}
+                      strokeWidth={1.4}
+                      className="text-[#FFA51F] transition duration-300 group-hover:-translate-y-1"
+                    />
+                  </div>
+
+                  <h3 className="mt-12 font-serif text-2xl font-semibold">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-5 text-sm leading-7 text-white/55">
+                    {item.description}
+                  </p>
+
+                  <div className="mt-8 h-[2px] w-10 bg-[#FF7A1A] transition-all duration-500 group-hover:w-full" />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* CLIMBING ROUTES */}
+      <section
+        id="routes"
+        className="bg-[#FFF9F5] px-5 py-24 sm:px-8 lg:px-12 lg:py-32"
+      >
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div>
+              <div className="mb-5 flex items-center gap-3">
+                <span className="h-[2px] w-12 bg-[#FF7A1A]" />
+                <span className="text-[11px] font-black uppercase tracking-[0.28em] text-[#FF7A1A]">
+                  Choose Your Adventure
+                </span>
+              </div>
+
+              <h2 className="font-serif text-4xl font-semibold sm:text-5xl lg:text-6xl">
+                Find your route.
+                <span className="block text-[#FF7A1A]">
+                  Reach your summit.
+                </span>
+              </h2>
+            </div>
+
+            <p className="max-w-md text-sm leading-7 text-gray-600">
+              Kilimanjaro has several established climbing routes. The right
+              itinerary depends on your fitness, available time, budget and
+              acclimatisation needs.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {routes.map((route, index) => (
+              <article
+                key={route.name}
+                className="group border border-gray-200 bg-white p-7 transition duration-300 hover:-translate-y-1 hover:border-[#FF7A1A] hover:shadow-xl sm:p-9"
+              >
+                <div className="flex items-start justify-between gap-5">
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#FF7A1A]">
+                      Route 0{index + 1}
+                    </span>
+
+                    <h3 className="mt-3 font-serif text-3xl font-semibold">
+                      {route.name}
+                    </h3>
+
+                    <p className="mt-2 text-xs font-bold uppercase tracking-widest text-gray-400">
+                      {route.subtitle}
+                    </p>
+                  </div>
+
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#FFF0E5] text-[#FF7A1A] transition group-hover:bg-[#FF7A1A] group-hover:text-white">
+                    <Route size={22} />
+                  </div>
+                </div>
+
+                <div className="mt-7 flex items-center gap-3 border-y border-gray-100 py-4">
+                  <Clock size={17} className="text-[#FF7A1A]" />
+
+                  <span className="text-xs font-bold uppercase tracking-wider text-gray-600">
+                    Typical duration:
+                  </span>
+
+                  <span className="text-sm font-bold text-[#171014]">
+                    {route.duration}
+                  </span>
+                </div>
+
+                <p className="mt-6 text-sm leading-7 text-gray-600">
+                  {route.description}
+                </p>
+
+                <div className="mt-6 space-y-3">
+                  {route.features.map((feature) => (
+                    <div
+                      key={feature}
+                      className="flex items-center gap-3 text-sm text-gray-600"
+                    >
+                      <CheckCircle2
+                        size={16}
+                        className="shrink-0 text-[#FF7A1A]"
+                      />
+                      {feature}
+                    </div>
+                  ))}
+                </div>
+
+                <a
+                  href={whatsappLink(
+                    `Hello BigPaw Adventure Safaris, I am interested in the ${route.name} for Mount Kilimanjaro. Please share the itinerary, prices and available dates.`
+                  )}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-9 inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.15em] text-[#FF7A1A] transition hover:text-[#171014]"
+                >
+                  Enquire About This Route
+                  <ArrowUpRight size={17} />
+                </a>
+              </article>
+            ))}
+          </div>
+
+          <p className="mt-8 text-xs leading-6 text-gray-500">
+            Route durations are indicative examples, not fixed itineraries.
+            Longer itineraries generally provide more time for acclimatisation.
+            The best route and duration should be selected with your
+            professional mountain operator.
+          </p>
+        </div>
+      </section>
+
+      {/* MOUNTAIN ZONES */}
+      <section className="px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-20">
+          <div className="relative">
+            <img
+              src={kili3}
+              alt="Mount Kilimanjaro mountain environment"
+              className="h-[460px] w-full object-cover sm:h-[590px]"
+            />
+
+            <div className="absolute bottom-6 left-6 max-w-[260px] bg-[#FF7A1A] p-7 text-white sm:bottom-10 sm:left-10">
+              <Trees size={28} />
+
+              <p className="mt-4 font-serif text-2xl font-semibold">
+                A journey through different worlds.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-5 text-[11px] font-black uppercase tracking-[0.28em] text-[#FF7A1A]">
+              Discover the Mountain
+            </p>
+
+            <h2 className="font-serif text-4xl font-semibold leading-tight sm:text-5xl">
+              From green forests
+              <span className="block text-[#FF7A1A]">
+                to the summit.
+              </span>
+            </h2>
+
+            <p className="mt-7 text-sm leading-8 text-gray-600">
+              One of Kilimanjaro's most remarkable features is its changing
+              environment. As you ascend, the scenery transforms dramatically,
+              creating a trekking experience unlike any other.
+            </p>
+
+            <div className="mt-9 space-y-7">
+              {[
+                {
+                  title: "Cultivated Foothills",
+                  text: "The lower mountain slopes are surrounded by agricultural communities and green landscapes.",
+                },
+                {
+                  title: "Montane Forest",
+                  text: "Walk through rich vegetation, tall trees and the natural habitats of mountain wildlife.",
+                },
+                {
+                  title: "Moorland & Alpine Desert",
+                  text: "Discover open landscapes, unusual high-altitude plants and increasingly dramatic mountain scenery.",
+                },
+                {
+                  title: "Arctic Summit Zone",
+                  text: "Reach the high-altitude summit environment, where cold conditions and thin air demand careful preparation.",
+                },
+              ].map((zone, index) => (
+                <div key={zone.title} className="flex gap-5">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FFF0E5] text-xs font-black text-[#FF7A1A]">
+                    0{index + 1}
                   </div>
 
                   <div>
-
-                    <h3 className="text-white font-bold text-lg">
-                      {item.title}
+                    <h3 className="font-serif text-xl font-semibold">
+                      {zone.title}
                     </h3>
 
-                    <p className="mt-1 text-white/55 text-sm leading-relaxed">
-                      {item.text}
+                    <p className="mt-2 text-sm leading-7 text-gray-500">
+                      {zone.text}
                     </p>
-
                   </div>
-
                 </div>
-
               ))}
-
             </div>
-
           </div>
-
         </div>
-
       </section>
 
-
-      {/* =====================================================
-          EXPERIENCES
-      ====================================================== */}
-
-      <section className="bg-white py-16 sm:py-20 lg:py-28">
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-            {/* CONTENT */}
-
-            <div>
-
-              <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-                Mountain Experiences
-              </span>
-
-              <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0D4825] leading-tight">
-
-                Discover The
-
-                <span className="block text-[#F39A08]">
-                  Mountain Adventure
-                </span>
-
-              </h2>
-
-              <p className="mt-6 text-gray-600 leading-relaxed">
-                From the first step on the trail to the final approach
-                toward the summit, Kilimanjaro offers an experience
-                filled with changing scenery, challenge and discovery.
-              </p>
-
-              <div className="grid grid-cols-2 gap-3 mt-8">
-
-                {experiences.map((experience) => (
-
-                  <div
-                    key={experience}
-                    className="group flex items-center gap-3 p-3 rounded-xl bg-[#F7F4EA] text-[#0D4825] font-semibold text-sm hover:bg-[#0D4825] hover:text-white transition-all duration-300"
-                  >
-
-                    <span className="text-[#F39A08]">
-                      ✓
-                    </span>
-
-                    {experience}
-
-                  </div>
-
-                ))}
-
-              </div>
-
-            </div>
-
-
-            {/* KILI 4 */}
-
-            <div className="relative group">
-
-              <img
-                src={kili4}
-                alt="Mount Kilimanjaro mountain adventure"
-                className="w-full h-[400px] sm:h-[520px] object-cover rounded-[2rem] shadow-2xl transition-transform duration-700 group-hover:scale-[1.03]"
-              />
-
-              <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-t from-black/40 to-transparent opacity-70" />
-
-              <div className="absolute bottom-6 right-6 bg-[#F39A08] text-[#0D4825] px-6 py-4 rounded-2xl shadow-xl">
-
-                <p className="font-bold text-lg">
-                  Reach Higher
-                </p>
-
-                <p className="text-xs mt-1">
-                  Experience Kilimanjaro
-                </p>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
-          TREKKING PLANNING
-      ====================================================== */}
-
-      <section className="bg-[#F7F4EA] py-16 sm:py-20 lg:py-28">
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-            <div>
-
-              <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-                Plan Your Adventure
-              </span>
-
-              <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0D4825] leading-tight">
-
-                Your Mountain.
-
-                <span className="block text-[#F39A08]">
-                  Your Journey.
-                </span>
-
-              </h2>
-
-              <p className="mt-6 text-gray-600 leading-relaxed">
-                Whether you are preparing for your first mountain
-                adventure or looking for a new challenge, we can help
-                create an experience around your interests, schedule
-                and travel style.
-              </p>
-
-              <div className="grid sm:grid-cols-2 gap-3 mt-8">
-
-                {safariOptions.map((option) => (
-
-                  <div
-                    key={option}
-                    className="flex items-center gap-3 text-sm text-gray-600"
-                  >
-
-                    <span className="w-6 h-6 flex-shrink-0 rounded-full bg-[#F39A08]/15 text-[#F39A08] flex items-center justify-center text-xs font-bold">
-                      ✓
-                    </span>
-
-                    {option}
-
-                  </div>
-
-                ))}
-
-              </div>
-
-              
-
-            </div>
-
-
-            {/* KILI 2 */}
-
-            <div className="relative group">
-
-              <img
-                src={kili2}
-                alt="Kilimanjaro trekking landscape"
-                className="w-full h-[400px] sm:h-[520px] object-cover rounded-[2rem] shadow-2xl transition-transform duration-700 group-hover:scale-[1.03]"
-              />
-
-              <div className="absolute top-5 left-5 bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl shadow-lg">
-
-                <p className="text-[#0D4825] font-bold">
-                  Mount Kilimanjaro
-                </p>
-
-                <p className="text-gray-500 text-xs mt-1">
-                  Africa's iconic mountain
-                </p>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
-          IMAGE GALLERY
-      ====================================================== */}
-
-      <section className="bg-white py-16 sm:py-20">
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-          <div className="text-center mb-10">
-
-            <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-              Mount Kilimanjaro
-            </span>
-
-            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0D4825]">
-              Explore Kilimanjaro
-            </h2>
-
-            <p className="mt-4 max-w-2xl mx-auto text-gray-600 leading-relaxed">
-              A glimpse of the mountain landscapes, trekking experiences
-              and unforgettable moments waiting for you on Kilimanjaro.
+      {/* PREPARATION */}
+      <section className="bg-[#FFF9F5] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 max-w-3xl">
+            <p className="mb-5 text-[11px] font-black uppercase tracking-[0.28em] text-[#FF7A1A]">
+              Prepare for Success
             </p>
 
+            <h2 className="font-serif text-4xl font-semibold sm:text-5xl lg:text-6xl">
+              The mountain rewards
+              <span className="block text-[#FF7A1A]">
+                good preparation.
+              </span>
+            </h2>
+
+            <p className="mt-6 text-sm leading-8 text-gray-600">
+              A successful Kilimanjaro climb starts long before you arrive
+              in Tanzania. Preparation, appropriate equipment and responsible
+              altitude management are essential.
+            </p>
           </div>
 
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {preparation.map((item, index) => {
+              const Icon = item.icon;
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              return (
+                <div
+                  key={item.title}
+                  className="border border-gray-200 bg-white p-8 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-[#FF7A1A]">
+                      0{index + 1}
+                    </span>
 
+                    <Icon size={26} className="text-[#FF7A1A]" />
+                  </div>
+
+                  <h3 className="mt-9 font-serif text-2xl font-semibold">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-4 text-sm leading-7 text-gray-500">
+                    {item.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-10 flex items-start gap-4 border-l-4 border-[#FF7A1A] bg-white p-6 sm:p-8">
+            <ShieldCheck
+              size={24}
+              className="mt-1 shrink-0 text-[#FF7A1A]"
+            />
+
+            <div>
+              <h3 className="font-semibold text-[#171014]">
+                Important altitude safety reminder
+              </h3>
+
+              <p className="mt-2 text-sm leading-7 text-gray-600">
+                Altitude sickness can affect anyone, regardless of fitness.
+                Follow your guides' instructions, allow adequate
+                acclimatisation time and descend promptly if serious symptoms
+                develop. A climb should never be rushed.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* GALLERY */}
+      <section id="gallery" className="px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 text-center">
+            <p className="mb-5 text-[11px] font-black uppercase tracking-[0.28em] text-[#FF7A1A]">
+              The Beauty of Kilimanjaro
+            </p>
+
+            <h2 className="font-serif text-4xl font-semibold sm:text-5xl lg:text-6xl">
+              Witness the extraordinary.
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-gray-500">
+              Every step reveals another side of Africa's highest mountain.
+              Explore the landscapes that make this adventure so special.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
             {gallery.map((item, index) => (
-
               <div
                 key={item.title}
-                className="group relative h-52 sm:h-64 overflow-hidden rounded-2xl"
+                className={`group relative overflow-hidden bg-gray-100 ${
+                  index === 0 || index === 3
+                    ? "h-[330px] sm:h-[420px]"
+                    : "mt-8 h-[330px] sm:mt-12 sm:h-[420px]"
+                }`}
               >
-
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                 />
 
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-all duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#171014]/85 via-transparent to-transparent opacity-90" />
 
-                <div className="absolute bottom-4 left-4 right-4">
-
-                  <span className="text-white text-[10px] font-bold uppercase tracking-[0.2em]">
-                    Kili {index + 1}
-                  </span>
-
-                  <p className="mt-1 text-white font-semibold text-sm">
-                    {item.title}
+                <div className="absolute bottom-0 left-0 p-5 sm:p-7">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#FFA51F]">
+                    {item.subtitle}
                   </p>
 
+                  <h3 className="mt-2 font-serif text-xl font-semibold text-white sm:text-2xl">
+                    {item.title}
+                  </h3>
                 </div>
 
+                <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/50 bg-white/10 text-white opacity-0 backdrop-blur-md transition group-hover:opacity-100">
+                  <Camera size={15} />
+                </div>
               </div>
-
             ))}
-
           </div>
-
         </div>
-
       </section>
 
+      {/* PLANNING STRIP */}
+      <section className="border-y border-gray-200 bg-white px-5 py-16 sm:px-8 lg:px-12">
+        <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-3">
+          <div className="flex items-start gap-5">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#FFF0E5] text-[#FF7A1A]">
+              <CalendarDays size={22} />
+            </div>
 
-      {/* =====================================================
-          TRAVEL TIPS
-      ====================================================== */}
+            <div>
+              <h3 className="font-serif text-xl font-semibold">
+                Choose Your Dates
+              </h3>
 
-      <section className="bg-[#0D4825] py-16 sm:py-20 lg:py-24">
+              <p className="mt-2 text-sm leading-6 text-gray-500">
+                Discuss suitable climbing dates and itinerary options.
+              </p>
+            </div>
+          </div>
 
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
+          <div className="flex items-start gap-5">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#FFF0E5] text-[#FF7A1A]">
+              <Backpack size={22} />
+            </div>
 
-          <div className="text-center max-w-3xl mx-auto">
+            <div>
+              <h3 className="font-serif text-xl font-semibold">
+                Prepare Your Gear
+              </h3>
 
-            <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-              Before You Travel
-            </span>
+              <p className="mt-2 text-sm leading-6 text-gray-500">
+                Get guidance on essential clothing and trekking equipment.
+              </p>
+            </div>
+          </div>
 
-            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white">
+          <div className="flex items-start gap-5">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#FFF0E5] text-[#FF7A1A]">
+              <Sparkles size={22} />
+            </div>
 
-              Prepare For Your
+            <div>
+              <h3 className="font-serif text-xl font-semibold">
+                Chase the Summit
+              </h3>
 
-              <span className="text-[#F39A08]">
-                {" "}Kilimanjaro Adventure
-              </span>
+              <p className="mt-2 text-sm leading-6 text-gray-500">
+                Take on one of Africa's most remarkable trekking adventures.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            </h2>
+      {/* FINAL CTA */}
+      <section className="relative overflow-hidden bg-[#FF7A1A] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+        <div className="absolute -right-20 -top-32 h-96 w-96 rounded-full border border-white/20" />
+        <div className="absolute -right-5 -top-16 h-64 w-64 rounded-full border border-white/20" />
+        <div className="absolute -bottom-36 -left-20 h-96 w-96 rounded-full border border-white/20" />
 
-            <p className="mt-5 text-white/65 leading-relaxed">
-              A little preparation can make your mountain adventure
-              safer, more comfortable and more memorable.
+        <div className="relative mx-auto flex max-w-7xl flex-col items-start justify-between gap-10 lg:flex-row lg:items-end">
+          <div className="max-w-3xl">
+            <p className="mb-6 text-[11px] font-black uppercase tracking-[0.3em] text-white/80">
+              Your Summit Adventure Starts Here
             </p>
 
-          </div>
-
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
-
-            <div className="p-6 rounded-2xl bg-white/[0.05] border border-white/10 hover:border-[#F39A08]/40 transition-all duration-300">
-
-              <span className="text-[#F39A08] text-2xl">
-                🥾
+            <h2 className="font-serif text-5xl font-semibold leading-tight text-white sm:text-6xl lg:text-7xl">
+              Dare to dream.
+              <span className="block text-[#171014]">
+                Dare to climb.
               </span>
-
-              <h3 className="mt-4 text-white font-bold">
-                Good Footwear
-              </h3>
-
-              <p className="mt-2 text-white/55 text-sm leading-relaxed">
-                Comfortable and suitable hiking footwear is essential
-                for long days on the mountain trails.
-              </p>
-
-            </div>
-
-
-            <div className="p-6 rounded-2xl bg-white/[0.05] border border-white/10 hover:border-[#F39A08]/40 transition-all duration-300">
-
-              <span className="text-[#F39A08] text-2xl">
-                🎒
-              </span>
-
-              <h3 className="mt-4 text-white font-bold">
-                Pack Smart
-              </h3>
-
-              <p className="mt-2 text-white/55 text-sm leading-relaxed">
-                Pack practical layers and essential personal items
-                for changing mountain conditions.
-              </p>
-
-            </div>
-
-
-            <div className="p-6 rounded-2xl bg-white/[0.05] border border-white/10 hover:border-[#F39A08]/40 transition-all duration-300">
-
-              <span className="text-[#F39A08] text-2xl">
-                💧
-              </span>
-
-              <h3 className="mt-4 text-white font-bold">
-                Stay Hydrated
-              </h3>
-
-              <p className="mt-2 text-white/55 text-sm leading-relaxed">
-                Staying properly hydrated is important throughout
-                your trekking journey.
-              </p>
-
-            </div>
-
-
-            <div className="p-6 rounded-2xl bg-white/[0.05] border border-white/10 hover:border-[#F39A08]/40 transition-all duration-300">
-
-              <span className="text-[#F39A08] text-2xl">
-                ⛰
-              </span>
-
-              <h3 className="mt-4 text-white font-bold">
-                Take Your Time
-              </h3>
-
-              <p className="mt-2 text-white/55 text-sm leading-relaxed">
-                A steady pace and proper acclimatization can help
-                make the mountain experience more enjoyable.
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
-          FINAL CTA
-      ====================================================== */}
-
-      <section className="relative bg-[#0D4825] overflow-hidden">
-
-        <div className="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-[#F39A08]/10 blur-3xl" />
-
-        <div className="absolute -bottom-32 -left-32 w-80 h-80 rounded-full bg-[#F39A08]/10 blur-3xl" />
-
-        <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 py-16 sm:py-20 lg:py-28 text-center">
-
-          <span className="text-[#F39A08] text-sm font-bold uppercase tracking-[0.2em]">
-            Your African Adventure
-          </span>
-
-          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-6xl font-serif font-bold text-white leading-tight">
-
-            Ready To Conquer
-
-            <span className="block text-[#F39A08]">
-              Mount Kilimanjaro?
-            </span>
-
-          </h2>
-
-          <p className="mt-5 max-w-2xl mx-auto text-white/65 leading-relaxed">
-            Let Daffar Tours & Travel help you turn your Kilimanjaro
-            dream into an unforgettable mountain adventure.
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-3 mt-8">
-
-            <Link
-              to="/contact"
-              className="bg-[#F39A08] hover:bg-[#ffad20] text-[#0D4825] px-8 py-4 rounded-full font-bold shadow-xl transition-all duration-300 hover:-translate-y-1"
-            >
-              Plan Your Kilimanjaro Trek
-            </Link>
-
-            <a
-              href="https://wa.me/+254708711459"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border border-white/30 hover:border-[#F39A08] text-white hover:text-[#F39A08] px-8 py-4 rounded-full font-bold transition-all duration-300"
-            >
-              WhatsApp Us
-            </a>
-
-          </div>
-
-        </div>
-
-      </section>
-
-<footer className="overflow-hidden bg-[#082D19] text-white">
-
-  <div className="relative mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-14 lg:px-12">
-
-    {/* Decorative background */}
-    <div className="pointer-events-none absolute -right-40 -top-40 h-96 w-96 rounded-full bg-[#F39A08]/10 blur-3xl" />
-
-    <div className="pointer-events-none absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-emerald-400/5 blur-3xl" />
-
-    <div className="relative z-10">
-
-      {/* FOOTER CONTENT */}
-      <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-10 sm:grid-cols-2 lg:grid-cols-4">
-
-        {/* BRAND */}
-        <div className="lg:col-span-1">
-
-          <Link to="/" className="inline-block group">
-
-            <h2 className="font-serif text-3xl font-bold text-white transition-colors group-hover:text-[#F39A08]">
-              Daffar
             </h2>
 
-            <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.35em] text-[#F39A08]">
-              Tours & Travel
+            <p className="mt-7 max-w-xl text-base leading-8 text-white/85">
+              Ready to take on Mount Kilimanjaro? Let BigPaw Adventure
+              Safaris help you explore the routes, plan your itinerary and
+              prepare for an unforgettable mountain experience.
+            </p>
+          </div>
+
+          <a
+            href={whatsappLink(
+              "Hello BigPaw Adventure Safaris! I am ready to plan my Mount Kilimanjaro climb. Please assist me with routes, itineraries, prices and available dates."
+            )}
+            target="_blank"
+            rel="noreferrer"
+            className="group inline-flex shrink-0 items-center gap-4 rounded-full bg-[#171014] px-9 py-5 text-xs font-black uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-[#171014]"
+          >
+            Start Planning
+            <ArrowUpRight
+              size={18}
+              className="transition group-hover:translate-x-1 group-hover:-translate-y-1"
+            />
+          </a>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="bg-[#171014] px-5 pb-8 pt-20 text-white sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-12 border-b border-white/10 pb-14 md:grid-cols-2 lg:grid-cols-4">
+            <div className="lg:col-span-2">
+              <Link to="/" className="inline-block">
+                <span className="font-serif text-3xl font-bold tracking-tight">
+                  BIGPAW
+                  <span className="text-[#FF7A1A]">.</span>
+                </span>
+
+                <span className="mt-1 block text-[9px] font-bold uppercase tracking-[0.32em] text-white/50">
+                  Adventure Safaris
+                </span>
+              </Link>
+
+              <p className="mt-7 max-w-sm text-sm leading-7 text-white/50">
+                We don't count moments! We make moments count. Discover
+                unforgettable African adventures and extraordinary journeys
+                with BigPaw Adventure Safaris.
+              </p>
+
+              <div className="mt-7 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFA51F]">
+                <span className="h-[1px] w-8 bg-[#FF7A1A]" />
+                Explore. Experience. Remember.
+              </div>
+            </div>
+
+            <div>
+              <h3 className="mb-7 text-xs font-black uppercase tracking-[0.2em] text-[#FFA51F]">
+                Quick Links
+              </h3>
+
+              <ul className="space-y-4 text-sm text-white/60">
+                <li>
+                  <Link to="/" className="transition hover:text-[#FF7A1A]">
+                    Home
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/about"
+                    className="transition hover:text-[#FF7A1A]"
+                  >
+                    About Us
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/safaris"
+                    className="transition hover:text-[#FF7A1A]"
+                  >
+                    Safari Packages
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/activities"
+                    className="transition hover:text-[#FF7A1A]"
+                  >
+                    Experiences
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/contact"
+                    className="transition hover:text-[#FF7A1A]"
+                  >
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="mb-7 text-xs font-black uppercase tracking-[0.2em] text-[#FFA51F]">
+                Get In Touch
+              </h3>
+
+              <div className="space-y-5 text-sm text-white/60">
+                <a
+                  href="tel:+254747859681"
+                  className="flex items-center gap-3 transition hover:text-[#FF7A1A]"
+                >
+                  <Phone size={16} className="text-[#FF7A1A]" />
+                  +254 747 859681
+                </a>
+
+                <a
+                  href="tel:+254720859681"
+                  className="flex items-center gap-3 transition hover:text-[#FF7A1A]"
+                >
+                  <Phone size={16} className="text-[#FF7A1A]" />
+                  +254 720 859681
+                </a>
+
+                <a
+                  href="mailto:bigpawadventures@gmail.com"
+                  className="flex items-center gap-3 break-all transition hover:text-[#FF7A1A]"
+                >
+                  <Mail size={16} className="shrink-0 text-[#FF7A1A]" />
+                  bigpawadventures@gmail.com
+                </a>
+
+                <p className="flex items-center gap-3">
+                  <MapPin size={16} className="shrink-0 text-[#FF7A1A]" />
+                  Nairobi, Kenya
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-between gap-4 pt-7 text-[10px] font-medium uppercase tracking-[0.15em] text-white/35 sm:flex-row">
+            <p>
+              © {new Date().getFullYear()} BigPaw Adventure Safaris. All
+              rights reserved.
             </p>
 
-          </Link>
-
-          <p className="mt-5 max-w-sm text-sm leading-6 text-white/55">
-            Discover Africa through unforgettable safari adventures,
-            authentic cultural experiences and breathtaking landscapes.
-          </p>
-
-          {/* SOCIAL */}
-        <div className="mt-6 flex items-center gap-2.5">
-
-  {/* Facebook */}
-  <a
-    href="https://www.facebook.com/dafartoursandtravel"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Facebook"
-    className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1877F2] text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg hover:shadow-[#1877F2]/30"
-  >
-    <svg
-      viewBox="0 0 24 24"
-      className="h-4 w-4 fill-current"
-      aria-hidden="true"
-    >
-      <path d="M14 8h3V5h-3c-2.2 0-4 1.8-4 4v2H7v3h3v6h3v-6h3l1-3h-4V9c0-.6.4-1 1-1z" />
-    </svg>
-  </a>
-
-
-  {/* Instagram */}
-  <a
-    href="https://www.instagram.com/dafartoursandtravel"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Instagram"
-    className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-tr from-[#FFDC80] via-[#E1306C] to-[#833AB4] text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg hover:shadow-[#E1306C]/30"
-  >
-    <svg
-      viewBox="0 0 24 24"
-      className="h-[18px] w-[18px] fill-none stroke-current"
-      strokeWidth="2"
-      aria-hidden="true"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle
-        cx="17.5"
-        cy="6.5"
-        r="1"
-        className="fill-current stroke-none"
-      />
-    </svg>
-  </a>
-
-
-  {/* TikTok */}
-  <a
-    href="https://www.tiktok.com/@dafartoursandtravel"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="TikTok"
-    className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg hover:shadow-black/30"
-  >
-    <svg
-      viewBox="0 0 24 24"
-      className="h-[17px] w-[17px] fill-current"
-      aria-hidden="true"
-    >
-      <path d="M16.6 3c.3 1.7 1.3 3 3 3.4v3.1c-1.4-.1-2.7-.6-3.8-1.4v6.7c0 4.1-2.7 6.2-6 6.2-3 0-5.3-2.1-5.3-5.1 0-3.2 2.5-5.4 5.7-5.4.3 0 .7 0 1 .1v3.1c-.3-.1-.6-.1-.9-.1-1.5 0-2.6.9-2.6 2.2 0 1.2.9 2.1 2.2 2.1 1.5 0 2.7-1 2.7-3.2V3h4z" />
-    </svg>
-  </a>
-
-
-  {/* YouTube */}
-  <a
-    href="https://www.youtube.com/@dafartoursandtravel"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="YouTube"
-    className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FF0000] text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg hover:shadow-[#FF0000]/30"
-  >
-    <svg
-      viewBox="0 0 24 24"
-      className="h-4 w-4 fill-current"
-      aria-hidden="true"
-    >
-      <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.9V8.1l6.5 3.9-6.5 3.9z" />
-    </svg>
-  </a>
-
-</div>
-
-        </div>
-
-
-        {/* EXPLORE */}
-        <div>
-
-          <h3 className="text-sm font-bold uppercase tracking-[0.15em] text-[#F39A08]">
-            Explore
-          </h3>
-
-          <div className="mt-5 space-y-3">
-
-            <Link
-              to="/"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Home
-            </Link>
-
-            <Link
-              to="/about"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              About Us
-            </Link>
-
-            <Link
-              to="/safaris"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Safaris
-            </Link>
-
-            
-
-            <Link
-              to="/activities"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Activities
-            </Link>
-
-            <Link
-              to="/contact"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Contact
-            </Link>
-
+            <p>We Don't Count Moments. We Make Moments Count.</p>
           </div>
-
         </div>
+      </footer>
 
-
-        {/* DISCOVER */}
-        <div>
-
-          <h3 className="text-sm font-bold uppercase tracking-[0.15em] text-[#F39A08]">
-            Discover
-          </h3>
-
-          <div className="mt-5 space-y-3">
-
-            <Link
-              to="/communitywork"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Community Work
-            </Link>
-
-            <Link
-              to="/tourafricablog"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Tour Africa Blog
-            </Link>
-
-            <Link
-              to="/faqs"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              FAQs
-            </Link>
-
-            <Link
-              to="/safaris"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Tailor-Made Safaris
-            </Link>
-
-            <Link
-              to="/safaris"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Honeymoon Safaris
-            </Link>
-
-            <Link
-              to="/contact"
-              className="block text-sm text-white/55 hover:text-[#F39A08] transition-colors"
-            >
-              Plan Your Trip
-            </Link>
-
-          </div>
-
-        </div>
-
-
-        {/* CONTACT */}
-        <div>
-
-          <h3 className="text-sm font-bold uppercase tracking-[0.15em] text-[#F39A08]">
-            Contact Us
-          </h3>
-
-          <div className="mt-5 space-y-5">
-
-            {/* LOCATION */}
-            <div className="flex items-start gap-3">
-
-              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#F39A08]">
-                📍
-              </div>
-
-              <div>
-
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">
-                  Location
-                </p>
-
-                <p className="mt-1 text-sm text-white/60">
-                  Nairobi,Kenya and Arusha, Tanzania
-                </p>
-
-              </div>
-
-            </div>
-
-
-            {/* EMAIL */}
-            <div className="flex items-start gap-3">
-
-              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#F39A08]">
-                ✉
-              </div>
-
-              <div>
-
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">
-                  Email
-                </p>
-
-                <a
-                  href="mailto: info@daffar.co.ke"
-                  className="mt-1 block text-sm text-white/60 hover:text-[#F39A08] transition-colors"
-                >
-                   info@daffar.co.ke
-                </a>
-
-              </div>
-
-            </div>
-
-
-            {/* PHONE */}
-            <div className="flex items-start gap-3">
-
-              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#F39A08]">
-                ☎
-              </div>
-
-              <div>
-
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">
-                  Phone
-                </p>
-
-                <a
-                  href="tel:+254708711459"
-                  className="mt-1 block text-sm text-white/60 hover:text-[#F39A08] transition-colors"
-                >
-                  +254708711459
-                </a>
-
-              </div>
-
-            </div>
-
-
-            {/* WHATSAPP */}
-            
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      {/* BOTTOM BAR */}
-      <div className="flex flex-col gap-3 pt-6 md:flex-row md:items-center md:justify-between">
-
-        <p className="text-xs text-white/35">
-          © {new Date().getFullYear()} Daffar Tours & Travel. All rights reserved.
-        </p>
-
-        <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-white/35">
-
-          <Link
-            to="/terms"
-            className="transition hover:text-[#F39A08]"
-          >
-            Terms & Conditions
-          </Link>
-
-          <Link
-            to="/privacy"
-            className="transition hover:text-[#F39A08]"
-          >
-            Privacy Policy
-          </Link>
-
-          <Link
-            to="/contact"
-            className="transition hover:text-[#F39A08]"
-          >
-            Contact
-          </Link>
-
-        </div>
-
-        <p className="text-xs text-white/25">
-          Kenya • Africa
-        </p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</footer>
-    </div>
+      {/* FLOATING WHATSAPP */}
+      <a
+        href={whatsappLink(
+          "Hello BigPaw Adventure Safaris, I would like to enquire about climbing Mount Kilimanjaro."
+        )}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Chat with BigPaw Adventure Safaris on WhatsApp"
+        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#FF7A1A] text-white shadow-2xl transition hover:scale-110 hover:bg-[#e8660b]"
+      >
+        <Phone size={23} />
+      </a>
+    </main>
   );
-}
+};
 
 export default MountKilimanjaro;
