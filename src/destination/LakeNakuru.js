@@ -732,7 +732,7 @@ export default function LakeNakuru() {
                   className="flex items-center gap-3 transition hover:text-[#FFA51F]"
                 >
                   <Phone size={17} className="shrink-0 text-[#FF7A1A]" />
-                  +254 747 859681
+                  +254727096078
                 </a>
 
                 <a

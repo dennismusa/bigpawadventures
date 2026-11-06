@@ -883,7 +883,7 @@ export default function Safaris() {
                 href={`tel:${phone1}`}
                 className="text-sm font-semibold text-white hover:text-[#FFA51F]"
               >
-                +254 747 859681
+                +254727096078
               </a>
               <a
                 href={`tel:${phone2}`}
@@ -1051,7 +1051,7 @@ export default function Safaris() {
               +254 720 859681
             </a>
             <a href="tel:+254747859681" className="mt-2 block hover:text-[#FF8A32]">
-              +254 747 859681
+              +254727096078
             </a>
           </div>
         </div>

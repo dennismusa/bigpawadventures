@@ -92,14 +92,14 @@ const galleryImages = [
   },
   {
     image: mage9,
-    title: "Coastal Escapes",
-    location: "Kenya",
-    description: "Relax and enjoy the beauty of the African coastline.",
+    title: "Hot Air Baloon",
+    location: "Mara",
+    description: "Relax and enjoy the beauty of Maasaimara.",
   },
   {
     image: mage10,
-    title: "Hot Air Baloon",
-    location: "Maasai mara",
+    title: "",
+    location: "HellsGate",
     description: ".",
   },
   {
@@ -647,7 +647,7 @@ export default function Gallery() {
                     href="tel:+254747859681"
                     className="mt-2 block hover:text-[#FF8A32]"
                   >
-                    +254 747 859681
+                    +254727096078
                   </a>
                 </div>
               </div>

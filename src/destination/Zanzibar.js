@@ -851,7 +851,7 @@ const Zanzibar = () => {
                   className="flex items-center gap-3 transition hover:text-[#FF7A1A]"
                 >
                   <Phone size={16} className="text-[#FF7A1A]" />
-                  +254 747 859681
+                  +254727096078
                 </a>
 
                 <a

@@ -1147,7 +1147,7 @@ function Home() {
               +254 720 859681
             </a>
             <a href="tel:+254747859681" className="mt-2 block hover:text-[#FF8A32]">
-              +254 747 859681
+              +254727096078
             </a>
           </div>
         </div>

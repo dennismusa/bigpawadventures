@@ -684,7 +684,7 @@ export default function MountKenya() {
               <div className="flex items-start gap-3">
                 <Phone size={18} className="shrink-0 text-[#FF7A1A]" />
                 <div>
-                  <p>+254 747 859681</p>
+                  <p>+254727096078</p>
                   <p className="mt-1">+254 720 859681</p>
                 </div>
               </div>

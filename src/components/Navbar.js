@@ -19,7 +19,7 @@ import bigpawlogo from "../assets/safarilinklogo.png";
 // ============================================
 
 const WHATSAPP = "254747859681";
-const PHONE = "+254 747 859681";
+const PHONE = "+254727096078";
 
 const whatsappLink = (message) =>
   `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`;
